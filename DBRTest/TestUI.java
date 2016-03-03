@@ -18,6 +18,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import java.awt.GridLayout;
+import javax.swing.JTextField;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class TestUI {
 
@@ -31,6 +37,7 @@ public class TestUI {
 	int[][] breaksArray = {{1000, 1030},{1200, 1300},{1530, 1600}};		//first column has the starting times for the breaks and the second column has the endding time
 	
 	RaceObject[] racesArray;
+	private JTextField timeField;
 
 	/**
 	 * Launch the application.
@@ -103,7 +110,7 @@ public class TestUI {
 		
 		JTextPane timePane = new JTextPane();
 		timePane.setEditable(false);
-		timePane.setBounds(69, 114, 119, 201);
+		timePane.setBounds(466, 50, 119, 151);
 		frame.getContentPane().add(timePane);
 		
 		JButton btnGenerate = new JButton("generate");
@@ -118,12 +125,12 @@ public class TestUI {
 				
 			}
 		});
-		btnGenerate.setBounds(69, 80, 89, 23);
+		btnGenerate.setBounds(477, 24, 89, 23);
 		frame.getContentPane().add(btnGenerate);
 		
 		JTextPane breaksPane = new JTextPane();
 		breaksPane.setEditable(false);
-		breaksPane.setBounds(267, 114, 119, 201);
+		breaksPane.setBounds(616, 50, 119, 151);
 		frame.getContentPane().add(breaksPane);
 		
 		JButton showBreaks = new JButton("showBreaks");
@@ -135,8 +142,51 @@ public class TestUI {
 				breaks.showBreaks(breaksPane, breaksArray);
 			}
 		});
-		showBreaks.setBounds(267, 80, 89, 23);
+		showBreaks.setBounds(629, 24, 89, 23);
 		frame.getContentPane().add(showBreaks);
+		
+		JScrollPane scrollPaneTimeTrials = new JScrollPane();
+		scrollPaneTimeTrials.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPaneTimeTrials.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPaneTimeTrials.setBounds(44, 212, 674, 203);
+		frame.getContentPane().add(scrollPaneTimeTrials);
+		
+		JPanel panel = new JPanel();
+		scrollPaneTimeTrials.setViewportView(panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{655, 0};
+		gbl_panel.rowHeights = new int[]{62, 62, 62, 0};
+		gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+		
+		JLabel headerLabel = new JLabel("Race # 1 at");
+		headerLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_headerLabel = new GridBagConstraints();
+		gbc_headerLabel.fill = GridBagConstraints.BOTH;
+		gbc_headerLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_headerLabel.gridx = 0;
+		gbc_headerLabel.gridy = 0;
+		panel.add(headerLabel, gbc_headerLabel);
+		
+		timeField = new JTextField();
+		timeField.setEditable(false);
+		timeField.setText("9:00");
+		GridBagConstraints gbc_timeField = new GridBagConstraints();
+		gbc_timeField.fill = GridBagConstraints.BOTH;
+		gbc_timeField.insets = new Insets(0, 0, 5, 0);
+		gbc_timeField.gridx = 0;
+		gbc_timeField.gridy = 1;
+		panel.add(timeField, gbc_timeField);
+		timeField.setColumns(10);
+		
+		JButton editButton = new JButton("edit");
+		editButton.setForeground(Color.BLUE);
+		GridBagConstraints gbc_editButton = new GridBagConstraints();
+		gbc_editButton.fill = GridBagConstraints.BOTH;
+		gbc_editButton.gridx = 0;
+		gbc_editButton.gridy = 2;
+		panel.add(editButton, gbc_editButton);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
