@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import net.miginfocom.swing.MigLayout;
 
 public class TestUI {
 
@@ -153,40 +154,21 @@ public class TestUI {
 		
 		JPanel panel = new JPanel();
 		scrollPaneTimeTrials.setViewportView(panel);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{655, 0};
-		gbl_panel.rowHeights = new int[]{62, 62, 62, 0};
-		gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
+		panel.setLayout(new MigLayout("", "[655px]", "[][67px][67px]"));
 		
 		JLabel headerLabel = new JLabel("Race # 1 at");
 		headerLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_headerLabel = new GridBagConstraints();
-		gbc_headerLabel.fill = GridBagConstraints.BOTH;
-		gbc_headerLabel.insets = new Insets(0, 0, 5, 0);
-		gbc_headerLabel.gridx = 0;
-		gbc_headerLabel.gridy = 0;
-		panel.add(headerLabel, gbc_headerLabel);
+		panel.add(headerLabel, "flowx,cell 0 0");
 		
 		timeField = new JTextField();
 		timeField.setEditable(false);
 		timeField.setText("9:00");
-		GridBagConstraints gbc_timeField = new GridBagConstraints();
-		gbc_timeField.fill = GridBagConstraints.BOTH;
-		gbc_timeField.insets = new Insets(0, 0, 5, 0);
-		gbc_timeField.gridx = 0;
-		gbc_timeField.gridy = 1;
-		panel.add(timeField, gbc_timeField);
+		panel.add(timeField, "cell 0 0");
 		timeField.setColumns(10);
 		
 		JButton editButton = new JButton("edit");
 		editButton.setForeground(Color.BLUE);
-		GridBagConstraints gbc_editButton = new GridBagConstraints();
-		gbc_editButton.fill = GridBagConstraints.BOTH;
-		gbc_editButton.gridx = 0;
-		gbc_editButton.gridy = 2;
-		panel.add(editButton, gbc_editButton);
+		panel.add(editButton, "cell 0 0");
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
