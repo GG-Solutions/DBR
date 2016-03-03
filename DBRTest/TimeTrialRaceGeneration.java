@@ -31,6 +31,9 @@ public class TimeTrialRaceGeneration
 		int[][] breaks = breaksArray;	//duplicate the breaksArray so I can modify the new array
 		
 		//generate the race times
+		//use a while loop instead? then i can have the condition set to false to break from the loop once all the races have been generated
+		//and all the conditions were met
+			//every team raced twice, etc.
 		for(int i = 0; i < 10; i++) {		//need algorithm to figure out how many races there will be? - wont know how many races there are supposed to be
 			
 			//RaceObject raceCard = new RaceObject();	//create a new raceCard to change
@@ -44,9 +47,17 @@ public class TimeTrialRaceGeneration
 				if((currentTime + timeBetweenRaces) >= breaks[0][0]) {	//check if the time is over the next break time
 					//loop to go through the breaks array to find the next break time that is not -1
 					for(int j = 0; j < breaks.length; j++) {
+						//check if the value of the position in the array == -1
 						if(breaks[j][0] == -1) {
-							continue;
+							//used to continue the time generation after all the breaks were passed
+//							if(breaks[j] >= breaks.length) {
+//								
+//							}
+//							else {
+								continue;
+//							}
 						}
+						//else, set 
 						else {
 							currentTime = breaks[j][1];		//set the currentTime to the end of the break
 							System.out.println("for loop broke at " + breaks[j][0]);
@@ -66,13 +77,20 @@ public class TimeTrialRaceGeneration
 			//raceCard[i].setRaceNumber(i);		//set the race number
 			//raceCard[i].setRaceTime(currentTime);		//set the race time
 			
-			//get some teams from the place that stores the teamObjects
-			//leave a spot for the places after all the times have been input
-			//print the team name
-			//put the team in a lane
-			//print the category
-			//leave a place for the time changing flag
-			//times from the teamObject
+			//setting up the procedural UI
+				//get some teams from the place that stores the teamObjects
+				//leave a spot for the places after all the times have been input
+				//print the team name
+				//put the team in a lane
+				//print the category
+				//leave a place for the time changing flag
+				//times from the teamObject
+			
+			
+			
+			
+			
+			
 			
 			//put the lock and print button somewhere.
 			
