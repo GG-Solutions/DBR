@@ -1,6 +1,8 @@
 package DBRTest;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Time;	//used for proper time formatting in HH:MM format?
 
 import javax.swing.JButton;
@@ -19,6 +21,7 @@ public class TimeTrialRaceGeneration
 	private int timeBetweenRaces = 40;	//stored in minutes
 	private int currentTime;	//stores the current time to generate the schedule times
 	private int startTime = 900;	//day starting time	
+	private boolean first = true;
 	
 	//test function to print out the breaks
 	public void showBreaks(JTextPane breaksPane, int[][] breaksArray) {
@@ -41,6 +44,40 @@ public class TimeTrialRaceGeneration
 		
 		int[][] breaks = breaksArray;	//duplicate the breaksArray so I can modify the new array
 		
+		
+		//figure out the raceTime
+		if(first) {
+			currentTime = startTime;
+		}
+		else {
+			if((currentTime + timeBetweenRaces) >= breaks[0][0]) {	//check if the time is over the next break time
+				//loop to go through the breaks array to find the next break time that is not -1
+				for(int j = 0; j < breaks.length; j++) {
+					//check if the value of the position in the array == -1
+					if(breaks[j][0] == -1) {
+						//used to continue the time generation after all the breaks were passed
+//						if(breaks[j] >= breaks.length) {
+//							
+//						}
+//						else {
+							continue;
+//						}
+					}
+					//else, set 
+					else {
+						currentTime = breaks[j][1];		//set the currentTime to the end of the break
+						System.out.println("for loop broke at " + breaks[j][0]);
+						breaks[j][0] = -1;
+						break;
+					}
+				}
+			}
+			else {
+				currentTime += timeBetweenRaces;
+			}
+		}
+		
+		
 		//add a new panel to the UI
 		JPanel panel = new JPanel();
 		scrollPaneTimeTrials.setViewportView(panel);
@@ -52,9 +89,8 @@ public class TimeTrialRaceGeneration
 		panel.add(raceNumberLabel, "flowx,cell 0 0,aligny center");
 		
 		//the time field set to non-editable in the beginning
-		JTextField timeField = new JTextField();
+		JTextField timeField = new JTextField(Integer.toString(currentTime));
 		timeField.setEditable(false);
-		timeField.setText("9:00");
 		panel.add(timeField, "cell 0 0");
 		timeField.setColumns(10);
 		
@@ -97,40 +133,7 @@ public class TimeTrialRaceGeneration
 		for(int i = 0; i < 10; i++) {		//need algorithm to figure out how many races there will be? - wont know how many races there are supposed to be
 			
 			//RaceObject raceCard = new RaceObject();	//create a new raceCard to change
-			
-			
-			//figure out the raceTime
-			if(i == 0) {
-				currentTime = startTime;
-			}
-			else {
-				if((currentTime + timeBetweenRaces) >= breaks[0][0]) {	//check if the time is over the next break time
-					//loop to go through the breaks array to find the next break time that is not -1
-					for(int j = 0; j < breaks.length; j++) {
-						//check if the value of the position in the array == -1
-						if(breaks[j][0] == -1) {
-							//used to continue the time generation after all the breaks were passed
-//							if(breaks[j] >= breaks.length) {
-//								
-//							}
-//							else {
-								continue;
-//							}
-						}
-						//else, set 
-						else {
-							currentTime = breaks[j][1];		//set the currentTime to the end of the break
-							System.out.println("for loop broke at " + breaks[j][0]);
-							breaks[j][0] = -1;
-							break;
-						}
-					}
-				}
-				else {
-					currentTime += timeBetweenRaces;
-				}
-			}
-			
+						
 			textPane.setText(textPane.getText() + "\n" + currentTime);
 			
 			//i need to set up each raceObject in this loop
@@ -154,11 +157,24 @@ public class TimeTrialRaceGeneration
 			JLabel label_3 = new JLabel("*");
 			panel.add(label_3, "cell 0 " + (i+2) + ",aligny center");
 			
-			JLabel label_2 = new JLabel(Integer.toString(currentTime));
+			JTextField label_2 = new JTextField("");
 			panel.add(label_2, "cell 0 " + (i+2) + ",growx,aligny center");
 			
-			JButton btnNewButton = new JButton("Lock");
-			panel.add(btnNewButton, "cell 1 " + (i+2) + ",alignx center,aligny center");
+			if(i == 0) {
+				JButton btnNewButton = new JButton("Lock");
+				btnNewButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						label_2.setEnabled(false);
+					}
+				});
+				panel.add(btnNewButton, "cell 1 " + (i+2) + ",alignx center,aligny center");
+			}
+			
+			if(i == 1) {
+				JButton btnNewButton = new JButton("Print");
+				panel.add(btnNewButton, "cell 1 " + (i+2) + ",alignx center,aligny center");
+			}
 			
 			//put the lock button on the first line that has a team
 			//put the print button on the second line

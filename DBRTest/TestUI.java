@@ -68,7 +68,7 @@ public class TestUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 780, 507);
+		frame.setBounds(100, 100, 887, 507);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -111,12 +111,12 @@ public class TestUI {
 		
 		JTextPane timePane = new JTextPane();
 		timePane.setEditable(false);
-		timePane.setBounds(466, 50, 119, 151);
+		timePane.setBounds(742, 86, 119, 151);
 		frame.getContentPane().add(timePane);
 		
 		JTextPane breaksPane = new JTextPane();
 		breaksPane.setEditable(false);
-		breaksPane.setBounds(616, 50, 119, 151);
+		breaksPane.setBounds(742, 282, 119, 151);
 		frame.getContentPane().add(breaksPane);
 		
 		JButton showBreaks = new JButton("showBreaks");
@@ -128,13 +128,13 @@ public class TestUI {
 				breaks.showBreaks(breaksPane, breaksArray);
 			}
 		});
-		showBreaks.setBounds(629, 24, 89, 23);
+		showBreaks.setBounds(761, 248, 89, 23);
 		frame.getContentPane().add(showBreaks);
 		
 		JScrollPane scrollPaneTimeTrials = new JScrollPane();
 		scrollPaneTimeTrials.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPaneTimeTrials.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPaneTimeTrials.setBounds(44, 212, 674, 203);
+		scrollPaneTimeTrials.setBounds(44, 75, 674, 340);
 		frame.getContentPane().add(scrollPaneTimeTrials);
 		
 		JButton btnGenerate = new JButton("generate");
@@ -149,59 +149,59 @@ public class TestUI {
 				
 			}
 		});
-		btnGenerate.setBounds(477, 24, 89, 23);
+		btnGenerate.setBounds(761, 50, 89, 23);
 		frame.getContentPane().add(btnGenerate);
 		
-//		//add a new panel to the UI
-//		JPanel panel = new JPanel();
-//		scrollPaneTimeTrials.setViewportView(panel);
-//		panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
-//		
-//		//add the race label "Race # _ at"
-//		JLabel raceNumberLabel = new JLabel("Race # 1 at");
-//		raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
-//		panel.add(raceNumberLabel, "flowx,cell 0 0,aligny center");
-//		
-//		//the time field set to non-editable in the beginning
-//		JTextField timeField = new JTextField();
-//		timeField.setEditable(false);
-//		timeField.setText("9:00");
-//		panel.add(timeField, "cell 0 0");
-//		timeField.setColumns(10);
-//		
-//		//edit button for the time field
-//		JButton editButton = new JButton("edit");
-//		editButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
-//		editButton.setForeground(Color.BLUE);
-//		panel.add(editButton, "cell 0 0");
-//		
-//		//place label
-//		JLabel lblPlace = new JLabel("Place");
-//		lblPlace.setHorizontalAlignment(SwingConstants.CENTER);
-//		panel.add(lblPlace, "flowx,cell 0 1,growx,aligny center");
-//		
-//		//team name label
-//		JLabel lblTeamName = new JLabel("Team Name");
-//		panel.add(lblTeamName, "cell 0 1,growx,aligny center");
-//		
-//		//lane label
-//		JLabel lblLane = new JLabel("Lane");
-//		lblLane.setHorizontalAlignment(SwingConstants.CENTER);
-//		panel.add(lblLane, "cell 0 1,growx,aligny center");
-//		
-//		//category label
-//		JLabel lblCategory = new JLabel("Category");
-//		panel.add(lblCategory, "cell 0 1,growx,aligny center");
-//		
-//		//flag label
-//		JLabel lblFlag = new JLabel("*");
-//		panel.add(lblFlag, "cell 0 1,aligny center");
-//		
-//		//time label
-//		JLabel lblTime = new JLabel("Time");
-//		panel.add(lblTime, "cell 0 1,growx,aligny center");
-//		
-//		
+		//add a new panel to the UI
+		JPanel panel = new JPanel();
+		scrollPaneTimeTrials.setViewportView(panel);
+		panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
+		
+		//add the race label "Race # _ at"
+		JLabel raceNumberLabel = new JLabel("Race # 1 at");
+		raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		panel.add(raceNumberLabel, "flowx,cell 0 0,aligny center");
+		
+		//the time field set to non-editable in the beginning
+		JTextField timeField = new JTextField();
+		timeField.setEditable(false);
+		timeField.setText("9:00");
+		panel.add(timeField, "cell 0 0");
+		timeField.setColumns(10);
+		
+		//edit button for the time field
+		JButton editButton = new JButton("edit");
+		editButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		editButton.setForeground(Color.BLUE);
+		panel.add(editButton, "cell 0 0");
+		
+		//place label
+		JLabel lblPlace = new JLabel("Place");
+		lblPlace.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(lblPlace, "flowx,cell 0 1,growx,aligny center");
+		
+		//team name label
+		JLabel lblTeamName = new JLabel("Team Name");
+		panel.add(lblTeamName, "cell 0 1,growx,aligny center");
+		
+		//lane label
+		JLabel lblLane = new JLabel("Lane");
+		lblLane.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(lblLane, "cell 0 1,growx,aligny center");
+		
+		//category label
+		JLabel lblCategory = new JLabel("Category");
+		panel.add(lblCategory, "cell 0 1,growx,aligny center");
+		
+		//flag label
+		JLabel lblFlag = new JLabel("*");
+		panel.add(lblFlag, "cell 0 1,aligny center");
+		
+		//time label
+		JLabel lblTime = new JLabel("Time");
+		panel.add(lblTime, "cell 0 1,growx,aligny center");
+		
+		
 //		JLabel lblNewLabel = new JLabel("3");
 //		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 //		panel.add(lblNewLabel, "flowx,cell 0 2,growx,aligny center");
@@ -223,6 +223,11 @@ public class TestUI {
 //		panel.add(label_2, "cell 0 2,growx,aligny center");
 //		
 //		JButton btnNewButton = new JButton("Lock");
+//		btnNewButton.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent arg0) {
+//			}
+//		});
 //		panel.add(btnNewButton, "cell 1 2,alignx center,aligny center");
 //		
 //		JLabel label_4 = new JLabel("2");
