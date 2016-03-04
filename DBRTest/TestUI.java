@@ -133,7 +133,7 @@ public class TestUI {
 		
 		JScrollPane scrollPaneTimeTrials = new JScrollPane();
 		scrollPaneTimeTrials.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPaneTimeTrials.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPaneTimeTrials.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPaneTimeTrials.setBounds(44, 75, 674, 340);
 		frame.getContentPane().add(scrollPaneTimeTrials);
 		
