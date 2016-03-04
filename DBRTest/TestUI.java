@@ -114,21 +114,6 @@ public class TestUI {
 		timePane.setBounds(466, 50, 119, 151);
 		frame.getContentPane().add(timePane);
 		
-		JButton btnGenerate = new JButton("generate");
-		btnGenerate.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				//use this for testing the time generation
-				//timePane.setText("generated times");
-				TimeTrialRaceGeneration times = new TimeTrialRaceGeneration();
-				times.generateTimeTrailRaces(timePane, numberOfLanes, breaksArray, racesArray);
-				
-				
-			}
-		});
-		btnGenerate.setBounds(477, 24, 89, 23);
-		frame.getContentPane().add(btnGenerate);
-		
 		JTextPane breaksPane = new JTextPane();
 		breaksPane.setEditable(false);
 		breaksPane.setBounds(616, 50, 119, 151);
@@ -152,23 +137,137 @@ public class TestUI {
 		scrollPaneTimeTrials.setBounds(44, 212, 674, 203);
 		frame.getContentPane().add(scrollPaneTimeTrials);
 		
-		JPanel panel = new JPanel();
-		scrollPaneTimeTrials.setViewportView(panel);
-		panel.setLayout(new MigLayout("", "[655px]", "[][67px][67px]"));
+		JButton btnGenerate = new JButton("generate");
+		btnGenerate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				//use this for testing the time generation
+				//timePane.setText("generated times");
+				TimeTrialRaceGeneration times = new TimeTrialRaceGeneration();
+				times.generateTimeTrailRaces(timePane, numberOfLanes, breaksArray, racesArray, scrollPaneTimeTrials);
+				
+				
+			}
+		});
+		btnGenerate.setBounds(477, 24, 89, 23);
+		frame.getContentPane().add(btnGenerate);
 		
-		JLabel headerLabel = new JLabel("Race # 1 at");
-		headerLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		panel.add(headerLabel, "flowx,cell 0 0");
+//		//add a new panel to the UI
+//		JPanel panel = new JPanel();
+//		scrollPaneTimeTrials.setViewportView(panel);
+//		panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
+//		
+//		//add the race label "Race # _ at"
+//		JLabel raceNumberLabel = new JLabel("Race # 1 at");
+//		raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
+//		panel.add(raceNumberLabel, "flowx,cell 0 0,aligny center");
+//		
+//		//the time field set to non-editable in the beginning
+//		JTextField timeField = new JTextField();
+//		timeField.setEditable(false);
+//		timeField.setText("9:00");
+//		panel.add(timeField, "cell 0 0");
+//		timeField.setColumns(10);
+//		
+//		//edit button for the time field
+//		JButton editButton = new JButton("edit");
+//		editButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
+//		editButton.setForeground(Color.BLUE);
+//		panel.add(editButton, "cell 0 0");
+//		
+//		//place label
+//		JLabel lblPlace = new JLabel("Place");
+//		lblPlace.setHorizontalAlignment(SwingConstants.CENTER);
+//		panel.add(lblPlace, "flowx,cell 0 1,growx,aligny center");
+//		
+//		//team name label
+//		JLabel lblTeamName = new JLabel("Team Name");
+//		panel.add(lblTeamName, "cell 0 1,growx,aligny center");
+//		
+//		//lane label
+//		JLabel lblLane = new JLabel("Lane");
+//		lblLane.setHorizontalAlignment(SwingConstants.CENTER);
+//		panel.add(lblLane, "cell 0 1,growx,aligny center");
+//		
+//		//category label
+//		JLabel lblCategory = new JLabel("Category");
+//		panel.add(lblCategory, "cell 0 1,growx,aligny center");
+//		
+//		//flag label
+//		JLabel lblFlag = new JLabel("*");
+//		panel.add(lblFlag, "cell 0 1,aligny center");
+//		
+//		//time label
+//		JLabel lblTime = new JLabel("Time");
+//		panel.add(lblTime, "cell 0 1,growx,aligny center");
+//		
+//		
+//		JLabel lblNewLabel = new JLabel("3");
+//		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//		panel.add(lblNewLabel, "flowx,cell 0 2,growx,aligny center");
+//		
+//		JLabel lblMyTeamName = new JLabel("My Team Name");
+//		panel.add(lblMyTeamName, "cell 0 2,growx,aligny center");
+//		
+//		JLabel label_1 = new JLabel("1");
+//		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+//		panel.add(label_1, "cell 0 2,growx,aligny center");
+//		
+//		JLabel lblMixed = new JLabel("Mixed");
+//		panel.add(lblMixed, "cell 0 2,growx,aligny center");
+//		
+//		JLabel label_3 = new JLabel("*");
+//		panel.add(label_3, "cell 0 2,aligny center");
+//		
+//		JLabel label_2 = new JLabel("5:23");
+//		panel.add(label_2, "cell 0 2,growx,aligny center");
+//		
+//		JButton btnNewButton = new JButton("Lock");
+//		panel.add(btnNewButton, "cell 1 2,alignx center,aligny center");
+//		
+//		JLabel label_4 = new JLabel("2");
+//		label_4.setHorizontalAlignment(SwingConstants.CENTER);
+//		panel.add(label_4, "flowx,cell 0 3,growx,aligny center");
+//		
+//		JLabel lblThisOne = new JLabel("This One");
+//		panel.add(lblThisOne, "cell 0 3,growx,aligny center");
+//		
+//		JLabel label_5 = new JLabel("2");
+//		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+//		panel.add(label_5, "cell 0 3,growx,aligny center");
+//		
+//		JLabel lblMens = new JLabel("Mens");
+//		panel.add(lblMens, "cell 0 3,growx,aligny center");
+//		
+//		JLabel label_6 = new JLabel("*");
+//		panel.add(label_6, "cell 0 3,aligny center");
+//		
+//		JLabel label_7 = new JLabel("5:05");
+//		panel.add(label_7, "cell 0 3,growx,aligny center");
+//		
+//		JButton btnNewButton_1 = new JButton("Print");
+//		panel.add(btnNewButton_1, "cell 1 3,alignx center,aligny center");
+//		
+//		JLabel label_8 = new JLabel("1");
+//		label_8.setHorizontalAlignment(SwingConstants.CENTER);
+//		panel.add(label_8, "flowx,cell 0 4,growx,aligny center");
+//		
+//		JLabel lblWeRektYou = new JLabel("We Rekt You Guys");
+//		panel.add(lblWeRektYou, "cell 0 4,growx,aligny center");
+//		
+//		JLabel label_9 = new JLabel("3");
+//		label_9.setHorizontalAlignment(SwingConstants.CENTER);
+//		panel.add(label_9, "cell 0 4,growx,aligny center");
+//		
+//		JLabel lblMens_1 = new JLabel("Mixed");
+//		panel.add(lblMens_1, "cell 0 4,growx,aligny center");
+//		
+//		JLabel label_10 = new JLabel("*");
+//		panel.add(label_10, "cell 0 4,aligny center");
+//		
+//		JLabel label_11 = new JLabel("4:51");
+//		panel.add(label_11, "cell 0 4,growx,aligny center");
 		
-		timeField = new JTextField();
-		timeField.setEditable(false);
-		timeField.setText("9:00");
-		panel.add(timeField, "cell 0 0");
-		timeField.setColumns(10);
-		
-		JButton editButton = new JButton("edit");
-		editButton.setForeground(Color.BLUE);
-		panel.add(editButton, "cell 0 0");
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
