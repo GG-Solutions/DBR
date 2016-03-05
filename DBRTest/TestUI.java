@@ -16,6 +16,7 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
@@ -33,12 +34,14 @@ public class TestUI {
 	//global variables here?
 	int numberOfLanes = 6;
 	
-	TeamObject[] teamsArray;
+//	TeamObject[] teamsArray;
+//	RaceObject[] racesArray;
+	ArrayList<TeamObject> teamsArray;
+	ArrayList<RaceObject> racesArray;
 	
 	int[][] breaksArray = {{1000, 1030},{1200, 1300},{1530, 1600}};		//first column has the starting times for the breaks and the second column has the endding time
 	
-	RaceObject[] racesArray;
-	private JTextField timeField;
+	private JTextField timeField;	//??????
 
 	/**
 	 * Launch the application.
@@ -73,7 +76,7 @@ public class TestUI {
 		frame.getContentPane().setLayout(null);
 		
 		//initailize the 10 teams
-		teamsArray = new TeamObject[10];
+//		teamsArray = new TeamObject[10];
 //		teamsArray[0].setTeamName("Team1");
 //		teamsArray[1].setTeamName("Team2");
 //		teamsArray[2].setTeamName("Team3");
@@ -85,7 +88,19 @@ public class TestUI {
 //		teamsArray[8].setTeamName("Team9");
 //		teamsArray[9].setTeamName("Team10");
 		
-		racesArray = new RaceObject[(teamsArray.length * 2)];		//double the length of teamsArray only for time-trial races
+//		racesArray = new RaceObject[(teamsArray.length * 2)];		//double the length of teamsArray only for time-trial races
+		
+		teamsArray = new ArrayList<TeamObject>();
+		racesArray = new ArrayList<RaceObject>();
+		
+		//setting some stuff for testing
+		teamsArray.add(new TeamObject("Team Name1"));
+		teamsArray.add(new TeamObject("Team Name2"));
+		teamsArray.add(new TeamObject("Team Name3"));
+		teamsArray.add(new TeamObject("Team Name4"));
+		teamsArray.add(new TeamObject("Team Name5"));
+		teamsArray.add(new TeamObject("Team Name6"));
+		teamsArray.add(new TeamObject("Team Name7"));
 		
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Time-Trials");
@@ -132,7 +147,7 @@ public class TestUI {
 		frame.getContentPane().add(showBreaks);
 		
 		JScrollPane scrollPaneTimeTrials = new JScrollPane();
-		scrollPaneTimeTrials.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPaneTimeTrials.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPaneTimeTrials.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPaneTimeTrials.setBounds(44, 75, 674, 340);
 		frame.getContentPane().add(scrollPaneTimeTrials);
@@ -144,64 +159,61 @@ public class TestUI {
 				//use this for testing the time generation
 				//timePane.setText("generated times");
 				TimeTrialRaceGeneration times = new TimeTrialRaceGeneration();
-				times.generateTimeTrailRaces(timePane, numberOfLanes, breaksArray, racesArray, scrollPaneTimeTrials);
-				
-				
+				times.generateTimeTrailRaces(timePane, numberOfLanes, breaksArray, racesArray, teamsArray, scrollPaneTimeTrials);
 			}
 		});
 		btnGenerate.setBounds(761, 50, 89, 23);
 		frame.getContentPane().add(btnGenerate);
 		
-		//add a new panel to the UI
-		JPanel panel = new JPanel();
-		scrollPaneTimeTrials.setViewportView(panel);
-		panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
-		
-		//add the race label "Race # _ at"
-		JLabel raceNumberLabel = new JLabel("Race # 1 at");
-		raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		panel.add(raceNumberLabel, "flowx,cell 0 0,aligny center");
-		
-		//the time field set to non-editable in the beginning
-		JTextField timeField = new JTextField();
-		timeField.setEditable(false);
-		timeField.setText("9:00");
-		panel.add(timeField, "cell 0 0");
-		timeField.setColumns(10);
-		
-		//edit button for the time field
-		JButton editButton = new JButton("edit");
-		editButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		editButton.setForeground(Color.BLUE);
-		panel.add(editButton, "cell 0 0");
-		
-		//place label
-		JLabel lblPlace = new JLabel("Place");
-		lblPlace.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblPlace, "flowx,cell 0 1,growx,aligny center");
-		
-		//team name label
-		JLabel lblTeamName = new JLabel("Team Name");
-		panel.add(lblTeamName, "cell 0 1,growx,aligny center");
-		
-		//lane label
-		JLabel lblLane = new JLabel("Lane");
-		lblLane.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblLane, "cell 0 1,growx,aligny center");
-		
-		//category label
-		JLabel lblCategory = new JLabel("Category");
-		panel.add(lblCategory, "cell 0 1,growx,aligny center");
-		
-		//flag label
-		JLabel lblFlag = new JLabel("*");
-		panel.add(lblFlag, "cell 0 1,aligny center");
-		
-		//time label
-		JLabel lblTime = new JLabel("Time");
-		panel.add(lblTime, "cell 0 1,growx,aligny center");
-		
-		
+//		//add a new panel to the UI
+//		JPanel panel = new JPanel();
+//		scrollPaneTimeTrials.setViewportView(panel);
+//		panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
+//		
+//		//add the race label "Race # _ at"
+//		JLabel raceNumberLabel = new JLabel("Race # 1 at");
+//		raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
+//		panel.add(raceNumberLabel, "flowx,cell 0 0,aligny center");
+//		
+//		//the time field set to non-editable in the beginning
+//		JTextField timeField = new JTextField();
+//		timeField.setEditable(false);
+//		timeField.setText("9:00");
+//		panel.add(timeField, "cell 0 0");
+//		timeField.setColumns(10);
+//		
+//		//edit button for the time field
+//		JButton editButton = new JButton("edit");
+//		editButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
+//		editButton.setForeground(Color.BLUE);
+//		panel.add(editButton, "cell 0 0");
+//		
+//		//place label
+//		JLabel lblPlace = new JLabel("Place");
+//		lblPlace.setHorizontalAlignment(SwingConstants.CENTER);
+//		panel.add(lblPlace, "flowx,cell 0 1,growx,aligny center");
+//		
+//		//team name label
+//		JLabel lblTeamName = new JLabel("Team Name");
+//		panel.add(lblTeamName, "cell 0 1,growx,aligny center");
+//		
+//		//lane label
+//		JLabel lblLane = new JLabel("Lane");
+//		lblLane.setHorizontalAlignment(SwingConstants.CENTER);
+//		panel.add(lblLane, "cell 0 1,growx,aligny center");
+//		
+//		//category label
+//		JLabel lblCategory = new JLabel("Category");
+//		panel.add(lblCategory, "cell 0 1,growx,aligny center");
+//		
+//		//flag label
+//		JLabel lblFlag = new JLabel("*");
+//		panel.add(lblFlag, "cell 0 1,aligny center");
+//		
+//		//time label
+//		JLabel lblTime = new JLabel("Time");
+//		panel.add(lblTime, "cell 0 1,growx,aligny center");
+//		
 //		JLabel lblNewLabel = new JLabel("3");
 //		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 //		panel.add(lblNewLabel, "flowx,cell 0 2,growx,aligny center");

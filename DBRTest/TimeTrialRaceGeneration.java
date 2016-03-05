@@ -10,9 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;	//creating 
+import javax.swing.JTextPane;
 //import java.util.Date;	//main java date class for Date information
 import javax.swing.SwingConstants;
+import java.util.ArrayList;		//allows resizable arrays
 
 import net.miginfocom.swing.MigLayout;
 
@@ -21,7 +22,9 @@ public class TimeTrialRaceGeneration
 	private int timeBetweenRaces = 40;	//stored in minutes
 	private int currentTime;	//stores the current time to generate the schedule times
 	private int startTime = 900;	//day starting time	
-	private boolean first = true;
+	private boolean firstPass = true;
+	
+	private int rowCounter = 0;		//counting the rows for proper placement
 	
 	//test function to print out the breaks
 	public void showBreaks(JTextPane breaksPane, int[][] breaksArray) {
@@ -35,7 +38,7 @@ public class TimeTrialRaceGeneration
 	 * inputs - none
 	 * outputs - magically creates stuff
 	 */
-	public void generateTimeTrailRaces(JTextPane textPane, int numOfLanes, int[][] breaksArray, RaceObject[] raceCard, JScrollPane scrollPaneTimeTrials) {	//this should be called on click of the finish button 
+	public void generateTimeTrailRaces(JTextPane textPane, int numOfLanes, int[][] breaksArray, ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JScrollPane scrollPaneTimeTrials) {	//this should be called on click of the finish button 
 		
 		//used for placing the just for fun races at certain times? - or are they placed at the end of the other races
 			//algorithm to figure out how many time trial races there will be. 
@@ -43,17 +46,21 @@ public class TimeTrialRaceGeneration
 			//what about decimal places? * decimal by number of lanes? - need to get a whole number to put the rameaingin people into races.
 		
 		int[][] breaks = breaksArray;	//duplicate the breaksArray so I can modify the new array
+//		ArrayList<ArrayList<?>> breaks = new ArrayList<ArrayList<?>>();
 		
 		//add a new panel to the UI
 		JPanel panel = new JPanel();
 		scrollPaneTimeTrials.setViewportView(panel);
 		panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
 		
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < 10; i++) {
+			
+//			System.out.println(rowCounter);
 			
 			//figure out the raceTime
-			if(first) {
+			if(firstPass) {
 				currentTime = startTime;
+				firstPass = false;
 			}
 			else {
 				if((currentTime + timeBetweenRaces) >= breaks[0][0]) {	//check if the time is over the next break time
@@ -90,47 +97,65 @@ public class TimeTrialRaceGeneration
 //			panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
 			
 			//add the race label "Race # _ at"
-			JLabel raceNumberLabel = new JLabel("Race # 1 at");
+			JLabel raceNumberLabel = new JLabel("Race # " + (i+1) + " at");
 			raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
-			panel.add(raceNumberLabel, "flowx,cell 0 " + i + ",aligny center");
+			panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 			
 			//the time field set to non-editable in the beginning
 			JTextField timeField = new JTextField(Integer.toString(currentTime));
 			timeField.setEditable(false);
-			panel.add(timeField, "cell 0 " + i);
+			panel.add(timeField, "cell 0 " + rowCounter);
 			timeField.setColumns(10);
 			
 			//edit button for the time field
 			JButton editButton = new JButton("edit");
+			editButton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if(editButton.getText() == "edit") {
+						editButton.setText("done");
+						timeField.setEditable(true);
+					}
+					else {
+						editButton.setText("edit");
+						timeField.setEditable(false);
+						//change all the times on all the other races here
+					}
+				}
+			});
 			editButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
 			editButton.setForeground(Color.BLUE);
-			panel.add(editButton, "cell 0 " + i);
+			panel.add(editButton, "cell 0 " + rowCounter);
+			
+			rowCounter += 1;
 			
 			//place label
 			JLabel lblPlace = new JLabel("Place");
 			lblPlace.setHorizontalAlignment(SwingConstants.CENTER);
-			panel.add(lblPlace, "flowx,cell 0 " + (i+1) + ",growx,aligny center");
+			panel.add(lblPlace, "flowx,cell 0 " + rowCounter + ",growx,aligny center");
 			
 			//team name label
 			JLabel lblTeamName = new JLabel("Team Name");
-			panel.add(lblTeamName, "cell 0 " + (i+1) + ",growx,aligny center");
+			panel.add(lblTeamName, "cell 0 " + rowCounter + ",growx,aligny center");
 			
 			//lane label
 			JLabel lblLane = new JLabel("Lane");
 			lblLane.setHorizontalAlignment(SwingConstants.CENTER);
-			panel.add(lblLane, "cell 0 " + (i+1) + ",growx,aligny center");
+			panel.add(lblLane, "cell 0 " + rowCounter + ",growx,aligny center");
 			
 			//category label
 			JLabel lblCategory = new JLabel("Category");
-			panel.add(lblCategory, "cell 0 " + (i+1) + ",growx,aligny center");
+			panel.add(lblCategory, "cell 0 " + rowCounter + ",growx,aligny center");
 			
 			//flag label
 			JLabel lblFlag = new JLabel("*");
-			panel.add(lblFlag, "cell 0 " + (i+1) + ",aligny center");
+			panel.add(lblFlag, "cell 0 " + rowCounter + ",aligny center");
 			
 			//time label
 			JLabel lblTime = new JLabel("Time");
-			panel.add(lblTime, "cell 0 " + (i+1) + ",growx,aligny center");
+			panel.add(lblTime, "cell 0 " + rowCounter + ",growx,aligny center");
+			
+			rowCounter += 1;
 			
 			//START OF THE LOOP --------------------------------- generate the teams
 			//use a while loop instead? then i can have the condition set to false to break from the loop once all the races have been generated
@@ -140,55 +165,64 @@ public class TimeTrialRaceGeneration
 				
 				//RaceObject raceCard = new RaceObject();	//create a new raceCard to change
 							
-				textPane.setText(textPane.getText() + "\n" + currentTime);
+				//textPane.setText(textPane.getText() + "\n" + currentTime);
 				
 				//i need to set up each raceObject in this loop
 				//raceCard[i].setRaceNumber(i);		//set the race number
 				//raceCard[i].setRaceTime(currentTime);		//set the race time
 				
-				JLabel lblNewLabel = new JLabel("n");
+				if(k == 0) {
+					rowCounter += 0;
+				}
+				else {
+					rowCounter += 1;
+				}
+				
+				JLabel lblNewLabel = new JLabel(Integer.toString(rowCounter));
 				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(lblNewLabel, "flowx,cell 0 " + (k+2) + ",growx,aligny center");
+				panel.add(lblNewLabel, "flowx,cell 0 " + rowCounter + ",growx,aligny center");
 				
 				JLabel lblMyTeamName = new JLabel("My Team Name");
-				panel.add(lblMyTeamName, "cell 0 " + (k+2) + ",growx,aligny center");
+				panel.add(lblMyTeamName, "cell 0 " + rowCounter + ",growx,aligny center");
 				
 				JLabel label_1 = new JLabel("1");
 				label_1.setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(label_1, "cell 0 " + (k+2) + ",growx,aligny center");
+				panel.add(label_1, "cell 0 " + rowCounter + ",growx,aligny center");
 				
 				JLabel lblMixed = new JLabel("Mixed");
-				panel.add(lblMixed, "cell 0 " + (k+2) + ",growx,aligny center");
+				panel.add(lblMixed, "cell 0 " + rowCounter + ",growx,aligny center");
 				
-				JLabel label_3 = new JLabel("*");
-				panel.add(label_3, "cell 0 " + (k+2) + ",aligny center");
+				JLabel label_2 = new JLabel("*");
+				panel.add(label_2, "cell 0 " + rowCounter + ",aligny center");
 				
-				JTextField label_2 = new JTextField("");
-				panel.add(label_2, "cell 0 " + (k+2) + ",growx,aligny center");
+				JTextField label_3 = new JTextField("");
+				panel.add(label_3, "cell 0 " + rowCounter + ",growx,aligny center");
 				
 				if(k == 0) {
 					JButton btnNewButton = new JButton("Lock");
 					btnNewButton.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent arg0) {
-							label_2.setEnabled(false);
+							label_3.setEnabled(false);
 						}
 					});
-					panel.add(btnNewButton, "cell 1 " + (k+2) + ",alignx center,aligny center");
+					panel.add(btnNewButton, "cell 1 " + rowCounter + ",alignx center,aligny center");
 				}
 				
 				if(k == 1) {
 					JButton btnNewButton = new JButton("Print");
-					panel.add(btnNewButton, "cell 1 " + (k+2) + ",alignx center,aligny center");
+					panel.add(btnNewButton, "cell 1 " + rowCounter + ",alignx center,aligny center");
 				}
 				
 				//put the lock button on the first line that has a team
 				//put the print button on the second line
 				
 				
-				//raceArray.length; 		//save the new RaceObject in the global array of RacerObjects
+				//raceArray.length; 		//save the new RaceObject in the global array of RaceObjects
 			}
 			//END OF FOR LOOP FOR THE TEAMS ----------------------------------------------
+			
+			rowCounter += 1;
 		}
 		//END OF FOR LOOP FOR THE RACES ----------------------------------------------
 		
