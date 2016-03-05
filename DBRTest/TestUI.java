@@ -16,6 +16,7 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -39,9 +40,10 @@ public class TestUI {
 	ArrayList<TeamObject> teamsArray;
 	ArrayList<RaceObject> racesArray;
 	
-	int[][] breaksArray = {{1000, 1030},{1200, 1300},{1530, 1600}};		//first column has the starting times for the breaks and the second column has the endding time
+//	int[][] breaksArray = {{1000, 1030},{1200, 1300},{1530, 1600}};		//first column has the starting times for the breaks and the second column has the endding time
+	ArrayList<ArrayList<Time>> breaksArray = new ArrayList<ArrayList<Time>>();
 	
-	private JTextField timeField;	//??????
+//	private JTextField timeField;	//??????
 
 	/**
 	 * Launch the application.
@@ -102,6 +104,9 @@ public class TestUI {
 		teamsArray.add(new TeamObject("Team Name6"));
 		teamsArray.add(new TeamObject("Team Name7"));
 		
+		//adding the breaks
+//		breaksArray.add(1000L);
+		
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Time-Trials");
 		rdbtnNewRadioButton.setSelected(true);
@@ -124,31 +129,40 @@ public class TestUI {
 		lblSchedule.setBounds(10, 26, 744, 14);
 		frame.getContentPane().add(lblSchedule);
 		
-		JTextPane timePane = new JTextPane();
-		timePane.setEditable(false);
-		timePane.setBounds(742, 86, 119, 151);
-		frame.getContentPane().add(timePane);
-		
 		JTextPane breaksPane = new JTextPane();
 		breaksPane.setEditable(false);
 		breaksPane.setBounds(742, 282, 119, 151);
 		frame.getContentPane().add(breaksPane);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(742, 84, 119, 151);
+		frame.getContentPane().add(scrollPane);
+		
+		JTextPane timePane = new JTextPane();
+		scrollPane.setViewportView(timePane);
+		timePane.setEditable(false);
 		
 		JButton showBreaks = new JButton("showBreaks");
 		showBreaks.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				breaksPane.setText("");	//reset the breaksPane text
-				TimeTrialRaceGeneration breaks = new TimeTrialRaceGeneration();
-				breaks.showBreaks(breaksPane, breaksArray);
+//				TimeTrialRaceGeneration breaks = new TimeTrialRaceGeneration();
+//				breaks.showBreaks(breaksPane, breaksArray);
+				
+				//print the breaks
+				for(int i = 0; i < breaksArray.size(); i++) {
+					showBreaks.setText(showBreaks.getText() + breaksArray.get(i).get(i) + "\n");
+				}
 			}
 		});
 		showBreaks.setBounds(761, 248, 89, 23);
 		frame.getContentPane().add(showBreaks);
 		
 		JScrollPane scrollPaneTimeTrials = new JScrollPane();
-		scrollPaneTimeTrials.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-		scrollPaneTimeTrials.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPaneTimeTrials.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPaneTimeTrials.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPaneTimeTrials.setBounds(44, 75, 674, 340);
 		frame.getContentPane().add(scrollPaneTimeTrials);
 		
@@ -160,6 +174,12 @@ public class TestUI {
 				//timePane.setText("generated times");
 				TimeTrialRaceGeneration times = new TimeTrialRaceGeneration();
 				times.generateTimeTrailRaces(timePane, numberOfLanes, breaksArray, racesArray, teamsArray, scrollPaneTimeTrials);
+				
+				//testing the addition of races by printing them out to the one box
+				for(int i = 0; i < racesArray.size(); i++) {
+					timePane.setText(timePane.getText() + racesArray.get(i).getRaceNumber() + " " + racesArray.get(i).getRaceTime() + "\n");
+				}
+				
 			}
 		});
 		btnGenerate.setBounds(761, 50, 89, 23);

@@ -26,7 +26,7 @@ public class TimeTrialRaceGeneration
 	
 	private int rowCounter = 0;		//counting the rows for proper placement
 	
-	//test function to print out the breaks
+	//test function to print out the breaks using the [][] array
 	public void showBreaks(JTextPane breaksPane, int[][] breaksArray) {
 		for(int i = 0; i < breaksArray.length; i++) {
 			breaksPane.setText(breaksPane.getText() + "\n" + breaksArray[i][0] + ", " + breaksArray[i][1]);
@@ -38,23 +38,28 @@ public class TimeTrialRaceGeneration
 	 * inputs - none
 	 * outputs - magically creates stuff
 	 */
-	public void generateTimeTrailRaces(JTextPane textPane, int numOfLanes, int[][] breaksArray, ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JScrollPane scrollPaneTimeTrials) {	//this should be called on click of the finish button 
+	public void generateTimeTrailRaces(JTextPane textPane, int numOfLanes, ArrayList<ArrayList<Time>> breaksArray, ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JScrollPane scrollPaneTimeTrials) {	//this should be called on click of the finish button 
 		
 		//used for placing the just for fun races at certain times? - or are they placed at the end of the other races
 			//algorithm to figure out how many time trial races there will be. 
+				//do i even need this?
 			//(numOfTeams * 2) / number of lanes per race?
 			//what about decimal places? * decimal by number of lanes? - need to get a whole number to put the rameaingin people into races.
 		
-		int[][] breaks = breaksArray;	//duplicate the breaksArray so I can modify the new array
-//		ArrayList<ArrayList<?>> breaks = new ArrayList<ArrayList<?>>();
+		RaceObject race = new RaceObject();		//used for a temp RaceObject to add to the raceCard ArrayList
+		
+//		int[][] breaks = breaksArray;	//duplicate the breaksArray so I can modify the new array
+		ArrayList<ArrayList<Time>> breaks = breaksArray;
 		
 		//add a new panel to the UI
+		//add it here so you can deactivate it when moving to other tabs.
 		JPanel panel = new JPanel();
 		scrollPaneTimeTrials.setViewportView(panel);
 		panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
 		
 		for(int i = 0; i < 10; i++) {
 			
+			race = new RaceObject();	//resets the RaceObject?
 //			System.out.println(rowCounter);
 			
 			//figure out the raceTime
@@ -63,38 +68,37 @@ public class TimeTrialRaceGeneration
 				firstPass = false;
 			}
 			else {
-				if((currentTime + timeBetweenRaces) >= breaks[0][0]) {	//check if the time is over the next break time
-					//loop to go through the breaks array to find the next break time that is not -1
-					for(int j = 0; j < breaks.length; j++) {
-						//check if the value of the position in the array == -1
-						if(breaks[j][0] == -1) {
-							//used to continue the time generation after all the breaks were passed
-//							if(breaks[j] >= breaks.length) {
-//								
-//							}
-//							else {
-								continue;
-//							}
-						}
-						//else, set 
-						else {
-							currentTime = breaks[j][1];		//set the currentTime to the end of the break
-							System.out.println("for loop broke at " + breaks[j][0]);
-							breaks[j][0] = -1;
-							break;
-						}
-					}
-				}
-				else {
-					currentTime += timeBetweenRaces;
-				}
+				//USING THE OLD [][] BREAKS ARRAY -----------------------------
+//				if((currentTime + timeBetweenRaces) >= breaks[0][0]) {	//check if the time is over the next break time
+//					//loop to go through the breaks array to find the next break time that is not -1
+//					for(int j = 0; j < breaks.length; j++) {
+//						//check if the value of the position in the array == -1
+//						if(breaks[j][0] == -1) {
+//							//used to continue the time generation after all the breaks were passed
+////							if(breaks[j] >= breaks.length) {
+////								
+////							}
+////							else {
+//								continue;
+////							}
+//						}
+//						//else, set 
+//						else {
+//							currentTime = breaks[j][1];		//set the currentTime to the end of the break
+//							System.out.println("for loop broke at " + breaks[j][0]);
+//							breaks[j][0] = -1;
+//							break;
+//						}
+//					}
+//				}
+//				else {
+//					currentTime += timeBetweenRaces;
+//				}
+				// ---------------------------------------------------------------
+				
+				
+				
 			}
-			
-			
-			//add a new panel to the UI
-//			JPanel panel = new JPanel();
-//			scrollPaneTimeTrials.setViewportView(panel);
-//			panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
 			
 			//add the race label "Race # _ at"
 			JLabel raceNumberLabel = new JLabel("Race # " + (i+1) + " at");
@@ -168,8 +172,8 @@ public class TimeTrialRaceGeneration
 				//textPane.setText(textPane.getText() + "\n" + currentTime);
 				
 				//i need to set up each raceObject in this loop
-				//raceCard[i].setRaceNumber(i);		//set the race number
-				//raceCard[i].setRaceTime(currentTime);		//set the race time
+				race.setRaceNumber(i + 1);		//set the race number
+				race.setRaceTime(currentTime);		//set the race time
 				
 				if(k == 0) {
 					rowCounter += 0;
@@ -223,6 +227,8 @@ public class TimeTrialRaceGeneration
 			//END OF FOR LOOP FOR THE TEAMS ----------------------------------------------
 			
 			rowCounter += 1;
+			
+			raceCard.add(race);		//lastly, add the created race to the ArrayList
 		}
 		//END OF FOR LOOP FOR THE RACES ----------------------------------------------
 		
