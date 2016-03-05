@@ -24,6 +24,12 @@ public class TeamObject
 		teamName = name;
 	}
 	
+	//testing constructor
+	public TeamObject(String name, String cat) {
+		teamName = name;
+		category = cat;
+	}
+	
 	//setters
 	public void setTeamName(String name) {
 		teamName = name;

@@ -264,10 +264,7 @@ public class TimeTrialRaceGeneration
 			//end loop
 	//end loop that generates all the races in the scrollable window
 	}
+	
 	//check if all the times are filled in and locked
 	//if they are, open up the semi-finals radio button
-	
-	//deallocate stuff here?
-		//i guess on system close
-	
 }

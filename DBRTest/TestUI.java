@@ -27,6 +27,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JFormattedTextField;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class TestUI {
 
@@ -96,32 +99,17 @@ public class TestUI {
 		racesArray = new ArrayList<RaceObject>();
 		
 		//setting some stuff for testing
-		teamsArray.add(new TeamObject("Team Name1"));
-		teamsArray.add(new TeamObject("Team Name2"));
-		teamsArray.add(new TeamObject("Team Name3"));
-		teamsArray.add(new TeamObject("Team Name4"));
-		teamsArray.add(new TeamObject("Team Name5"));
-		teamsArray.add(new TeamObject("Team Name6"));
-		teamsArray.add(new TeamObject("Team Name7"));
+		teamsArray.add(new TeamObject("Team Name1", "Mixed"));
+		teamsArray.add(new TeamObject("Team Name2", "Mixed"));
+		teamsArray.add(new TeamObject("Team Name3", "Mens"));
+		teamsArray.add(new TeamObject("Team Name4", "Mens"));
+		teamsArray.add(new TeamObject("Team Name5", "Mens"));
+		teamsArray.add(new TeamObject("Team Name6", "Womens"));
+		teamsArray.add(new TeamObject("Team Name7", "Mens"));
 		
 		//adding the breaks
 //		breaksArray.add(1000L);
 		
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Time-Trials");
-		rdbtnNewRadioButton.setSelected(true);
-		rdbtnNewRadioButton.setBounds(44, 50, 83, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton);
-		
-		JRadioButton rdbtnSemifinals = new JRadioButton("Semi-Finals");
-		rdbtnSemifinals.setEnabled(false);
-		rdbtnSemifinals.setBounds(141, 50, 83, 23);
-		frame.getContentPane().add(rdbtnSemifinals);
-		
-		JRadioButton rdbtnFinals = new JRadioButton("Finals");
-		rdbtnFinals.setEnabled(false);
-		rdbtnFinals.setBounds(243, 50, 83, 23);
-		frame.getContentPane().add(rdbtnFinals);
 		
 		JLabel lblSchedule = new JLabel("Schedule");
 		lblSchedule.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -184,6 +172,11 @@ public class TestUI {
 		});
 		btnGenerate.setBounds(761, 50, 89, 23);
 		frame.getContentPane().add(btnGenerate);
+		
+		JFormattedTextField frmtdtxtfldThi = new JFormattedTextField();
+		frmtdtxtfldThi.setText("this");
+		frmtdtxtfldThi.setBounds(602, 51, 64, 20);
+		frame.getContentPane().add(frmtdtxtfldThi);
 		
 //		//add a new panel to the UI
 //		JPanel panel = new JPanel();
@@ -304,6 +297,38 @@ public class TestUI {
 //		
 //		JLabel label_11 = new JLabel("4:51");
 //		panel.add(label_11, "cell 0 4,growx,aligny center");
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Time-Trials");
+		rdbtnNewRadioButton.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if(rdbtnNewRadioButton.isSelected()) {
+					//need to set the other panels to invisible and then 
+//					panel.setVisible(true);
+					//rdbtnSemifinals.setSelected(false);	//cant initialize it before it is declared :/
+				}
+			}
+		});
+		rdbtnNewRadioButton.setSelected(true);
+		rdbtnNewRadioButton.setBounds(44, 50, 83, 23);
+		frame.getContentPane().add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnSemifinals = new JRadioButton("Semi-Finals");
+		rdbtnSemifinals.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if(rdbtnSemifinals.isSelected()) {
+					//need to set the other panels to invisible and then 
+//					panel.setVisible(false);
+					rdbtnNewRadioButton.setSelected(false);
+				}
+			}
+		});
+		rdbtnSemifinals.setBounds(141, 50, 83, 23);
+		frame.getContentPane().add(rdbtnSemifinals);
+		
+		JRadioButton rdbtnFinals = new JRadioButton("Finals");
+		rdbtnFinals.setEnabled(false);
+		rdbtnFinals.setBounds(243, 50, 83, 23);
+		frame.getContentPane().add(rdbtnFinals);
 		
 		
 		JMenuBar menuBar = new JMenuBar();
