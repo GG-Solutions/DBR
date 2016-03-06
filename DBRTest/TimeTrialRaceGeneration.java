@@ -96,7 +96,10 @@ public class TimeTrialRaceGeneration
 //				}
 				// ---------------------------------------------------------------
 				
-				
+				//new time generation
+				if((currentTime + timeBetweenRaces) >= breaks.indexOf(0)) {
+					
+				}
 				
 			}
 			
