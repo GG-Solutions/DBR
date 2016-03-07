@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Time;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -29,6 +30,7 @@ import java.awt.Insets;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JFormattedTextField;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.MaskFormatter;
 import javax.swing.event.ChangeEvent;
 
 public class TestUI {
@@ -173,10 +175,19 @@ public class TestUI {
 		btnGenerate.setBounds(761, 50, 89, 23);
 		frame.getContentPane().add(btnGenerate);
 		
-		JFormattedTextField frmtdtxtfldThi = new JFormattedTextField();
-		frmtdtxtfldThi.setText("this");
-		frmtdtxtfldThi.setBounds(602, 51, 64, 20);
-		frame.getContentPane().add(frmtdtxtfldThi);
+		MaskFormatter timeMask = null;
+		try {
+			timeMask = new MaskFormatter(" ##h:##m");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		JFormattedTextField fTxtField = new JFormattedTextField(timeMask);
+		fTxtField.setText("   h:   m");
+//		fTxtField.setText("this");
+		fTxtField.setBounds(602, 51, 64, 20);
+		frame.getContentPane().add(fTxtField);
 		
 //		//add a new panel to the UI
 //		JPanel panel = new JPanel();
