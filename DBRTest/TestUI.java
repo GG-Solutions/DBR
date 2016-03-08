@@ -38,13 +38,12 @@ public class TestUI {
 
 	public static JFrame frame;
 	
-	//global variables here?
+	//testing global variables here?
 	int numberOfLanes = 6;
 	
-//	TeamObject[] teamsArray;
-//	RaceObject[] racesArray;
 	ArrayList<TeamObject> teamsArray;
 	ArrayList<RaceObject> racesArray;
+	ArrayList<String> categorysArray;
 	
 //	int[][] breaksArray = {{1000, 1030},{1200, 1300},{1530, 1600}};		//first column has the starting times for the breaks and the second column has the endding time
 	ArrayList<ArrayList<Integer>> breaksArray = new ArrayList<ArrayList<Integer>>();
@@ -84,21 +83,6 @@ public class TestUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		//initailize the 10 teams
-//		teamsArray = new TeamObject[10];
-//		teamsArray[0].setTeamName("Team1");
-//		teamsArray[1].setTeamName("Team2");
-//		teamsArray[2].setTeamName("Team3");
-//		teamsArray[3].setTeamName("Team4");
-//		teamsArray[4].setTeamName("Team5");
-//		teamsArray[5].setTeamName("Team6");
-//		teamsArray[6].setTeamName("Team7");
-//		teamsArray[7].setTeamName("Team8");
-//		teamsArray[8].setTeamName("Team9");
-//		teamsArray[9].setTeamName("Team10");
-		
-//		racesArray = new RaceObject[(teamsArray.length * 2)];		//double the length of teamsArray only for time-trial races
-		
 		teamsArray = new ArrayList<TeamObject>();
 		racesArray = new ArrayList<RaceObject>();
 		
@@ -120,6 +104,31 @@ public class TestUI {
 		teamsArray.add(new TeamObject("Despirit Housewives", "Mixed"));
 		
 		
+		//separate the teams by similar categories
+		for(int i = 0; i < teamsArray.size();i++) {
+			//make it a switch statement for each type to check?
+				//cant add more switch statements if a new category is added
+				//use the categories array that was input
+			if(teamsArray.get(i).getCategory() == "something") {
+				//add it to the array with matching category
+			}
+			teamsArray.get(i);
+			
+			//problem is i dont know how many cases there are
+//			switch(categorysArray.get(i)) {
+//				case 1: categorysArray.get(0). = teamsArray.get(i).getCategory();
+//					break;
+//			}
+			
+			
+			//need another loop inside this one to add the differnt categories to different arrays?
+				//loop through the new arrays being made
+					//see if they match
+					//if it doesn't, add it to the end of the array
+		}
+		
+		
+		//testing for the breaks
 		ArrayList<Integer> q = new ArrayList<Integer>();
 		q.add(1030);
 		q.add(1100);		
@@ -132,7 +141,7 @@ public class TestUI {
 		e.add(1530);
 		e.add(1600);		
 		
-		//adding the breaks
+		//adding the breaks to the main breaks array
 		breaksArray.add(q);
 		breaksArray.add(w);
 		breaksArray.add(e);

@@ -69,7 +69,7 @@ public class TeamObject
 		return teamName;
 	}
 	
-	public String setCategory() {
+	public String getCategory() {
 		return category;
 	}
 	
