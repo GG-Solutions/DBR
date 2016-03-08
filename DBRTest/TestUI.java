@@ -128,11 +128,11 @@ public class TestUI {
 		breaksArray.add(q);
 		breaksArray.add(w);
 		breaksArray.add(e);
-		System.out.println(breaksArray.get(0));
-		int thisOne = breaksArray.get(0).get(1);
-		System.out.println(thisOne);
-		breaksArray.remove(0);
-		System.out.println(breaksArray);
+//		System.out.println(breaksArray.get(0));
+//		int thisOne = breaksArray.get(0).get(1);
+//		System.out.println(thisOne);
+//		breaksArray.remove(0);
+//		System.out.println(breaksArray);
 		
 //		breaksArray = new ArrayList<Integer>();
 //		breaksArray.add(1030);
@@ -170,7 +170,7 @@ public class TestUI {
 				
 				//print the breaks
 				for(int i = 0; i < breaksArray.size(); i++) {
-					showBreaks.setText(showBreaks.getText() + breaksArray.get(i).get(i) + "\n");
+					breaksPane.setText(breaksPane.getText() + breaksArray.get(i).get(0) + " " + breaksArray.get(i).get(1) + "\n");
 				}
 			}
 		});

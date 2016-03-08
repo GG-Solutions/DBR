@@ -101,10 +101,17 @@ public class TimeTrialRaceGeneration
 				// ---------------------------------------------------------------
 				
 				//new time generation
-//				if((currentTime + timeBetweenRaces) >= breaks.get(0)) {
-//					breaks.get(0);
-//				}
-				System.out.println(breaks.get(0));
+				if((currentTime + timeBetweenRaces) >= breaks.get(0).get(0)) {
+					currentTime = breaks.get(0).get(1);
+					breaks.remove(0);
+					//add ability to recommend a time change?
+						//refer to programming notes doc
+				}
+				//no breaks were detected so just add to the current time
+				else {
+					currentTime += timeBetweenRaces;
+				}
+//				System.out.println(breaks.get(0).get(0));
 				
 			}
 			
