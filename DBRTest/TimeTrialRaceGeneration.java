@@ -131,7 +131,7 @@ public class TimeTrialRaceGeneration
 			
 			//the time field set to non-editable in the beginning
 			JFormattedTextField timeField = new JFormattedTextField(raceTimeMask);
-			timeField.setText(Integer.toString(currentTime));
+			timeField.setText(String.format("%04d", currentTime));	//format output to 4 0s
 			timeField.setEditable(false);
 			panel.add(timeField, "cell 0 " + rowCounter);
 			timeField.setColumns(10);
@@ -227,7 +227,7 @@ public class TimeTrialRaceGeneration
 				//input mask for the time input for each race
 				MaskFormatter timeMask = null;
 				try {
-					timeMask = new MaskFormatter(" ##h:##m.##s");
+					timeMask = new MaskFormatter("##m:##s.##ms");
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

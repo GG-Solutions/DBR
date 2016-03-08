@@ -102,14 +102,22 @@ public class TestUI {
 		teamsArray = new ArrayList<TeamObject>();
 		racesArray = new ArrayList<RaceObject>();
 		
-		//setting some stuff for testing
-		teamsArray.add(new TeamObject("Team Name1", "Mixed"));
-		teamsArray.add(new TeamObject("Team Name2", "Mixed"));
-		teamsArray.add(new TeamObject("Team Name3", "Mens"));
-		teamsArray.add(new TeamObject("Team Name4", "Mens"));
-		teamsArray.add(new TeamObject("Team Name5", "Mens"));
-		teamsArray.add(new TeamObject("Team Name6", "Womens"));
-		teamsArray.add(new TeamObject("Team Name7", "Mens"));
+		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
+		teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
+		teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
+		teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
+		teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
+		teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
+		teamsArray.add(new TeamObject("Bust n Loose", "Special"));
+		teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
+		teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
+		teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
+		teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
+		teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
+		teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
+		teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed"));
+		teamsArray.add(new TeamObject("Fire On Water", "Mixed"));
+		teamsArray.add(new TeamObject("Despirit Housewives", "Mixed"));
 		
 		
 		ArrayList<Integer> q = new ArrayList<Integer>();
