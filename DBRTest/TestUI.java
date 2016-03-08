@@ -32,6 +32,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.MaskFormatter;
 import javax.swing.event.ChangeEvent;
+import java.lang.Integer;
 
 public class TestUI {
 
@@ -46,7 +47,8 @@ public class TestUI {
 	ArrayList<RaceObject> racesArray;
 	
 //	int[][] breaksArray = {{1000, 1030},{1200, 1300},{1530, 1600}};		//first column has the starting times for the breaks and the second column has the endding time
-	ArrayList<ArrayList<Time>> breaksArray = new ArrayList<ArrayList<Time>>();
+	ArrayList<ArrayList<Integer>> breaksArray = new ArrayList<ArrayList<Integer>>();
+//	ArrayList<Integer> breaksArray;
 	
 //	private JTextField timeField;	//??????
 
@@ -109,8 +111,33 @@ public class TestUI {
 		teamsArray.add(new TeamObject("Team Name6", "Womens"));
 		teamsArray.add(new TeamObject("Team Name7", "Mens"));
 		
+		
+		ArrayList<Integer> q = new ArrayList<Integer>();
+		q.add(1030);
+		q.add(1100);		
+		
+		ArrayList<Integer> w = new ArrayList<Integer>();
+		w.add(1200);
+		w.add(1300);		
+		
+		ArrayList<Integer> e = new ArrayList<Integer>();
+		e.add(1530);
+		e.add(1600);		
+		
 		//adding the breaks
-//		breaksArray.add(1000L);
+		breaksArray.add(q);
+		breaksArray.add(w);
+		breaksArray.add(e);
+		System.out.println(breaksArray.get(0));
+		int thisOne = breaksArray.get(0).get(1);
+		System.out.println(thisOne);
+		breaksArray.remove(0);
+		System.out.println(breaksArray);
+		
+//		breaksArray = new ArrayList<Integer>();
+//		breaksArray.add(1030);
+//		breaksArray.add(1200);
+//		breaksArray.add(1530);
 		
 		
 		JLabel lblSchedule = new JLabel("Schedule");
@@ -175,19 +202,17 @@ public class TestUI {
 		btnGenerate.setBounds(761, 50, 89, 23);
 		frame.getContentPane().add(btnGenerate);
 		
-		MaskFormatter timeMask = null;
-		try {
-			timeMask = new MaskFormatter(" ##h:##m");
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		JFormattedTextField fTxtField = new JFormattedTextField(timeMask);
-		fTxtField.setText("   h:   m");
-//		fTxtField.setText("this");
-		fTxtField.setBounds(602, 51, 64, 20);
-		frame.getContentPane().add(fTxtField);
+//		MaskFormatter timeMask = null;
+//		try {
+//			timeMask = new MaskFormatter(" ##h:##m");
+//		} catch (ParseException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+//		JFormattedTextField fTxtField = new JFormattedTextField(timeMask);
+//		fTxtField.setBounds(602, 51, 64, 20);
+//		frame.getContentPane().add(fTxtField);
 		
 //		//add a new panel to the UI
 //		JPanel panel = new JPanel();

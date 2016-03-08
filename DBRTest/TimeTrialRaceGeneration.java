@@ -4,8 +4,10 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Time;	//used for proper time formatting in HH:MM format?
+import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,6 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 //import java.util.Date;	//main java date class for Date information
 import javax.swing.SwingConstants;
+import javax.swing.text.MaskFormatter;
+
 import java.util.ArrayList;		//allows resizable arrays
 
 import net.miginfocom.swing.MigLayout;
@@ -38,7 +42,7 @@ public class TimeTrialRaceGeneration
 	 * inputs - none
 	 * outputs - magically creates stuff
 	 */
-	public void generateTimeTrailRaces(JTextPane textPane, int numOfLanes, ArrayList<ArrayList<Time>> breaksArray, ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JScrollPane scrollPaneTimeTrials) {	//this should be called on click of the finish button 
+	public void generateTimeTrailRaces(JTextPane textPane, int numOfLanes, ArrayList<ArrayList<Integer>> breaksArray, ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JScrollPane scrollPaneTimeTrials) {	//this should be called on click of the finish button 
 		
 		//used for placing the just for fun races at certain times? - or are they placed at the end of the other races
 			//algorithm to figure out how many time trial races there will be. 
@@ -49,7 +53,7 @@ public class TimeTrialRaceGeneration
 		RaceObject race = new RaceObject();		//used for a temp RaceObject to add to the raceCard ArrayList
 		
 //		int[][] breaks = breaksArray;	//duplicate the breaksArray so I can modify the new array
-		ArrayList<ArrayList<Time>> breaks = breaksArray;
+		ArrayList<ArrayList<Integer>> breaks = breaksArray;
 		
 		//add a new panel to the UI
 		//add it here so you can deactivate it when moving to other tabs.
@@ -97,9 +101,10 @@ public class TimeTrialRaceGeneration
 				// ---------------------------------------------------------------
 				
 				//new time generation
-				if((currentTime + timeBetweenRaces) >= breaks.indexOf(0)) {
-					
-				}
+//				if((currentTime + timeBetweenRaces) >= breaks.get(0)) {
+//					breaks.get(0);
+//				}
+				System.out.println(breaks.get(0));
 				
 			}
 			
@@ -108,8 +113,18 @@ public class TimeTrialRaceGeneration
 			raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 			
+			//input mask for the time input
+			MaskFormatter raceTimeMask = null;
+			try {
+				raceTimeMask = new MaskFormatter(" ##h:##m");
+			} catch (ParseException e1) {
+				//TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			//the time field set to non-editable in the beginning
-			JTextField timeField = new JTextField(Integer.toString(currentTime));
+			JFormattedTextField timeField = new JFormattedTextField(raceTimeMask);
+			timeField.setText(Integer.toString(currentTime));
 			timeField.setEditable(false);
 			panel.add(timeField, "cell 0 " + rowCounter);
 			timeField.setColumns(10);
@@ -202,7 +217,16 @@ public class TimeTrialRaceGeneration
 				JLabel label_2 = new JLabel("*");
 				panel.add(label_2, "cell 0 " + rowCounter + ",aligny center");
 				
-				JTextField label_3 = new JTextField("");
+				//input mask for the time input for each race
+				MaskFormatter timeMask = null;
+				try {
+					timeMask = new MaskFormatter(" ##h:##m.##s");
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				JFormattedTextField label_3 = new JFormattedTextField(timeMask);
 				panel.add(label_3, "cell 0 " + rowCounter + ",growx,aligny center");
 				
 				if(k == 0) {
