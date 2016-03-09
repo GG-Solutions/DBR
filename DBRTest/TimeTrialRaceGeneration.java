@@ -27,6 +27,7 @@ public class TimeTrialRaceGeneration
 	private int currentTime;	//stores the current time to generate the schedule times
 	private int startTime = 900;	//day starting time	
 	private boolean firstPass = true;
+	private boolean keepGeneratingEh = true;
 	
 	private int rowCounter = 0;		//counting the rows for proper placement
 	
@@ -52,7 +53,6 @@ public class TimeTrialRaceGeneration
 		
 		RaceObject race = new RaceObject();		//used for a temp RaceObject to add to the raceCard ArrayList
 		
-//		int[][] breaks = breaksArray;	//duplicate the breaksArray so I can modify the new array
 		ArrayList<ArrayList<Integer>> breaks = breaksArray;
 		
 		//add a new panel to the UI
@@ -61,10 +61,10 @@ public class TimeTrialRaceGeneration
 		scrollPaneTimeTrials.setViewportView(panel);
 		panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
 		
+		//main loop
 		for(int i = 0; i < 10; i++) {
 			
 			race = new RaceObject();	//resets the RaceObject?
-//			System.out.println(rowCounter);
 			
 			//figure out the raceTime
 			if(firstPass) {
@@ -72,47 +72,17 @@ public class TimeTrialRaceGeneration
 				firstPass = false;
 			}
 			else {
-				//USING THE OLD [][] BREAKS ARRAY -----------------------------
-//				if((currentTime + timeBetweenRaces) >= breaks[0][0]) {	//check if the time is over the next break time
-//					//loop to go through the breaks array to find the next break time that is not -1
-//					for(int j = 0; j < breaks.length; j++) {
-//						//check if the value of the position in the array == -1
-//						if(breaks[j][0] == -1) {
-//							//used to continue the time generation after all the breaks were passed
-////							if(breaks[j] >= breaks.length) {
-////								
-////							}
-////							else {
-//								continue;
-////							}
-//						}
-//						//else, set 
-//						else {
-//							currentTime = breaks[j][1];		//set the currentTime to the end of the break
-//							System.out.println("for loop broke at " + breaks[j][0]);
-//							breaks[j][0] = -1;
-//							break;
-//						}
-//					}
-//				}
-//				else {
-//					currentTime += timeBetweenRaces;
-//				}
-				// ---------------------------------------------------------------
-				
-				//new time generation
+				//race time generation
 				if((currentTime + timeBetweenRaces) >= breaks.get(0).get(0)) {
 					currentTime = breaks.get(0).get(1);
 					breaks.remove(0);
 					//add ability to recommend a time change?
 						//refer to programming notes doc
 				}
-				//no breaks were detected so just add to the current time
+				//if no breaks were detected so just add to the current time
 				else {
 					currentTime += timeBetweenRaces;
 				}
-//				System.out.println(breaks.get(0).get(0));
-				
 			}
 			
 			//add the race label "Race # _ at"
@@ -134,7 +104,7 @@ public class TimeTrialRaceGeneration
 			timeField.setText(String.format("%04d", currentTime));	//format output to 4 0s
 			timeField.setEditable(false);
 			panel.add(timeField, "cell 0 " + rowCounter);
-			timeField.setColumns(10);
+			timeField.setColumns(8);
 			
 			//edit button for the time field
 			JButton editButton = new JButton("edit");
@@ -190,7 +160,7 @@ public class TimeTrialRaceGeneration
 			//use a while loop instead? then i can have the condition set to false to break from the loop once all the races have been generated
 			//and all the conditions were met
 				//every team raced twice, etc.
-			for(int k = 0; k < 5; k++) {		//need algorithm to figure out how many races there will be? - wont know how many races there are supposed to be
+			for(int k = 0; k < numOfLanes; k++) {		//need algorithm to figure out how many races there will be? - wont know how many races there are supposed to be
 				
 				//RaceObject raceCard = new RaceObject();	//create a new raceCard to change
 							

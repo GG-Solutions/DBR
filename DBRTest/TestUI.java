@@ -39,15 +39,13 @@ public class TestUI {
 	public static JFrame frame;
 	
 	//testing global variables here?
-	int numberOfLanes = 6;
+	int numberOfLanes = 4;
 	
 	ArrayList<TeamObject> teamsArray;
 	ArrayList<RaceObject> racesArray;
 	ArrayList<String> categorysArray;
 	
-//	int[][] breaksArray = {{1000, 1030},{1200, 1300},{1530, 1600}};		//first column has the starting times for the breaks and the second column has the endding time
 	ArrayList<ArrayList<Integer>> breaksArray = new ArrayList<ArrayList<Integer>>();
-//	ArrayList<Integer> breaksArray;
 	
 //	private JTextField timeField;	//??????
 
