@@ -1,15 +1,17 @@
 package DBRTest;
 
+import java.util.ArrayList;
+
 public class RaceObject 
 {
-	private int raceNumber;;		//auto-incremented value 
+	private int raceNumber;
 	private int raceTime;			//the time at which the race will take place
 	private int numberOfLanes;		//numberOfLanes reference from the setup variable
-	//array of teams that are in this race
-	//category variable from the array
+	private ArrayList<TeamObject> teamsRacing;	//array of teams that are in this race
+	private String category;//category variable from the array
 	
 	/**
-	 * This function auto-increments the race number by one every time it is called. 
+	 * 
 	 * Inputs - 
 	 * Outputs - 
 	 */
@@ -25,6 +27,11 @@ public class RaceObject
 		numberOfLanes = lanes;
 	}
 	
+	public void setCategory(String cat) {
+		category = cat;
+	}
+	
+	//getters
 	public int getRaceNumber() {
 		return raceNumber;
 	}
@@ -35,5 +42,14 @@ public class RaceObject
 	
 	public int getNumberOfLanes() {
 		return numberOfLanes;
+	}
+	
+	public String setCategory() {
+		return category;
+	}
+	
+	//add a team to the RaceObject array list of teams that raced in the race
+	public void addTeamToRace(TeamObject team) {
+		teamsRacing.add(team);
 	}
 }

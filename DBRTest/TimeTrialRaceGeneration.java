@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
 import java.util.ArrayList;		//allows resizable arrays
+import java.util.Collections;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -27,7 +28,6 @@ public class TimeTrialRaceGeneration
 	private int currentTime;	//stores the current time to generate the schedule times
 	private int startTime = 900;	//day starting time	
 	private boolean firstPass = true;
-	private boolean keepGeneratingEh = true;
 	
 	private int rowCounter = 0;		//counting the rows for proper placement
 	
@@ -53,7 +53,17 @@ public class TimeTrialRaceGeneration
 		
 		RaceObject race = new RaceObject();		//used for a temp RaceObject to add to the raceCard ArrayList
 		
-		ArrayList<ArrayList<Integer>> breaks = breaksArray;
+		//build an array that has all the teams race twice
+		ArrayList<TeamObject> teams1 = new ArrayList<TeamObject>(teams);
+		ArrayList<TeamObject> teams2 = new ArrayList<TeamObject>(teams);
+		
+		//mix the teams2 array
+		Collections.shuffle(teams2);
+		
+		//append the mixed teams to the end of the first duplicated array (teams1)
+		teams1.addAll(teams2);
+		
+		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(breaksArray);
 		
 		//add a new panel to the UI
 		//add it here so you can deactivate it when moving to other tabs.
@@ -62,9 +72,10 @@ public class TimeTrialRaceGeneration
 		panel.setLayout(new MigLayout("", "[555px][100px:n,right]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
 		
 		//main loop
-		for(int i = 0; i < 10; i++) {
+		//round the number up cause you will always need that
+		for(int i = 0; i < Math.ceil(((teams.size() * 2) / numOfLanes)); i++) {
 			
-			race = new RaceObject();	//resets the RaceObject?
+			race = new RaceObject();	//resets the RaceObject
 			
 			//figure out the raceTime
 			if(firstPass) {
@@ -76,7 +87,7 @@ public class TimeTrialRaceGeneration
 				if((currentTime + timeBetweenRaces) >= breaks.get(0).get(0)) {
 					currentTime = breaks.get(0).get(1);
 					breaks.remove(0);
-					//add ability to recommend a time change?
+					//add ability to recommend a time change of the break?
 						//refer to programming notes doc
 				}
 				//if no breaks were detected so just add to the current time
@@ -116,6 +127,17 @@ public class TimeTrialRaceGeneration
 						timeField.setEditable(true);
 					}
 					else {
+						
+						//get the race number
+						//loop through the remainding races and change the times
+							//also change the text boxes
+						
+//						currentTime = Integer.valueOf(timeField.getText());
+//						
+//						for(int j = raceCard.get().getRaceNumber(); j < raceCard.size(); j++) {
+//							
+//						}
+						
 						editButton.setText("edit");
 						timeField.setEditable(false);
 						//change all the times on all the other races here
@@ -177,21 +199,21 @@ public class TimeTrialRaceGeneration
 					rowCounter += 1;
 				}
 				
-				JLabel lblNewLabel = new JLabel(Integer.toString(rowCounter));
+				JLabel lblNewLabel = new JLabel("-");	//set it tto a dash and change it when the times are locked in?
 				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				panel.add(lblNewLabel, "flowx,cell 0 " + rowCounter + ",growx,aligny center");
 				
-				JLabel lblMyTeamName = new JLabel("My Team Name");
+				JLabel lblMyTeamName = new JLabel(teams1.get(0).getTeamName());
 				panel.add(lblMyTeamName, "cell 0 " + rowCounter + ",growx,aligny center");
 				
-				JLabel label_1 = new JLabel("1");
+				JLabel label_1 = new JLabel(Integer.toString(k+1));
 				label_1.setHorizontalAlignment(SwingConstants.CENTER);
 				panel.add(label_1, "cell 0 " + rowCounter + ",growx,aligny center");
 				
-				JLabel lblMixed = new JLabel("Mixed");
+				JLabel lblMixed = new JLabel(teams1.get(0).getCategory());
 				panel.add(lblMixed, "cell 0 " + rowCounter + ",growx,aligny center");
 				
-				JLabel label_2 = new JLabel("*");
+				JLabel label_2 = new JLabel(" ");	//set it to just a space first
 				panel.add(label_2, "cell 0 " + rowCounter + ",aligny center");
 				
 				//input mask for the time input for each race
@@ -211,7 +233,15 @@ public class TimeTrialRaceGeneration
 					btnNewButton.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent arg0) {
-							label_3.setEnabled(false);
+							if(btnNewButton.getText() == "Lock") {
+								label_3.setEnabled(false);
+								//TODO Change the place of the coresponding teams instead of having the dash
+								btnNewButton.setText("Unlock");
+							}
+							else {
+								label_3.setEnabled(true);
+								btnNewButton.setText("Lock");
+							}
 						}
 					});
 					panel.add(btnNewButton, "cell 1 " + rowCounter + ",alignx center,aligny center");
@@ -219,19 +249,24 @@ public class TimeTrialRaceGeneration
 				
 				if(k == 1) {
 					JButton btnNewButton = new JButton("Print");
+					btnNewButton.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							//export a pdf to print out
+							//launch a save-as internal windows function or something
+						}
+					});
 					panel.add(btnNewButton, "cell 1 " + rowCounter + ",alignx center,aligny center");
 				}
 				
-				//put the lock button on the first line that has a team
-				//put the print button on the second line
+//				race.addTeamToRace(null);		//store the created teamObject into the teamsThatRaced array list
 				
-				
-				//raceArray.length; 		//save the new RaceObject in the global array of RaceObjects
+				teams1.remove(0);	//remove the team from the duplicated array list
 			}
 			//END OF FOR LOOP FOR THE TEAMS ----------------------------------------------
 			
 			rowCounter += 1;
-			
+			System.out.println(i);
 			raceCard.add(race);		//lastly, add the created race to the ArrayList
 		}
 		//END OF FOR LOOP FOR THE RACES ----------------------------------------------
@@ -269,6 +304,7 @@ public class TimeTrialRaceGeneration
 	//end loop that generates all the races in the scrollable window
 	}
 	
-	//check if all the times are filled in and locked
+	//method to check if all the times are filled in and locked?
+		//can loop through the raceCards array and use 
 	//if they are, open up the semi-finals radio button
 }
