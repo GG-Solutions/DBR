@@ -20,7 +20,6 @@ public class TimeTrialRaceGeneration
 	private int timeBetweenRaces = 20;	//stored in minutes
 	private int currentTime;	//stores the current time to generate the schedule times
 	private int startTime = 900;	//day starting time	
-	private boolean firstPass = true;	//try get rid of this variable?
 	
 	private int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
 	
@@ -56,9 +55,8 @@ public class TimeTrialRaceGeneration
 			RaceObject race = new RaceObject();	//create a new raceCard to change
 			
 			//figure out the raceTime
-			if(firstPass) {
+			if(i == 0) {
 				currentTime = startTime;
-				firstPass = false;
 			}
 			else {
 				//race time generation

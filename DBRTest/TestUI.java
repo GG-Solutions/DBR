@@ -197,12 +197,14 @@ public class TestUI {
 			public void mouseClicked(MouseEvent arg0) {
 				if(rdbtnTimeTrials.isSelected()) {
 					scrollPane.setViewportView(panel1);		//set the view of the scrollPane
-					TimeTrialRaceGeneration times = new TimeTrialRaceGeneration();	//create a new TimeTrialRaceGeneration object
-					times.generateTimeTrailRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel1);	//call generateTimeTrialRaces
+					TimeTrialRaceGeneration times1 = new TimeTrialRaceGeneration();	//create a new TimeTrialRaceGeneration object
+					times1.generateTimeTrailRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel1);	//call generateTimeTrialRaces
 				}
 				if(rdbtnSemiFinals.isSelected()) {
 					//generate the semi-final races
 					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
+					SemiFinalRaceGeneration times2 = new SemiFinalRaceGeneration();
+					times2.generateSemiFinalRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel2);
 				}
 				if(rdbtnFinals.isSelected()) {
 					//generate the final races
