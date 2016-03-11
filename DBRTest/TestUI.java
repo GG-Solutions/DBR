@@ -1,7 +1,6 @@
 package DBRTest;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -12,25 +11,13 @@ import javax.swing.JRadioButton;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
-import java.awt.GridLayout;
-import javax.swing.JTextField;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.JFormattedTextField;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.MaskFormatter;
 import javax.swing.event.ChangeEvent;
 import java.lang.Integer;
 
@@ -38,16 +25,13 @@ public class TestUI {
 
 	public static JFrame frame;
 	
-	//testing global variables here?
+	//testing global variables here
 	int numberOfLanes = 3;
-	
 	ArrayList<TeamObject> teamsArray;
 	ArrayList<RaceObject> racesArray;
 	ArrayList<String> categorysArray;
 	
 	ArrayList<ArrayList<Integer>> breaksArray;
-	
-//	private JTextField timeField;	//??????
 
 	/**
 	 * Launch the application.
@@ -67,17 +51,22 @@ public class TestUI {
 
 	/**
 	 * Create the application.
+	 * Inputs - None.
+	 * Outputs - None.
 	 */
 	public TestUI() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initializes the contents of the frame.
+	 * Inputs - None.
+	 * Outputs 	- Creates a new JFrame and adds the necessary UI components.
+	 * 			- Calls the race generation scripts.
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 887, 539);
+		frame.setBounds(100, 100, 887, 537);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -124,129 +113,138 @@ public class TestUI {
 		JLabel lblSchedule = new JLabel("Schedule");
 		lblSchedule.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblSchedule.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSchedule.setBounds(10, 26, 744, 14);
+		lblSchedule.setBounds(10, 26, 851, 14);
 		frame.getContentPane().add(lblSchedule);
-		
-		JTextPane breaksPane = new JTextPane();
-		breaksPane.setEditable(false);
-		breaksPane.setBounds(742, 282, 119, 151);
-		frame.getContentPane().add(breaksPane);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(742, 84, 119, 151);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(10, 75, 851, 388);
 		frame.getContentPane().add(scrollPane);
 		
-		JTextPane timePane = new JTextPane();
-		scrollPane.setViewportView(timePane);
-		timePane.setEditable(false);
+		//add the 3 differnt panels
+		JPanel panel1 = new JPanel();
+//		panel1.setVisible(true);
+//		scrollPane.setViewportView(panel1);
+		panel1.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][80px][100px]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
 		
-		JButton showBreaks = new JButton("showBreaks");
-		showBreaks.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				breaksPane.setText("");	//reset the breaksPane text
-//				TimeTrialRaceGeneration breaks = new TimeTrialRaceGeneration();
-//				breaks.showBreaks(breaksPane, breaksArray);
-				
-				//print the breaks
-				for(int i = 0; i < breaksArray.size(); i++) {
-					breaksPane.setText(breaksPane.getText() + breaksArray.get(i).get(0) + " " + breaksArray.get(i).get(1) + "\n");
+		JPanel panel2 = new JPanel();
+//		panel2.setVisible(false);
+//		scrollPane.setViewportView(panel2);
+		panel2.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][80px][100px]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
+		
+		JPanel panel3 = new JPanel();
+//		panel3.setVisible(false);
+//		scrollPane.setViewportView(panel3);
+		panel3.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][80px][100px]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
+		
+		//initialize them first so they can be referenced in the stateChanged method
+		JRadioButton rdbtnTimeTrials = new JRadioButton("Time-Trials");
+		JRadioButton rdbtnSemiFinals = new JRadioButton("Semi-Finals");
+		JRadioButton rdbtnFinals = new JRadioButton("Finals");
+		
+		rdbtnTimeTrials.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if(rdbtnTimeTrials.isSelected()) {
+					//need to set the other panels to invisible and then 
+					panel1.setVisible(true);
+					panel2.setVisible(false);
+					panel3.setVisible(false);
+					rdbtnSemiFinals.setSelected(false);	//cant initialize it before it is declared :/
+					rdbtnFinals.setSelected(false);
 				}
 			}
 		});
-		showBreaks.setBounds(761, 248, 89, 23);
-		frame.getContentPane().add(showBreaks);
+		rdbtnTimeTrials.setSelected(true);
+		rdbtnTimeTrials.setBounds(44, 50, 134, 23);
+		frame.getContentPane().add(rdbtnTimeTrials);
 		
-		JScrollPane scrollPaneTimeTrials = new JScrollPane();
-		scrollPaneTimeTrials.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPaneTimeTrials.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPaneTimeTrials.setBounds(44, 75, 674, 390);
-		frame.getContentPane().add(scrollPaneTimeTrials);
+		rdbtnSemiFinals.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if(rdbtnSemiFinals.isSelected()) {
+					//need to set the other panels to invisible and then 
+					panel1.setVisible(false);
+					panel2.setVisible(true);
+					panel3.setVisible(false);
+					rdbtnTimeTrials.setSelected(false);
+					rdbtnFinals.setSelected(false);
+				}
+			}
+		});
+		rdbtnSemiFinals.setEnabled(true);
+		rdbtnSemiFinals.setBounds(180, 50, 134, 23);
+		frame.getContentPane().add(rdbtnSemiFinals);
+		
+		rdbtnFinals.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if(rdbtnFinals.isSelected()) {
+					//need to set the other panels to invisible and then 
+					panel1.setVisible(false);
+					panel2.setVisible(false);
+					panel3.setVisible(true);
+					rdbtnTimeTrials.setSelected(false);
+					rdbtnSemiFinals.setSelected(false);
+				}
+			}
+		});
+		rdbtnFinals.setEnabled(true);
+		rdbtnFinals.setBounds(316, 50, 134, 23);
+		frame.getContentPane().add(rdbtnFinals);
 		
 		JButton btnGenerate = new JButton("generate");
 		btnGenerate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				//use this for testing the time generation
-				//timePane.setText("generated times");
-				TimeTrialRaceGeneration times = new TimeTrialRaceGeneration();
-				System.out.println(teamsArray.size()+"\n");
-				times.generateTimeTrailRaces(timePane, numberOfLanes, breaksArray, racesArray, teamsArray, scrollPaneTimeTrials);
-				
-				//testing the addition of races by printing them out to the one box
-				for(int i = 0; i < racesArray.size(); i++) {
-					timePane.setText(timePane.getText() + racesArray.get(i).getRaceNumber() + " " + racesArray.get(i).getRaceTime() + "\n");
+				if(rdbtnTimeTrials.isSelected()) {
+					scrollPane.setViewportView(panel1);		//set the view of the scrollPane
+					TimeTrialRaceGeneration times = new TimeTrialRaceGeneration();	//create a new TimeTrialRaceGeneration object
+					times.generateTimeTrailRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel1);	//call generateTimeTrialRaces
 				}
-				
+				if(rdbtnSemiFinals.isSelected()) {
+					//generate the semi-final races
+					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
+				}
+				if(rdbtnFinals.isSelected()) {
+					//generate the final races
+					scrollPane.setViewportView(panel3);		//set the view of the scrollPane
+				}
+//				System.out.println(teamsArray.size()+"\n");
 			}
 		});
-		btnGenerate.setBounds(761, 50, 89, 23);
+		btnGenerate.setBounds(730, 50, 100, 20);
 		frame.getContentPane().add(btnGenerate);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Time-Trials");
-		rdbtnNewRadioButton.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if(rdbtnNewRadioButton.isSelected()) {
-					//need to set the other panels to invisible and then 
-//					panel.setVisible(true);
-					//rdbtnSemifinals.setSelected(false);	//cant initialize it before it is declared :/
-				}
-			}
-		});
-		rdbtnNewRadioButton.setSelected(true);
-		rdbtnNewRadioButton.setBounds(44, 50, 83, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton);
-		
-		JRadioButton rdbtnSemifinals = new JRadioButton("Semi-Finals");
-		rdbtnSemifinals.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if(rdbtnSemifinals.isSelected()) {
-					//need to set the other panels to invisible and then 
-//					panel.setVisible(false);
-					rdbtnNewRadioButton.setSelected(false);
-				}
-			}
-		});
-		rdbtnSemifinals.setBounds(141, 50, 83, 23);
-		frame.getContentPane().add(rdbtnSemifinals);
-		
-		JRadioButton rdbtnFinals = new JRadioButton("Finals");
-		rdbtnFinals.setEnabled(false);
-		rdbtnFinals.setBounds(243, 50, 83, 23);
-		frame.getContentPane().add(rdbtnFinals);
-		
-		
-		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
-		
-		JMenuItem mntmHome = new JMenuItem("Home");
-		mntmHome.setBackground(Color.WHITE);
-		menuBar.add(mntmHome);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Save");
-		mntmNewMenuItem.setBackground(Color.WHITE);
-		menuBar.add(mntmNewMenuItem);
-		
-		JMenuItem mntmSettings = new JMenuItem("Settings");
-		mntmSettings.setBackground(Color.WHITE);
-		menuBar.add(mntmSettings);
-		
-		JMenuItem mntmPrint = new JMenuItem("Print");
-		mntmPrint.setBackground(Color.WHITE);
-		menuBar.add(mntmPrint);
-		
-		JMenuItem mntmBackuprestore = new JMenuItem("BackUp/Restore");
-		mntmBackuprestore.setBackground(Color.WHITE);
-		menuBar.add(mntmBackuprestore);
-		
-		JMenuItem mntmHelp = new JMenuItem("Help");
-		mntmHelp.setBackground(Color.WHITE);
-		menuBar.add(mntmHelp);
-		
-		JMenuItem mntmLogout = new JMenuItem("Logout");
-		mntmLogout.setHorizontalAlignment(SwingConstants.TRAILING);
-		mntmLogout.setBackground(Color.WHITE);
-		menuBar.add(mntmLogout);
+		//main menu objects will be added later
+//		JMenuBar menuBar = new JMenuBar();
+//		frame.setJMenuBar(menuBar);
+//		
+//		JMenuItem mntmHome = new JMenuItem("Home");
+//		mntmHome.setBackground(Color.WHITE);
+//		menuBar.add(mntmHome);
+//		
+//		JMenuItem mntmNewMenuItem = new JMenuItem("Save");
+//		mntmNewMenuItem.setBackground(Color.WHITE);
+//		menuBar.add(mntmNewMenuItem);
+//		
+//		JMenuItem mntmSettings = new JMenuItem("Settings");
+//		mntmSettings.setBackground(Color.WHITE);
+//		menuBar.add(mntmSettings);
+//		
+//		JMenuItem mntmPrint = new JMenuItem("Print");
+//		mntmPrint.setBackground(Color.WHITE);
+//		menuBar.add(mntmPrint);
+//		
+//		JMenuItem mntmBackuprestore = new JMenuItem("BackUp/Restore");
+//		mntmBackuprestore.setBackground(Color.WHITE);
+//		menuBar.add(mntmBackuprestore);
+//		
+//		JMenuItem mntmHelp = new JMenuItem("Help");
+//		mntmHelp.setBackground(Color.WHITE);
+//		menuBar.add(mntmHelp);
+//		
+//		JMenuItem mntmLogout = new JMenuItem("Logout");
+//		mntmLogout.setHorizontalAlignment(SwingConstants.TRAILING);
+//		mntmLogout.setBackground(Color.WHITE);
+//		menuBar.add(mntmLogout);
 	}
 }
