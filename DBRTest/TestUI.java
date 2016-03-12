@@ -29,7 +29,7 @@ public class TestUI {
 	int numberOfLanes = 3;
 	ArrayList<TeamObject> teamsArray;
 	ArrayList<RaceObject> racesArray;
-	ArrayList<String> categorysArray;
+	ArrayList<String> categoriesArray;
 	
 	//test booleans for generating the races only once
 	private boolean timeTrialRacesEh = false;
@@ -78,6 +78,7 @@ public class TestUI {
 		teamsArray = new ArrayList<TeamObject>();
 		racesArray = new ArrayList<RaceObject>();
 		breaksArray = new ArrayList<ArrayList<Integer>>();
+		categoriesArray = new ArrayList<String>();
 		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
 		teamsArray.add(new TeamObject("KDBC High Frequency", "Womens", 5983));
@@ -113,6 +114,11 @@ public class TestUI {
 		breaksArray.add(q);
 		breaksArray.add(w);
 		breaksArray.add(e);
+		
+		categoriesArray.add("Mixed");
+		categoriesArray.add("Womens");
+		categoriesArray.add("Special");
+		categoriesArray.add("Mens");
 		
 		
 		JLabel lblSchedule = new JLabel("Schedule");
@@ -225,7 +231,7 @@ public class TestUI {
 					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
 					if(!semiFinalRacesEh) {
 						SemiFinalRaceGeneration times2 = new SemiFinalRaceGeneration();
-						times2.generateSemiFinalRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel2);
+						times2.generateSemiFinalRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel2, categoriesArray);
 						semiFinalRacesEh = true;
 					}
 				}

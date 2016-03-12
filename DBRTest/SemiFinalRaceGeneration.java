@@ -34,14 +34,46 @@ public class SemiFinalRaceGeneration  {
 	 * 			- Adds the generated races to the RaceCards ArrayList.
 	 */
 	public void generateSemiFinalRaces(int numOfLanes, ArrayList<ArrayList<Integer>> breaksArray, 
-			ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JPanel panel) {
-		
+			ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JPanel panel, ArrayList<String> categoriesArray) {
 		
 		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(teams);		//duplicate the teams array
 		
-		for(int i = 0; i < teams.size(); i++) {
-			System.out.println(teams.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
+		//empty multidimensional arraylist to separate the teams by category
+		ArrayList<ArrayList<TeamObject>> tmCat	= new ArrayList<ArrayList<TeamObject>>();	//do i need the whole teamobject stored? - prob easiest
+		
+		//loop through the teams and add them to the correct amount of spots based on the category name
+		for(int i = 0; i < categoriesArray.size() - 1; i++) {
+			tmCat.add(new ArrayList<TeamObject>());
 		}
+		
+		//loop through all the teams
+		for(int i = 0; i < teams.size(); i++) {
+			//loop through the categories to find a match
+			for(int j = 0; j < categoriesArray.size(); j++) {
+				//check if the teams category matches the one at the index of the categoriesArray
+				if(tm.get(0).getCategory() == categoriesArray.get(j)) {
+					//do some stuff and add to the tmcat arraylist
+					TeamObject temp1 = new TeamObject();
+					temp1 = tm.get(0);
+					ArrayList<TeamObject> temp2 = new ArrayList<TeamObject>();
+					temp2.add(temp1);
+					tmCat.get(j).add(temp1);
+					tm.remove(0);
+					break;
+				}
+			}
+		}
+		
+		//print out everything in tmCat for TESTING
+//		for(int i = 0; i < tmCat.size(); i++) {
+//			for(int j = 0; j < tmCat.get(i).size(); j++) {
+//				System.out.println(i + " - " + tmCat.get(i).get(j).getCategory() + " - " + tmCat.get(i).size());
+//			}
+//		}
+		
+//		for(int i = 0; i < teams.size(); i++) {
+//			System.out.println(teams.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
+//		}
 		
 		//sort the duplicated tm ArrayList based on the averagedRacetime in ascending order
 		Collections.sort(tm, new Comparator<TeamObject>() {
@@ -50,19 +82,19 @@ public class SemiFinalRaceGeneration  {
 			}
 		});
 		
-		System.out.println();
-		System.out.println();
-		
-		for(int i = 0; i < teams.size(); i++) {
-			System.out.println(tm.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
-		}
+//		System.out.println();
+//		System.out.println();
+//		
+//		for(int i = 0; i < teams.size(); i++) {
+//			System.out.println(tm.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
+//		}
 		
 		
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		
 		//main loop ------------------------------------------------------------------------------------------------------------------------
-		//round the number up cause you will always need that 
-		for(int i = 0; i < Math.ceil(((teams.size() * 2) / numOfLanes)); i++) {
+		//each team races once
+		for(int i = 0; i < Math.ceil(teams.size() / numOfLanes); i++) {
 			
 			RaceObject race = new RaceObject();	//create a new raceCard to change
 			
@@ -98,7 +130,7 @@ public class SemiFinalRaceGeneration  {
 			
 			
 			//add the race label "Race # _ at"
-			JLabel raceNumberLabel = new JLabel("Race # " + (i+1) + " at");
+			JLabel raceNumberLabel = new JLabel("Race # " + (raceCard.size()+1) + " at");	//auto-increment the race number
 			raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 			
@@ -183,11 +215,8 @@ public class SemiFinalRaceGeneration  {
 			
 			rowCounter += 1;
 			
-			//START OF THE LOOP ------------------------------------------------------------------------------------------------------- generate the teams
-			//use a while loop instead? then i can have the condition set to false to break from the loop once all the races have been generated
-			//and all the conditions were met
-				//every team raced twice, etc.
-			for(int k = 0; k < numOfLanes; k++) {		//need algorithm to figure out how many races there will be? - wont know how many races there are supposed to be
+			//START OF THE LOOP ------------------------------------------------------------------------------------------------------- 
+			for(int k = 0; k < numOfLanes; k++) {
 				
 				race = new RaceObject();	//does this refresh the last RaceObject?
 				

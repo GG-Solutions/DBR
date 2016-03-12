@@ -8,14 +8,14 @@ public class TeamObject
 	
 	//move the flags to the race object instead?
 	private char firstRaceTimeFlag = '*';
-	private int firstRaceTime = 0; 
+	private int firstRaceTime = -1; 
 	private char secondRaceTimeFlag = '*';
-	private int secondRaceTime = 0; 
+	private int secondRaceTime = -1; 
 	private char semiFinalRaceTimeFlag = '*';
-	private int semiFinalRaceTime = 0;
+	private int semiFinalRaceTime = -1;
 	private char finalRaceTimeFlag = '*';
-	private int finalRaceTime = 0; 
-	private int averagedRaceTime = 0; 
+	private int finalRaceTime = -1; 		//not every team will have a final race time?
+	private int averagedRaceTime = -1; 
 	
 	/**
 	 * Default constructor.

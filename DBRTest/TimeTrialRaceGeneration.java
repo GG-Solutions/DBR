@@ -86,7 +86,7 @@ public class TimeTrialRaceGeneration
 			
 			
 			//add the race label "Race # _ at"
-			JLabel raceNumberLabel = new JLabel("Race # " + (i+1) + " at");
+			JLabel raceNumberLabel = new JLabel("Race # " + (raceCard.size()+1) + " at");	//auto-increment the race number
 			raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 			
