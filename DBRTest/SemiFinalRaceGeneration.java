@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -35,8 +36,26 @@ public class SemiFinalRaceGeneration  {
 	public void generateSemiFinalRaces(int numOfLanes, ArrayList<ArrayList<Integer>> breaksArray, 
 			ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JPanel panel) {
 		
-		//TODO get the differnet teams that are racing in the semi final races here
 		
+		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(teams);		//duplicate the teams array
+		
+		for(int i = 0; i < teams.size(); i++) {
+			System.out.println(teams.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
+		}
+		
+		//sort the duplicated tm ArrayList based on the averagedRacetime in ascending order
+		Collections.sort(tm, new Comparator<TeamObject>() {
+			public int compare(TeamObject o1, TeamObject o2) {
+				return String.format("%06d", o1.getAveragedRaceTime()).compareTo(String.format("%06d", o2.getAveragedRaceTime()));
+			}
+		});
+		
+		System.out.println();
+		System.out.println();
+		
+		for(int i = 0; i < teams.size(); i++) {
+			System.out.println(tm.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
+		}
 		
 		
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(breaksArray);	//duplicate the breaks array so the duplicate can be modified

@@ -1,6 +1,6 @@
 package DBRTest;
 
-public class TeamObject 
+public class TeamObject
 {
 	private String teamName = "";
 	private String category = "";
@@ -39,9 +39,10 @@ public class TeamObject
 	 * 			- String cat - sets the private category string.
 	 * Outputs - Creates a new TeamObject object with set teamName and category.
 	 */
-	public TeamObject(String name, String cat) {
+	public TeamObject(String name, String cat, int time) {
 		teamName = name;
 		category = cat;
+		averagedRaceTime = time;
 	}
 	
 	/**
@@ -135,7 +136,7 @@ public class TeamObject
 	 * Inputs - None.
 	 * Outputs - Returns the firstRaceTime variable.
 	 */
-	public float getFirstRaceTime()
+	public int getFirstRaceTime()
 	{
 		return firstRaceTime;
 	}
@@ -145,7 +146,7 @@ public class TeamObject
 	 * Inputs - None.
 	 * Outputs - Returns the secondRaceTime variable.
 	 */
-	public float getSecondRaceTime()
+	public int getSecondRaceTime()
 	{
 		return secondRaceTime;
 	}
@@ -155,7 +156,7 @@ public class TeamObject
 	 * Inputs - None.
 	 * Outputs - Returns the semiFinalRaceTime variable.
 	 */
-	public float getSemiFinalRaceTime()
+	public int getSemiFinalRaceTime()
 	{
 		return semiFinalRaceTime;
 	}
@@ -165,7 +166,7 @@ public class TeamObject
 	 * Inputs - None.
 	 * Outputs - Returns the finalRaceTime variable.
 	 */
-	public float getFinalRaceTime()
+	public int getFinalRaceTime()
 	{
 		return finalRaceTime;
 	}
@@ -175,9 +176,8 @@ public class TeamObject
 	 * Inputs - None.
 	 * Outputs - Returns the averagedRaceTime variable.
 	 */
-	public float getAveragedRaceTime()
+	public int getAveragedRaceTime()
 	{
 		return averagedRaceTime;
 	}
-	
 }

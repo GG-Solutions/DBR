@@ -31,6 +31,11 @@ public class TestUI {
 	ArrayList<RaceObject> racesArray;
 	ArrayList<String> categorysArray;
 	
+	//test booleans for generating the races only once
+	private boolean timeTrialRacesEh = false;
+	private boolean semiFinalRacesEh = false;
+	private boolean finalRacesEh = false;
+	
 	ArrayList<ArrayList<Integer>> breaksArray;
 
 	/**
@@ -75,21 +80,21 @@ public class TestUI {
 		breaksArray = new ArrayList<ArrayList<Integer>>();
 		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
-		teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
-		teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
-		teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
-		teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
-		teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
-		teamsArray.add(new TeamObject("Bust n Loose", "Special"));
-		teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
-		teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
-		teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed"));
-		teamsArray.add(new TeamObject("Fire On Water", "Mixed"));
-		teamsArray.add(new TeamObject("Despirit Housewives", "Mixed"));
+		teamsArray.add(new TeamObject("KDBC High Frequency", "Womens", 5983));
+		teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens", 5570));
+		teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens", 11018));
+		teamsArray.add(new TeamObject("A'Breast of Bridge", "Special", 11118));
+		teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed", 10824));
+		teamsArray.add(new TeamObject("Bust n Loose", "Special", 11339));
+		teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed", 11012));
+		teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed", 10723));
+		teamsArray.add(new TeamObject("Women on Fire", "Mixed", 11232));
+		teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed", 10333));
+		teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed", 10622));
+		teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed", 10591));
+		teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed", 10435));
+		teamsArray.add(new TeamObject("Fire On Water", "Mixed", 10209));
+		teamsArray.add(new TeamObject("Despirit Housewives", "Mixed", 10392));
 		
 		//testing for the breaks
 		ArrayList<Integer> q = new ArrayList<Integer>();
@@ -147,11 +152,15 @@ public class TestUI {
 			public void stateChanged(ChangeEvent arg0) {
 				if(rdbtnTimeTrials.isSelected()) {
 					//need to set the other panels to invisible and then 
+					scrollPane.setViewportView(panel1);		//set the view of the scrollPane
 					panel1.setVisible(true);
 					panel2.setVisible(false);
 					panel3.setVisible(false);
 					rdbtnSemiFinals.setSelected(false);	//cant initialize it before it is declared :/
 					rdbtnFinals.setSelected(false);
+				}
+				else {
+//					rdbtnTimeTrials.setSelected(true);
 				}
 			}
 		});
@@ -163,11 +172,15 @@ public class TestUI {
 			public void stateChanged(ChangeEvent arg0) {
 				if(rdbtnSemiFinals.isSelected()) {
 					//need to set the other panels to invisible and then 
+					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
 					panel1.setVisible(false);
 					panel2.setVisible(true);
 					panel3.setVisible(false);
 					rdbtnTimeTrials.setSelected(false);
 					rdbtnFinals.setSelected(false);
+				}
+				else {
+//					rdbtnTimeTrials.setSelected(true);
 				}
 			}
 		});
@@ -179,11 +192,15 @@ public class TestUI {
 			public void stateChanged(ChangeEvent arg0) {
 				if(rdbtnFinals.isSelected()) {
 					//need to set the other panels to invisible and then 
+					scrollPane.setViewportView(panel3);		//set the view of the scrollPane
 					panel1.setVisible(false);
 					panel2.setVisible(false);
 					panel3.setVisible(true);
 					rdbtnTimeTrials.setSelected(false);
 					rdbtnSemiFinals.setSelected(false);
+				}
+				else {
+//					rdbtnFinals.setSelected(true);
 				}
 			}
 		});
@@ -197,18 +214,27 @@ public class TestUI {
 			public void mouseClicked(MouseEvent arg0) {
 				if(rdbtnTimeTrials.isSelected()) {
 					scrollPane.setViewportView(panel1);		//set the view of the scrollPane
-					TimeTrialRaceGeneration times1 = new TimeTrialRaceGeneration();	//create a new TimeTrialRaceGeneration object
-					times1.generateTimeTrailRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel1);	//call generateTimeTrialRaces
+					if(!timeTrialRacesEh) {
+						TimeTrialRaceGeneration times1 = new TimeTrialRaceGeneration();	//create a new TimeTrialRaceGeneration object
+						times1.generateTimeTrailRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel1);	//call generateTimeTrialRaces
+						timeTrialRacesEh = true;
+					}
 				}
 				if(rdbtnSemiFinals.isSelected()) {
 					//generate the semi-final races
 					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
-					SemiFinalRaceGeneration times2 = new SemiFinalRaceGeneration();
-					times2.generateSemiFinalRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel2);
+					if(!semiFinalRacesEh) {
+						SemiFinalRaceGeneration times2 = new SemiFinalRaceGeneration();
+						times2.generateSemiFinalRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel2);
+						semiFinalRacesEh = true;
+					}
 				}
 				if(rdbtnFinals.isSelected()) {
 					//generate the final races
 					scrollPane.setViewportView(panel3);		//set the view of the scrollPane
+					if(!finalRacesEh) {
+						finalRacesEh = true;
+					}
 				}
 //				System.out.println(teamsArray.size()+"\n");
 			}
