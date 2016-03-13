@@ -38,6 +38,25 @@ public class SemiFinalRaceGeneration  {
 		
 		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(teams);		//duplicate the teams array
 		
+//		for(int i = 0; i < teams.size(); i++) {
+//			System.out.println(teams.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
+//		}
+		
+		//sort the duplicated tm ArrayList based on the averagedRacetime in ascending order before separating by category
+			//this makes them stay sorted before separation
+		Collections.sort(tm, new Comparator<TeamObject>() {
+			public int compare(TeamObject o1, TeamObject o2) {
+				return String.format("%06d", o1.getAveragedRaceTime()).compareTo(String.format("%06d", o2.getAveragedRaceTime()));
+			}
+		});
+		
+//		System.out.println();
+//		System.out.println();
+//		
+//		for(int i = 0; i < teams.size(); i++) {
+//			System.out.println(tm.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
+//		}
+		
 		//empty multidimensional arraylist to separate the teams by category
 		ArrayList<ArrayList<TeamObject>> tmCat	= new ArrayList<ArrayList<TeamObject>>();	//do i need the whole teamobject stored? - prob easiest
 		
@@ -70,25 +89,6 @@ public class SemiFinalRaceGeneration  {
 //				System.out.println(i + " - " + tmCat.get(i).get(j).getCategory() + " - " + tmCat.get(i).size());
 //			}
 //		}
-		
-//		for(int i = 0; i < teams.size(); i++) {
-//			System.out.println(teams.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
-//		}
-		
-		//sort the duplicated tm ArrayList based on the averagedRacetime in ascending order
-		Collections.sort(tm, new Comparator<TeamObject>() {
-			public int compare(TeamObject o1, TeamObject o2) {
-				return String.format("%06d", o1.getAveragedRaceTime()).compareTo(String.format("%06d", o2.getAveragedRaceTime()));
-			}
-		});
-		
-//		System.out.println();
-//		System.out.println();
-//		
-//		for(int i = 0; i < teams.size(); i++) {
-//			System.out.println(tm.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
-//		}
-		
 		
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		
@@ -215,8 +215,38 @@ public class SemiFinalRaceGeneration  {
 			
 			rowCounter += 1;
 			
-			//START OF THE LOOP ------------------------------------------------------------------------------------------------------- 
+//			for(int k = 0; k < tmCat.size(); k++) {
+////				for(int j = 0; j < tmCat.get(k).size(); j++) {
+//					System.out.println(k + " - " + tmCat.get(k) + " - " + tmCat.get(k).size());
+////				}
+//			}
+			
+			//get the numOfLanes amount of teams from then multi-dimensional arraylist for this race
+			ArrayList<TeamObject> theseTeams = new ArrayList<TeamObject>();
 			for(int k = 0; k < numOfLanes; k++) {
+				//if there are still team objects left in the arraylist
+				if(tmCat.get(0).size() > 0) {
+					if(((tmCat.get(0).size() / 2) <= 2) && (k == 0)) {
+						theseTeams.addAll(tmCat.get(0));
+						tmCat.remove(0);
+						break;	//break if 2 or less teams are left so that there is always 2 teams racing, never 1
+					}
+					else {
+						theseTeams.add(tmCat.get(0).get(0));	//get the object at the first index all the time
+						tmCat.get(0).remove(0);
+					}
+				}
+				//delete the index
+				else {
+					tmCat.remove(0);	//remove the first dimension
+					break;	//no more objects left to take out
+				}
+			}
+			
+			int tempSize = theseTeams.size();	//not sure why i need this to make it work yet
+			
+			//START OF THE LOOP ------------------------------------------------------------------------------------------------------- 
+			for(int k = 0; k < tempSize; k++) {
 				
 				race = new RaceObject();	//does this refresh the last RaceObject?
 				
@@ -234,7 +264,7 @@ public class SemiFinalRaceGeneration  {
 				panel.add(lblNewLabel, "flowx,cell 0 " + rowCounter + ",growx,aligny center");
 				
 				//adding the team name label under the Team Name heading
-				JLabel lblMyTeamName = new JLabel(teams.get(0).getTeamName());
+				JLabel lblMyTeamName = new JLabel(theseTeams.get(0).getTeamName());
 				lblMyTeamName.setHorizontalAlignment(SwingConstants.LEADING);
 				panel.add(lblMyTeamName, "cell 1 " + rowCounter + ",growx,aligny center");
 				
@@ -244,7 +274,7 @@ public class SemiFinalRaceGeneration  {
 				panel.add(label_1, "cell 2 " + rowCounter + ",growx,aligny center");
 				
 				//adding the teams category label under the Category heading
-				JLabel lblMixed = new JLabel(teams.get(0).getCategory());
+				JLabel lblMixed = new JLabel(theseTeams.get(0).getCategory());
 				lblMixed.setHorizontalAlignment(SwingConstants.LEADING);
 				panel.add(lblMixed, "cell 3 " + rowCounter + ",growx,aligny center");
 				
@@ -317,10 +347,11 @@ public class SemiFinalRaceGeneration  {
 				race.setRaceTime(currentTime);		//set the race time
 				race.setCategory(teams.get(0).getCategory());	//get the category from the team
 				
-				race.addTeamToRace(teams.get(0));	//store the team to the ArrayList in the race object
+				race.addTeamToRace(theseTeams.get(0));	//store the team to the ArrayList in the race object
 				
 //				System.out.println(label_3.getName());
-//				teams.remove(0);	//remove the team from the duplicated array list so the index will always be 0 to get information
+				
+				theseTeams.remove(0);	//remove the team from the duplicated array list so the index will always be 0 to get information
 			}
 			//END OF FOR LOOP FOR THE TEAMS --------------------------------------------------------------------------------------------------------
 			
