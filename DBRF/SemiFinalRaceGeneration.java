@@ -248,40 +248,121 @@ public class SemiFinalRaceGeneration  {
 							theseTeams.add(tmCat.get(0).get(0));
 							tmCat.get(0).remove(0);
 						}
-//						System.out.println("looped");
 						
 						if(tmCat.get(0).size() == 0) {
 							tmCat.remove(0);
-//							System.out.println("removed");
 						}
-//						System.out.println(k + " " + theseTeams.size() + " - " + tmCat.size());
 						break;	//break generation if 2 or less teams are left so that there is always 2 teams racing, never 1
 					}
+					//do this if no checking needs to be done
 					else {
 						theseTeams.add(tmCat.get(0).get(0));	//get the object at the first index all the time
 						tmCat.get(0).remove(0);
 					}
 				}
 				//delete the index 0
-//				else {		//idk if you need this here - kinda a safety
-//					tmCat.remove(0);	//remove the first dimension
-//					break;	//no more objects left to take out
-//				}
-//				System.out.println(k + " " + theseTeams.size() + " - " + tmCat.size());
+				else {		//idk if you need this here - kinda a safety
+					tmCat.remove(0);	//remove the first dimension
+					break;	//no more objects left to take out
+				}
 			}
-			
 			//if there are no more teams to add to races
 			if(tmCat.isEmpty()) {
 				doneGenEh = true;
-//				System.out.println("no more teams");
 			}
 			
-//			if(tmCat.size() > 0) {
-//				System.out.println("num teams in theseTeams = " + theseTeams.size() + " for race # " + raceCard.get(i).getRaceNumber() + " - num left = " + tmCat.get(0).size());				
+			boolean invertKEh = false;		//create new boolean for switching the index for choosing the team order - start as false
+			int tempK = 0;
+			TeamObject tempTeam;
+			
+			//put the teams into the correct lanes
+			
+//			tempK = k;	//will always make it a positive number even if inverted
+			
+			//invert tempK respectively
+//			if(invertKEh == true) {
+//				tempK -= tempK * 2;		//invert it
 //			}
-//			if(tmCat.size() == 0) {
-//				System.out.println("num teams in theseTeams = " + theseTeams.size() + " for race # " + raceCard.get(i).getRaceNumber());
-//			}
+//				if(invertKEh == false) {	//dont think i need to do this cause it is set on first line of loop
+//					tempK += tempK * 2;		//invert it
+//				}
+			
+			//check if the lane is an odd number?
+			//loop through half of them + 1 for odd?
+			//place them at theseTeams.size() - j)? - this only reverses the order
+			//the teams come in ascending order(lowest time person is first)
+				//need to plcae the lowest time person in the middle
+				//next person goes one lane up
+				//then the next one lane down
+			
+			ArrayList<TeamObject> theseTeams2 = new ArrayList<TeamObject>(theseTeams);		//duplicate it? 
+			
+			//check if there are an odd about of teams racing
+			if(theseTeams.size() % 2 == 1) {
+				
+				//loop through half the teams?
+				for(int k = 0; k < (theseTeams.size() - 2); k++) {
+					
+					tempK = k;
+					
+					if(invertKEh == true) {
+						tempK = theseTeams.size() - (k + 1);
+						
+						
+					}
+					if(invertKEh == false) {
+						tempK = 1;
+						
+						
+					}
+					
+					//theseTeams.
+				
+					tempTeam = theseTeams.get(k);	//???????
+					
+					theseTeams.set((int)(Math.ceil(theseTeams.size() / 2) + tempK), tempTeam);
+				
+					//first team goes to tempK + Math.ceil(theseTeams.size() / 2);
+				
+				}
+				
+				//what happens after they are swapped?
+			}
+			//if theseTeams.size() is an even number
+			else {
+				//loop through half the teams? - dont include the middle one?
+				for(int k = 0; k < Math.floor((double)theseTeams.size() / 2); k++) {
+					
+					tempK = k;
+					
+					if(invertKEh == true) {
+						tempK -= tempK * 2;		//invert it
+					}
+				
+					tempTeam = theseTeams.get(k);	//???????
+				
+					//first team goes to tempK + Math.ceil(theseTeams.size() / 2);
+				
+				}
+			}
+			
+			
+			
+			
+			
+			
+			
+			//if even number?
+//				if(theseTeams.size() % 2 == 0) {
+				
+				//add even numbers to Math.ceil(theseTeams.size() / 2)?
+//				}
+			
+			
+			invertKEh = !invertKEh;		//set invertKEh to whatever it isnt for next round of loop
+			
+			
+			
 			
 			int tempSize = theseTeams.size();	//not sure why i need this to make it work yet
 			

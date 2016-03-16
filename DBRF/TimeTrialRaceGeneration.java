@@ -182,13 +182,12 @@ public class TimeTrialRaceGeneration
 				//populate the theseTeams arraylist for each race
 				for(int k = 0; k < numOfLanes; k++) {
 					//if there are still team objects left in the arraylist
-					if(teams1.size() > 0) {	// && tmCat.get(0).size() <= numOfLanes
+					if(teams1.size() > 0) {
 						//only check this if k == 0
 						if(((teams1.size() - numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
 							
 							//add all of the teams to the current race except the last one
 								//pair the last one with the last reamaining team in the arraylist
-//							System.out.println("got here");
 							//if same amount of teams as lanes just add them all to the race
 							if((teams1.size() - numOfLanes) == 0) {
 								for(int j = 0; j < numOfLanes;) {
@@ -203,8 +202,6 @@ public class TimeTrialRaceGeneration
 								theseTeams.add(teams1.get(0));
 								teams1.remove(0);
 							}
-//							System.out.println("looped");
-//							System.out.println(k + " " + theseTeams.size() + " - " + teams1.size());
 							break;	//break generation if 2 or less teams are left so that there is always 2 teams racing, never 1
 						}
 						else {
@@ -212,23 +209,14 @@ public class TimeTrialRaceGeneration
 							teams1.remove(0);
 						}
 					}
-					//delete the index 0
+					//do this if no checking needs to be done
 					else {		//idk if you need this here - kinda a safety
 						teams1.remove(0);	//remove the first dimension
 						break;	//no more objects left to take out
 					}
-//					System.out.println(k + " " + theseTeams.size() + " - " + teams1.size());
 				}
 				
-//				if(teams1.size() > 0) {
-//				System.out.println("num teams in theseTeams = " + theseTeams.size() + " - num left = " + teams1.size());				
-//				}
-//				if(teams1.size() == 0) {
-//					System.out.println("num teams in theseTeams = " + theseTeams.size() + "no more left");
-//				}
-				
 				int tempSize = theseTeams.size();	//not sure why i need this to make it work yet
-//				System.out.println(tempSize + " - " + i);
 				
 				//START OF THE LOOP ------------------------------------------------------------------------------------------------------- generate the teams
 				//use a while loop instead? then i can have the condition set to false to break from the loop once all the races have been generated
@@ -246,7 +234,7 @@ public class TimeTrialRaceGeneration
 					}
 					
 					//adding the place label under the Place heading
-					JLabel lblNewLabel = new JLabel("" + i);	//set it to a dash and change it when the times are locked in?
+					JLabel lblNewLabel = new JLabel("-");	//set it to a dash and change it when the times are locked in?
 					lblNewLabel.setName("lblNewLabel" + (i + 1));
 					lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 					panel.add(lblNewLabel, "flowx,cell 0 " + rowCounter + ",growx,aligny center");
@@ -288,7 +276,7 @@ public class TimeTrialRaceGeneration
 					//add the lock button on the first loop
 					if(k == 0) {
 						JButton btnNewButton = new JButton("Lock");
-						btnNewButton.setHorizontalAlignment(SwingConstants.LEADING);
+						btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
 						btnNewButton.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent arg0) {
@@ -317,7 +305,7 @@ public class TimeTrialRaceGeneration
 					//add the print button on the second loop
 					if(k == 1) {
 						JButton btnNewButton = new JButton("Print");
-						btnNewButton.setHorizontalAlignment(SwingConstants.LEADING);
+						btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
 						btnNewButton.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent arg0) {

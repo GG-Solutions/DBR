@@ -124,30 +124,30 @@ public class TestUI {
 		JLabel lblSchedule = new JLabel("Schedule");
 		lblSchedule.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblSchedule.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSchedule.setBounds(10, 26, 851, 14);
+		lblSchedule.setBounds(10, 26, 924, 14);
 		frame.getContentPane().add(lblSchedule);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 75, 851, 388);
+		scrollPane.setBounds(10, 75, 924, 415);
 		frame.getContentPane().add(scrollPane);
 		
 		//add the 3 differnt panels
 		JPanel panel1 = new JPanel();
 //		panel1.setVisible(true);
 //		scrollPane.setViewportView(panel1);
-		panel1.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][80px][100px]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
+		panel1.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 		
 		JPanel panel2 = new JPanel();
 //		panel2.setVisible(false);
 //		scrollPane.setViewportView(panel2);
-		panel2.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][80px][100px]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
+		panel2.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 		
 		JPanel panel3 = new JPanel();
 //		panel3.setVisible(false);
 //		scrollPane.setViewportView(panel3);
-		panel3.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][80px][100px]", "[25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px][25px:25px:25px]"));
+		panel3.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 		
 		//initialize them first so they can be referenced in the stateChanged method
 		JRadioButton rdbtnTimeTrials = new JRadioButton("Time-Trials");
@@ -245,7 +245,7 @@ public class TestUI {
 //				System.out.println(teamsArray.size()+"\n");
 			}
 		});
-		btnGenerate.setBounds(730, 50, 100, 20);
+		btnGenerate.setBounds(834, 51, 100, 20);
 		frame.getContentPane().add(btnGenerate);
 		
 		//main menu objects will be added later
