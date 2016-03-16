@@ -26,7 +26,7 @@ public class TestUI {
 	public static JFrame frame;
 	
 	//testing global variables here
-	int numberOfLanes = 3;
+	int numberOfLanes = 4;
 	ArrayList<TeamObject> teamsArray;
 	ArrayList<RaceObject> racesArray;
 	ArrayList<String> categoriesArray;
