@@ -18,13 +18,14 @@ public class FestivalObject extends EventPageSetup{
 	
 	public static int lanes;
 	
-	public static ArrayList<Integer> breaksArray = new ArrayList<Integer>();
+	public static ArrayList<ArrayList<Integer>> breaksArray = new ArrayList<ArrayList<Integer>>();
 	
 	public static ArrayList<String> categoriesArray = new ArrayList<String>();
 	
 	protected static ArrayList<String> Category_Use = new ArrayList<String>();
 	
-	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
+	//should be TeamObject along w/ the getter and setter
+	public static ArrayList<String> teamsArray = new ArrayList<String>();
 
 	
 	public FestivalObject() {};
@@ -54,11 +55,11 @@ public class FestivalObject extends EventPageSetup{
 		FestivalObject.lanes = lanes;
 	}
 
-	public static ArrayList<Integer> getBreakList() {
+	public static ArrayList<ArrayList<Integer>> getBreakList() {
 		return breaksArray;
 	}
 
-	public void setBreakList(ArrayList<Integer> breakList) {
+	public void setBreakList(ArrayList<ArrayList<Integer>> breakList) {
 		FestivalObject.breaksArray = breakList;
 	}
 
@@ -78,11 +79,11 @@ public class FestivalObject extends EventPageSetup{
 		Category_Use = categoryUse;
 	}
 	
-	public static ArrayList<TeamObject> getTeam() {
+	public static ArrayList<String> getTeam() {
 		return teamsArray;
 	}
 
-	public void setTeam(ArrayList<TeamObject> team) {
+	public void setTeam(ArrayList<String> team) {
 		teamsArray = team;
 	}
 	

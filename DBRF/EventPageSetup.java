@@ -27,6 +27,7 @@ public class EventPageSetup extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel teamSetup;
+	private JPanel confirmation;
 	private JTextField FestName;
 	private JTextField TBR;
 	private JTextField LaneInput;
@@ -43,7 +44,14 @@ public class EventPageSetup extends JFrame {
 	private String tempCat2;
 	private String tempCat3;
 	private String tempName;
-	private int tempBreak;
+	private String tempTeam;
+	private JLabel conFestName;
+	private JLabel conTimeBetweenRaces;
+	private JLabel conLanes;
+	private JLabel conBreaks;
+	private JLabel conTeams;
+	private JLabel conCategories;
+	private String tempBreak;
 		
 	
 	/**
@@ -70,7 +78,7 @@ public class EventPageSetup extends JFrame {
 		//page getting setup!
 		setTitle("Setup");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 540, 388);
+		setBounds(100, 100, 960, 540);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -78,10 +86,61 @@ public class EventPageSetup extends JFrame {
 		
 		teamSetup = new JPanel();
 		teamSetup.setVisible(false);
+		
+		confirmation = new JPanel();
+		confirmation.setVisible(false);
+		confirmation.setBounds(0, 0, 960, 518);
+		contentPane.add(confirmation);
+		confirmation.setLayout(null);
+		confirmation.setBorder(new EmptyBorder(5, 5, 5, 5));
+		confirmation.setBackground(new Color(211, 211, 211));
+		
+		
+		JButton btnCreate = new JButton("Create");
+		btnCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				createFestival();
+			}
+		});
+		btnCreate.setBounds(241, 308, 84, 29);
+		confirmation.add(btnCreate);
+		
+		JButton btnPrevious = new JButton("Previous");
+		btnPrevious.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				toTeamSetup();
+			}
+		});
+		btnPrevious.setBounds(6, 308, 84, 29);
+		confirmation.add(btnPrevious);
+		
+		conFestName = new JLabel("FestName: ");
+		conFestName.setBounds(6, 6, 319, 16);
+		confirmation.add(conFestName);
+		
+		conTimeBetweenRaces = new JLabel("Time Between Races:");
+		conTimeBetweenRaces.setBounds(6, 33, 319, 16);
+		confirmation.add(conTimeBetweenRaces);
+		
+		conLanes = new JLabel("Lanes per race:");
+		conLanes.setBounds(6, 61, 319, 16);
+		confirmation.add(conLanes);
+		
+		conCategories = new JLabel("Categories that will be used:");
+		conCategories.setBounds(6, 221, 319, 75);
+		confirmation.add(conCategories);
+		
+		conTeams = new JLabel("Teams entered: ");
+		conTeams.setBounds(6, 134, 319, 75);
+		confirmation.add(conTeams);
+		
+		conBreaks = new JLabel("Breaks at:");
+		conBreaks.setBounds(6, 89, 319, 46);
+		confirmation.add(conBreaks);
 		teamSetup.setLayout(null);
 		teamSetup.setBorder(new EmptyBorder(5, 5, 5, 5));
 		teamSetup.setBackground(Color.LIGHT_GRAY);
-		teamSetup.setBounds(0, 0, 540, 366);
+		teamSetup.setBounds(0, 0, 960, 518);
 		contentPane.add(teamSetup);
 		
 		JLabel label = new JLabel("Team Setup");
@@ -159,7 +218,7 @@ public class EventPageSetup extends JFrame {
 		JButton addCatToTeam = new JButton("+");
 		addCatToTeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addCatToTeam(CatBox.getSelectedItem());
+				addCatToTeam(CatBox.getSelectedItem().toString(), teamName.getText());
 			}
 		});
 		addCatToTeam.setBounds(381, 73, 43, 29);
@@ -348,17 +407,17 @@ public class EventPageSetup extends JFrame {
 	//breaks for event setup
 	//adds break to list
 	public void addToBreak(String start, String end){
-		ArrayList<Integer> q = new ArrayList<Integer>();
 		ArrayList<Integer> w = new ArrayList<Integer>();
-		q.add(Integer.parseInt(start));
-		w.add(Integer.parseInt(end));
-		FestivalObject.breaksArray.addAll(q);
-		FestivalObject.breaksArray.addAll(w);
-		BreakList.setText(String.valueOf(FestivalObject.getBreakList()));
+		int that = Integer.parseInt(start);
+		int that1 = Integer.parseInt(end);
+		w.add(that);
+		w.add(that1);
+		FestivalObject.breaksArray.add(w);
+		BreakList.setText(FestivalObject.getBreakList().toString());
 	}
 	//deletes break form list
 	public void deleteBreak(String selected){
-		tempBreak = Integer.parseInt(selected);
+		tempBreak = selected;
 		System.out.println(tempBreak);
 		try{
 		FestivalObject.breaksArray.remove(tempBreak);}catch(NumberFormatException e){ e.getStackTrace();}
@@ -366,6 +425,7 @@ public class EventPageSetup extends JFrame {
 	}
 	//undo delete
 	public void deleteBreakUndo(){
+		//need to fix // don't know how yet
 		FestivalObject.breaksArray.add(tempBreak);
 		BreakList.setText(String.valueOf(FestivalObject.getBreakList()));
 	}
@@ -410,11 +470,11 @@ public class EventPageSetup extends JFrame {
 		ArrayList<String> nuc = new ArrayList<String>();
 		nuc.add(noUseCat);
 		FestivalObject.categoriesArray.addAll(nuc);
-		if(FestivalObject.Category_Use.contains(noUseCat)){
+		if(FestivalObject.Category_Use.contains(tempCat3)){
 			FestivalObject.Category_Use.remove(noUseCat);}
 		
-		CatList.setText(String.valueOf(FestivalObject.getCategory()));
 		CatList2.setText(String.valueOf(FestivalObject.getCategory_Use()));
+		CatList.setText(String.valueOf(FestivalObject.getCategory()));
 		try{
 		CatBox.removeItem(tempCat3);}catch(NullPointerException e){e.getStackTrace();}
 	}
@@ -432,9 +492,22 @@ public class EventPageSetup extends JFrame {
 		teamSetup.setVisible(false);
 	}
 	
+	public void toTeamSetup(){
+		confirmation.setVisible(false);
+		//conFestName.setText("");
+	}
+	
 	public void finish(){//will bring up popup with entered information
-		teamSetup.setVisible(false);
-		contentPane.setVisible(false);
+		confirmation.setVisible(true);
+		//teamSetup.setVisible(false);
+		//contentPane.setVisible(false);
+		
+		conFestName.setText("Festival Name: " + FestivalObject.getFestName());
+		conTimeBetweenRaces.setText("Time Between Races: " + FestivalObject.getTBR() + " mins");
+		conLanes.setText("Lanes per race: " + FestivalObject.getLanes());
+		conBreaks.setText("Breaks at: " + FestivalObject.getBreakList());
+		conTeams.setText("Teams Entered: " + FestivalObject.getTeam());
+		conCategories.setText("Categories: " + FestivalObject.getCategory_Use());
 		//following prints are to test if the variables are getting information
 		System.out.println(FestivalObject.getFestName());
 		System.out.println(FestivalObject.getTBR());
@@ -443,7 +516,10 @@ public class EventPageSetup extends JFrame {
 		System.out.println(FestivalObject.getCategory_Use());
 		System.out.println(FestivalObject.getBreakList());
 		System.out.println(FestivalObject.getTeam());
-		//seems these ones are...
+	}
+	
+	public void createFestival(){
+		//passes festival information
 	}
 	
 	//actions dealing w/ teams
@@ -452,25 +528,47 @@ public class EventPageSetup extends JFrame {
 		if(FestivalObject.teamsArray.contains(name)){
 			System.out.println("Name Already Exists\n");
 		}else{
-			FestivalObject.teamsArray.add(name);
+			FestivalObject.teamsArray.add(tempName);
 			teamList.setText(String.valueOf(FestivalObject.getTeam()));
 		}
 	}
 	//if team name exists and the names match up(as in it's not a new team) add the category to the team
-	public void addCatToTeam(Object Cat){
-		if(FestivalObject.teamsArray.contains(teamName.getText()) && teamName.getText() == tempName){
-			//
-		}else{
-			//FestivalObject.Team.add(Cat.toString());
+	public void addCatToTeam(String Cat, String name){
+		//if(FestivalObject.teamsArray.contains(tempName)){// && teamName.getText() == tempName){
+			//add category to team
+			//FestivalObject.teamsArray.add(Cat);
+			ArrayList<String> t = new ArrayList<String>();
+			tempName = name;
+			if(FestivalObject.teamsArray.contains(tempName)){System.out.println("Team already in category.");}else{
+			t.add(Cat);
+			//FestivalObject.teamsArray.addAll(t);}
+			
+		//}else{
+			//nothing
+		//	System.out.println("team doesn't exist");
+		//}
+		
+		FestivalObject.teamsArray.add(tempName + t.toString());
+		teamList.setText(String.valueOf(FestivalObject.getTeam()));
 		}
+		
+					
+		
+		
+		
+		
 	}
 	//remove team from arraylist
 	public void deleteTeam(String noTeam){
-		
+		tempTeam = noTeam;
+		System.out.println(tempTeam);
+		FestivalObject.teamsArray.remove(noTeam);
+		teamList.setText(String.valueOf(FestivalObject.getTeam()));
 	}
 	//undo delete
 	public void teamUndoDelete(){
-		
+		FestivalObject.teamsArray.add(tempTeam);
+		teamList.setText(String.valueOf(FestivalObject.getTeam()));
 	}
 }
 
