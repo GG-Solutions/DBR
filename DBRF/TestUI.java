@@ -36,7 +36,7 @@ public class TestUI {
 	private boolean semiFinalRacesEh = false;
 	private boolean finalRacesEh = false;
 	
-	ArrayList<ArrayList<Integer>> breaksArray;
+	 ArrayList<ArrayList<Integer>> breaksArray;
 
 	/**
 	 * Launch the application.
