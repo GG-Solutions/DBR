@@ -26,7 +26,7 @@ public class TestUI {
 	public static JFrame frame;
 	
 	//testing global variables here
-	int numberOfLanes = 4;
+	int numOfLanes = 3;
 	ArrayList<TeamObject> teamsArray;
 	ArrayList<RaceObject> racesArray;
 	ArrayList<String> categoriesArray;
@@ -81,21 +81,21 @@ public class TestUI {
 		categoriesArray = new ArrayList<String>();
 		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
-		teamsArray.add(new TeamObject("KDBC High Frequency", "Womens", 5983));
-		teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens", 5570));
-		teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens", 11018));
-		teamsArray.add(new TeamObject("A'Breast of Bridge", "Special", 11118));
-		teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed", 10824));
-		teamsArray.add(new TeamObject("Bust n Loose", "Special", 11339));
-		teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed", 11012));
-		teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed", 10723));
-		teamsArray.add(new TeamObject("Women on Fire", "Mixed", 11232));
-		teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed", 10333));
-		teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed", 10622));
-		teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed", 10591));
-		teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed", 10435));
-		teamsArray.add(new TeamObject("Fire On Water", "Mixed", 10209));
-		teamsArray.add(new TeamObject("Despirit Housewives", "Mixed", 10392));
+		teamsArray.add(new TeamObject("KDBC High Frequency", "Womens", 5983, 22580));
+		teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens", 5570, 21317));
+		teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens", 11018, 25120));
+		teamsArray.add(new TeamObject("A'Breast of Bridge", "Special", 11118, 25175));
+		teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed", 10824, 24713));
+		teamsArray.add(new TeamObject("Bust n Loose", "Special", 11339, 24703));
+		teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed", 11012, 25064));
+		teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed", 10723, 24487));
+		teamsArray.add(new TeamObject("Women on Fire", "Mixed", 11232, 24919));
+		teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed", 10333, 23529));
+		teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed", 10622, 23664));
+		teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed", 10591, 24335));
+		teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed", 10435, 23348));
+		teamsArray.add(new TeamObject("Fire On Water", "Mixed", 10209, 23651));
+		teamsArray.add(new TeamObject("Despirit Housewives", "Mixed", 10392, 23083));
 		
 		//testing for the breaks
 		ArrayList<Integer> q = new ArrayList<Integer>();
@@ -222,7 +222,7 @@ public class TestUI {
 					scrollPane.setViewportView(panel1);		//set the view of the scrollPane
 					if(!timeTrialRacesEh) {
 						TimeTrialRaceGeneration times1 = new TimeTrialRaceGeneration();	//create a new TimeTrialRaceGeneration object
-						times1.generateTimeTrailRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel1);	//call generateTimeTrialRaces
+						times1.generateTimeTrailRaces(numOfLanes, breaksArray, racesArray, teamsArray, panel1);	//call generateTimeTrialRaces
 						timeTrialRacesEh = true;
 					}
 				}
@@ -231,7 +231,7 @@ public class TestUI {
 					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
 					if(!semiFinalRacesEh) {
 						SemiFinalRaceGeneration times2 = new SemiFinalRaceGeneration();
-						times2.generateSemiFinalRaces(numberOfLanes, breaksArray, racesArray, teamsArray, panel2, categoriesArray);
+						times2.generateSemiFinalRaces(numOfLanes, breaksArray, racesArray, teamsArray, panel2, categoriesArray);
 						semiFinalRacesEh = true;
 					}
 				}
@@ -239,6 +239,8 @@ public class TestUI {
 					//generate the final races
 					scrollPane.setViewportView(panel3);		//set the view of the scrollPane
 					if(!finalRacesEh) {
+						FinalRaceGeneration times3 = new FinalRaceGeneration();
+						times3.generateFinalRaces(numOfLanes, breaksArray, racesArray, teamsArray, panel3, categoriesArray);
 						finalRacesEh = true;
 					}
 				}

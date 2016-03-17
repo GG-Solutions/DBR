@@ -39,10 +39,11 @@ public class TeamObject
 	 * 			- String cat - sets the private category string.
 	 * Outputs - Creates a new TeamObject object with set teamName and category.
 	 */
-	public TeamObject(String name, String cat, int time) {
+	public TeamObject(String name, String cat, int time, int time2) {
 		teamName = name;
 		category = cat;
 		averagedRaceTime = time;
+		semiFinalRaceTime = time2;
 	}
 	
 	/**

@@ -15,8 +15,7 @@ import javax.swing.text.MaskFormatter;
 import java.util.ArrayList;		//allows resizable arrays
 import java.util.Collections;
 
-public class TimeTrialRaceGeneration 
-{
+public class TimeTrialRaceGeneration {
 	private int timeBetweenRaces = 20;	//stored in minutes
 	private int currentTime;	//stores the current time to generate the schedule times
 	private int startTime = 900;	//day starting time	
@@ -36,7 +35,7 @@ public class TimeTrialRaceGeneration
 	public void generateTimeTrailRaces(int numOfLanes, ArrayList<ArrayList<Integer>> breaksArray, 
 			ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JPanel panel) {
 		
-		//duplicate the teams array twice
+		//duplicate the teams array twice?
 		ArrayList<TeamObject> teams1 = new ArrayList<TeamObject>(teams);
 //		ArrayList<TeamObject> teams2 = new ArrayList<TeamObject>(teams);
 		

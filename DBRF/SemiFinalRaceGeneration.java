@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
-public class SemiFinalRaceGeneration  {
+public class SemiFinalRaceGeneration {
 	private int timeBetweenRaces = 20;	//stored in minutes
 	private int currentTime;	//stores the current time to generate the schedule times
 	private int startTime = 900;	//day starting time	
@@ -42,7 +42,7 @@ public class SemiFinalRaceGeneration  {
 //			System.out.println(teams.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
 //		}
 		
-		//sort the duplicated tm ArrayList based on the averagedRacetime in ascending order before separating by category
+		//sort the duplicated tm ArrayList based on the averagedRaceTime in ascending order before separating by category
 			//this makes them stay sorted before separation
 		Collections.sort(tm, new Comparator<TeamObject>() {
 			public int compare(TeamObject o1, TeamObject o2) {
@@ -271,7 +271,7 @@ public class SemiFinalRaceGeneration  {
 				doneGenEh = true;
 			}
 			
-			//a very extrea variables needed for placing the teams in the correct spots
+			//other variables needed for placing the teams in the correct spots
 			boolean invertKEh = false;		//create new boolean for switching the index for choosing the team order - start as false
 			int tempK = 1;
 			TeamObject tempTeam = new TeamObject();
