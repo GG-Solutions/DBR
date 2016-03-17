@@ -60,18 +60,18 @@ public class SemiFinalRaceGeneration  {
 		//empty multidimensional arraylist to separate the teams by category
 		ArrayList<ArrayList<TeamObject>> tmCat	= new ArrayList<ArrayList<TeamObject>>();	//do i need the whole teamobject stored? - prob easiest
 		
-		//loop through the teams and add them to the correct amount of spots based on the category name
+		//loop through the teams and pre add the correct amount of spots based on the category name
 		for(int i = 0; i < categoriesArray.size() - 1; i++) {
 			tmCat.add(new ArrayList<TeamObject>());
 		}
 		
-		//loop through all the teams
+		//loop through all the teams and separate them by categories
 		for(int i = 0; i < teams.size(); i++) {
 			//loop through the categories to find a match
 			for(int j = 0; j < categoriesArray.size(); j++) {
 				//check if the teams category matches the one at the index of the categoriesArray
 				if(tm.get(0).getCategory() == categoriesArray.get(j)) {
-					//do some stuff and add to the tmcat arraylist
+					//do some stuff and add to the tmCat arraylist
 					TeamObject temp1 = new TeamObject();
 					temp1 = tm.get(0);
 					ArrayList<TeamObject> temp2 = new ArrayList<TeamObject>();
@@ -92,9 +92,13 @@ public class SemiFinalRaceGeneration  {
 		
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		
+		boolean doneGenEh = false;		//set to true when do generating races
+		int i = 0;	//do i need this? - changed from next for loop to while loop
+		
 		//main loop ------------------------------------------------------------------------------------------------------------------------
 		//each team races once
-		for(int i = 0; i < Math.ceil(teams.size() / numOfLanes); i++) {
+//		for(int i = 0; i < Math.ceil(teams.size() / numOfLanes); i++) {
+		while(doneGenEh == false) {
 			
 			RaceObject race = new RaceObject();	//create a new raceCard to change
 			
@@ -130,7 +134,7 @@ public class SemiFinalRaceGeneration  {
 			
 			
 			//add the race label "Race # _ at"
-			JLabel raceNumberLabel = new JLabel("Race # " + (raceCard.size()+1) + " at");	//auto-increment the race number
+			JLabel raceNumberLabel = new JLabel("Race # " + (raceCard.size() + 1) + " at");	//auto-increment the race number
 			raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 			
@@ -181,7 +185,7 @@ public class SemiFinalRaceGeneration  {
 //			editButton.setBounds(0, 0, 40, 15);
 			panel.add(editButton, "cell 1 " + rowCounter);
 			
-			rowCounter += 1;
+			rowCounter++;
 			
 			//create place label
 			JLabel lblPlace = new JLabel("Place");
@@ -213,7 +217,7 @@ public class SemiFinalRaceGeneration  {
 			lblTime.setHorizontalAlignment(SwingConstants.LEADING);
 			panel.add(lblTime, "cell 5 " + rowCounter + ",growx,aligny center");
 			
-			rowCounter += 1;
+			rowCounter++;
 			
 //			for(int k = 0; k < tmCat.size(); k++) {
 ////				for(int j = 0; j < tmCat.get(k).size(); j++) {
@@ -222,26 +226,143 @@ public class SemiFinalRaceGeneration  {
 //			}
 			
 			//get the numOfLanes amount of teams from then multi-dimensional arraylist for this race
-			ArrayList<TeamObject> theseTeams = new ArrayList<TeamObject>();
+			ArrayList<TeamObject> theseTeams = new ArrayList<TeamObject>();		//new array list to populate - temporarily stores the teams in each race
+			
+			//populate the theseTeams arraylist for each race
 			for(int k = 0; k < numOfLanes; k++) {
 				//if there are still team objects left in the arraylist
-				if(tmCat.get(0).size() > 0) {
-					if(((tmCat.get(0).size() / 2) <= 2) && (k == 0)) {
-						theseTeams.addAll(tmCat.get(0));
-						tmCat.remove(0);
-						break;	//break if 2 or less teams are left so that there is always 2 teams racing, never 1
+				if(tmCat.get(0).size() > 0) {	// && tmCat.get(0).size() <= numOfLanes
+					//only check this if k == 0
+					if(((tmCat.get(0).size() - numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
+						
+						//add all of the teams to the current race except the last one
+							//pair the last one with the last reamaining team in the arraylist
+						
+						if((tmCat.get(0).size() - numOfLanes) == 0) {
+							theseTeams.addAll(tmCat.get(0));
+							tmCat.remove(0);
+							break;
+						}
+						
+						for(int j = 0; j < numOfLanes - 1; j++) {
+							theseTeams.add(tmCat.get(0).get(0));
+							tmCat.get(0).remove(0);
+						}
+						
+						if(tmCat.get(0).size() == 0) {
+							tmCat.remove(0);
+						}
+						break;	//break generation if 2 or less teams are left so that there is always 2 teams racing, never 1
 					}
+					//do this if no checking needs to be done
 					else {
 						theseTeams.add(tmCat.get(0).get(0));	//get the object at the first index all the time
 						tmCat.get(0).remove(0);
 					}
 				}
-				//delete the index
-				else {
+				//delete the index 0
+				else {		//idk if you need this here - kinda a safety
 					tmCat.remove(0);	//remove the first dimension
 					break;	//no more objects left to take out
 				}
 			}
+			//if there are no more teams to add to races
+			if(tmCat.isEmpty()) {
+				doneGenEh = true;
+			}
+			
+			boolean invertKEh = false;		//create new boolean for switching the index for choosing the team order - start as false
+			int tempK = 0;
+			TeamObject tempTeam;
+			
+			//put the teams into the correct lanes
+			
+//			tempK = k;	//will always make it a positive number even if inverted
+			
+			//invert tempK respectively
+//			if(invertKEh == true) {
+//				tempK -= tempK * 2;		//invert it
+//			}
+//				if(invertKEh == false) {	//dont think i need to do this cause it is set on first line of loop
+//					tempK += tempK * 2;		//invert it
+//				}
+			
+			//check if the lane is an odd number?
+			//loop through half of them + 1 for odd?
+			//place them at theseTeams.size() - j)? - this only reverses the order
+			//the teams come in ascending order(lowest time person is first)
+				//need to plcae the lowest time person in the middle
+				//next person goes one lane up
+				//then the next one lane down
+			
+			ArrayList<TeamObject> theseTeams2 = new ArrayList<TeamObject>(theseTeams);		//duplicate it? 
+			
+			//check if there are an odd about of teams racing
+			if(theseTeams.size() % 2 == 1) {
+				
+				//loop through half the teams?
+				for(int k = 0; k < (theseTeams.size() - 2); k++) {
+					
+					tempK = k;
+					
+					if(invertKEh == true) {
+						tempK = theseTeams.size() - (k + 1);
+						
+						
+					}
+					if(invertKEh == false) {
+						tempK = 1;
+						
+						
+					}
+					
+					//theseTeams.
+				
+					tempTeam = theseTeams.get(k);	//???????
+					
+					theseTeams.set((int)(Math.ceil(theseTeams.size() / 2) + tempK), tempTeam);
+				
+					//first team goes to tempK + Math.ceil(theseTeams.size() / 2);
+				
+				}
+				
+				//what happens after they are swapped?
+			}
+			//if theseTeams.size() is an even number
+			else {
+				//loop through half the teams? - dont include the middle one?
+				for(int k = 0; k < Math.floor((double)theseTeams.size() / 2); k++) {
+					
+					tempK = k;
+					
+					if(invertKEh == true) {
+						tempK -= tempK * 2;		//invert it
+					}
+				
+					tempTeam = theseTeams.get(k);	//???????
+				
+					//first team goes to tempK + Math.ceil(theseTeams.size() / 2);
+				
+				}
+			}
+			
+			
+			
+			
+			
+			
+			
+			//if even number?
+//				if(theseTeams.size() % 2 == 0) {
+				
+				//add even numbers to Math.ceil(theseTeams.size() / 2)?
+//				}
+			
+			
+			invertKEh = !invertKEh;		//set invertKEh to whatever it isnt for next round of loop
+			
+			
+			
 			
 			int tempSize = theseTeams.size();	//not sure why i need this to make it work yet
 			
@@ -254,7 +375,7 @@ public class SemiFinalRaceGeneration  {
 					rowCounter += 0;
 				}
 				else {
-					rowCounter += 1;
+					rowCounter++;
 				}
 				
 				//adding the place label under the Place heading
@@ -357,7 +478,8 @@ public class SemiFinalRaceGeneration  {
 			
 			raceCard.add(race);		//lastly, add the created RaceObject to the global ArrayList
 			
-			rowCounter += 1;
+			rowCounter++;
+			i++;
 		}
 		//END OF FOR LOOP FOR THE RACES ----------------------------------------------
 	}
