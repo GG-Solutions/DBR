@@ -250,6 +250,20 @@ public class TestUI {
 		btnGenerate.setBounds(834, 51, 100, 20);
 		frame.getContentPane().add(btnGenerate);
 		
+		JButton btnSave = new JButton("save");
+		btnSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					SaveAndLoad.saveXML();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnSave.setBounds(709, 51, 100, 20);
+		frame.getContentPane().add(btnSave);
+		
 		//main menu objects will be added later
 //		JMenuBar menuBar = new JMenuBar();
 //		frame.setJMenuBar(menuBar);

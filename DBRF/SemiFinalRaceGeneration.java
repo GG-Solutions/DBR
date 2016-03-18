@@ -74,8 +74,6 @@ public class SemiFinalRaceGeneration {
 					//do some stuff and add to the tmCat arraylist
 					TeamObject temp1 = new TeamObject();
 					temp1 = tm.get(0);
-					ArrayList<TeamObject> temp2 = new ArrayList<TeamObject>();
-					temp2.add(temp1);
 					tmCat.get(j).add(temp1);
 					tm.remove(0);
 					break;

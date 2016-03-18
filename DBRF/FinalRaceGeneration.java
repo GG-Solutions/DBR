@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -40,10 +39,6 @@ public class FinalRaceGeneration
 		
 		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(teams);		//duplicate the teams array
 		
-//		for(int i = 0; i < teams.size(); i++) {
-//			System.out.println(teams.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
-//		}
-		
 		//sort the duplicated tm ArrayList based on the semiFinalRaceTime in ascending order before separating by category
 			//this makes them stay sorted before separation
 		Collections.sort(tm, new Comparator<TeamObject>() {
@@ -52,13 +47,6 @@ public class FinalRaceGeneration
 			}
 		});
 		
-//		System.out.println();
-//		System.out.println();
-//		
-//		for(int i = 0; i < teams.size(); i++) {
-//			System.out.println(tm.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
-//		}
-		
 		//empty multidimensional arraylist to separate the teams by category
 		ArrayList<ArrayList<TeamObject>> tmCat	= new ArrayList<ArrayList<TeamObject>>();	//do i need the whole teamobject stored? - prob easiest
 		
@@ -66,31 +54,29 @@ public class FinalRaceGeneration
 		for(int i = 0; i < categoriesArray.size() - 1; i++) {
 			tmCat.add(new ArrayList<TeamObject>());
 		}
-		
+//		String thisOne = "";
 		//loop through all the teams and separate them by categories
 		for(int i = 0; i < teams.size(); i++) {
 			//loop through the categories to find a match
 			for(int j = 0; j < categoriesArray.size(); j++) {
 				//check if the teams category matches the one at the index of the categoriesArray
-				if(tm.get(0).getCategory() == categoriesArray.get(j)) {
+				if(tm.get(0).getCategory() == categoriesArray.get(j) && (tmCat.get(j).size() < numOfLanes * 2)) {	//only get enough teams from each category for 2 races?
 					//do some stuff and add to the tmCat arraylist
 					TeamObject temp1 = new TeamObject();
 					temp1 = tm.get(0);
-					ArrayList<TeamObject> temp2 = new ArrayList<TeamObject>();
-					temp2.add(temp1);
 					tmCat.get(j).add(temp1);
 					tm.remove(0);
 					break;
 				}
 			}
 		}
-		
+//		System.out.println(thisOne);
 		//print out everything in tmCat for TESTING
-//		for(int i = 0; i < tmCat.size(); i++) {
+		for(int i = 0; i < tmCat.size(); i++) {
 //			for(int j = 0; j < tmCat.get(i).size(); j++) {
-//				System.out.println(i + " - " + tmCat.get(i).get(j).getCategory() + " - " + tmCat.get(i).size());
+				System.out.println(i + " - " + tmCat.get(i).size());
 //			}
-//		}
+		}
 		
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		
@@ -233,7 +219,7 @@ public class FinalRaceGeneration
 			//populate the theseTeams arraylist for each race
 			for(int k = 0; k < numOfLanes; k++) {
 				//if there are still team objects left in the arraylist
-				if(tmCat.get(0).size() > 0) {	// && tmCat.get(0).size() <= numOfLanes
+				if(tmCat.get(0).size() > 0) {
 					//only check this if k == 0
 					if(((tmCat.get(0).size() - numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
 						
@@ -298,9 +284,9 @@ public class FinalRaceGeneration
 			}
 			
 			//was using for TESTING
-//			for(int k = 0; k < theseTeams.size(); k++) {
-//				System.out.println(theseTeams.get(k).getAveragedRaceTime() + " - " + theseTeams.get(k).getTeamName());
-//			}
+			for(int k = 0; k < theseTeams.size(); k++) {
+				System.out.println(theseTeams.get(k).getSemiFinalRaceTime() + " - " + theseTeams.get(k).getTeamName());
+			}
 			
 			int tempSize = theseTeams.size();	//not sure why i need this to make it work yet
 			
