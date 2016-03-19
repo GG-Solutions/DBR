@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.ComponentOrientation;
+import javax.swing.JTextPane;
 
 
 public class EventPageSetup extends JFrame {
@@ -35,10 +36,13 @@ public class EventPageSetup extends JFrame {
 	private JTextField AddCat;
 	private JFormattedTextField BreakEndTime;
 	private JTextField teamName;
-	private JTextField BreakList;
-	private JFormattedTextField CatList;
-	private JFormattedTextField CatList2;
-	private JFormattedTextField teamList;
+	private JTextPane BreakList;
+	private JTextPane CatList;
+	private JTextPane CatList2;
+	private JTextPane teamList;
+	private JTextPane BreakPane;
+	private JTextPane TeamPane;
+	private JTextPane CategoryPane;
 	private JComboBox<String> CatBox;
 	private String tempCat;
 	private String tempCat2;
@@ -51,6 +55,7 @@ public class EventPageSetup extends JFrame {
 	private JLabel conBreaks;
 	private JLabel conTeams;
 	private JLabel conCategories;
+	private JLabel lblTimeBetweenRaces;
 	private String tempBreak;
 		
 	
@@ -75,6 +80,7 @@ public class EventPageSetup extends JFrame {
 	 * Create the frame.
 	 */
 	public EventPageSetup() {
+		setResizable(false);
 		//page getting setup!
 		setTitle("Setup");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,12 +103,13 @@ public class EventPageSetup extends JFrame {
 		
 		
 		JButton btnCreate = new JButton("Create");
+		btnCreate.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createFestival();
 			}
 		});
-		btnCreate.setBounds(241, 308, 84, 29);
+		btnCreate.setBounds(724, 463, 150, 49);
 		confirmation.add(btnCreate);
 		
 		JButton btnPrevious = new JButton("Previous");
@@ -111,32 +118,47 @@ public class EventPageSetup extends JFrame {
 				toTeamSetup();
 			}
 		});
-		btnPrevious.setBounds(6, 308, 84, 29);
+		btnPrevious.setBounds(116, 463, 84, 29);
 		confirmation.add(btnPrevious);
 		
 		conFestName = new JLabel("FestName: ");
-		conFestName.setBounds(6, 6, 319, 16);
+		conFestName.setBounds(217, 6, 567, 16);
 		confirmation.add(conFestName);
 		
 		conTimeBetweenRaces = new JLabel("Time Between Races:");
-		conTimeBetweenRaces.setBounds(6, 33, 319, 16);
+		conTimeBetweenRaces.setBounds(217, 33, 319, 16);
 		confirmation.add(conTimeBetweenRaces);
 		
 		conLanes = new JLabel("Lanes per race:");
-		conLanes.setBounds(6, 61, 319, 16);
+		conLanes.setBounds(217, 61, 319, 16);
 		confirmation.add(conLanes);
 		
 		conCategories = new JLabel("Categories that will be used:");
-		conCategories.setBounds(6, 221, 319, 75);
+		conCategories.setBounds(492, 326, 200, 16);
 		confirmation.add(conCategories);
 		
 		conTeams = new JLabel("Teams entered: ");
-		conTeams.setBounds(6, 134, 319, 75);
+		conTeams.setBounds(217, 89, 100, 16);
 		confirmation.add(conTeams);
 		
 		conBreaks = new JLabel("Breaks at:");
-		conBreaks.setBounds(6, 89, 319, 46);
+		conBreaks.setBounds(116, 326, 73, 16);
 		confirmation.add(conBreaks);
+		
+		BreakPane = new JTextPane();
+		BreakPane.setEditable(false);
+		BreakPane.setBounds(116, 354, 375, 97);
+		confirmation.add(BreakPane);
+		
+		TeamPane = new JTextPane();
+		TeamPane.setEditable(false);
+		TeamPane.setBounds(217, 107, 567, 207);
+		confirmation.add(TeamPane);
+		
+		CategoryPane = new JTextPane();
+		CategoryPane.setEditable(false);
+		CategoryPane.setBounds(499, 354, 375, 97);
+		confirmation.add(CategoryPane);
 		teamSetup.setLayout(null);
 		teamSetup.setBorder(new EmptyBorder(5, 5, 5, 5));
 		teamSetup.setBackground(Color.LIGHT_GRAY);
@@ -145,38 +167,40 @@ public class EventPageSetup extends JFrame {
 		
 		JLabel label = new JLabel("Team Setup");
 		label.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		label.setBounds(211, 17, 121, 25);
+		label.setBounds(424, 6, 121, 25);
 		teamSetup.add(label);
 		
 		JLabel label_1 = new JLabel("Team Name");
-		label_1.setBounds(6, 57, 74, 16);
+		label_1.setBounds(219, 46, 74, 16);
 		teamSetup.add(label_1);
 		
 		teamName = new JTextField();
 		teamName.setColumns(10);
-		teamName.setBounds(6, 73, 228, 26);
+		teamName.setBounds(219, 62, 228, 26);
 		teamSetup.add(teamName);
 		
 		JLabel label_2 = new JLabel("Category");
-		label_2.setBounds(271, 57, 61, 16);
+		label_2.setBounds(594, 41, 61, 16);
 		teamSetup.add(label_2);
 		
 		CatBox = new JComboBox<String>();
 		CatBox.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		CatBox.setBounds(263, 74, 121, 27);
+		CatBox.setBounds(586, 58, 121, 27);
 		teamSetup.add(CatBox);
 		
 		JButton addTeam = new JButton("Add Team");
+		addTeam.setEnabled(false);
 		addTeam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addTeam(teamName.getText());
 				}
 		});
-		addTeam.setBounds(148, 52, 90, 29);
+		addTeam.setBounds(361, 41, 90, 29);
 		teamSetup.add(addTeam);
 		
-		teamList = new JFormattedTextField();
-		teamList.setBounds(6, 100, 528, 162);
+		teamList = new JTextPane();
+		teamList.setEditable(false);
+		teamList.setBounds(219, 89, 528, 288);
 		teamSetup.add(teamList);
 		
 		JButton teamDelete = new JButton("Delete");
@@ -185,7 +209,7 @@ public class EventPageSetup extends JFrame {
 				deleteTeam(teamList.getSelectedText());
 				}
 		});
-		teamDelete.setBounds(202, 260, 84, 29);
+		teamDelete.setBounds(415, 389, 84, 29);
 		teamSetup.add(teamDelete);
 		
 		JButton undoTeamDelete = new JButton("Undo");
@@ -194,7 +218,7 @@ public class EventPageSetup extends JFrame {
 				teamUndoDelete();
 				}
 		});
-		undoTeamDelete.setBounds(287, 260, 74, 29);
+		undoTeamDelete.setBounds(500, 389, 74, 29);
 		teamSetup.add(undoTeamDelete);
 		
 		JButton previous = new JButton("Previous");
@@ -203,7 +227,7 @@ public class EventPageSetup extends JFrame {
 				prevPage();
 			}
 		});
-		previous.setBounds(6, 331, 117, 29);
+		previous.setBounds(219, 460, 117, 29);
 		teamSetup.add(previous);
 		
 		JButton finish = new JButton("Finish");
@@ -212,7 +236,7 @@ public class EventPageSetup extends JFrame {
 				finish();
 			}
 		});
-		finish.setBounds(417, 331, 117, 29);
+		finish.setBounds(630, 460, 117, 29);
 		teamSetup.add(finish);
 		
 		JButton addCatToTeam = new JButton("+");
@@ -221,47 +245,47 @@ public class EventPageSetup extends JFrame {
 				addCatToTeam(CatBox.getSelectedItem().toString(), teamName.getText());
 			}
 		});
-		addCatToTeam.setBounds(381, 73, 43, 29);
+		addCatToTeam.setBounds(704, 57, 43, 29);
 		teamSetup.add(addCatToTeam);
 		
 		JLabel lblEventSetup = new JLabel("Event Setup");
-		lblEventSetup.setBounds(214, 6, 111, 25);
+		lblEventSetup.setBounds(424, 6, 111, 25);
 		lblEventSetup.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		contentPane.add(lblEventSetup);
 		
 		JLabel lblFestivalName = new JLabel("Festival Name");
-		lblFestivalName.setBounds(6, 41, 94, 16);
+		lblFestivalName.setBounds(192, 93, 94, 16);
 		contentPane.add(lblFestivalName);
 		
 		FestName = new JTextField();
-		FestName.setBounds(99, 36, 130, 26);
+		FestName.setBounds(285, 88, 130, 26);
 		contentPane.add(FestName);
 		FestName.setColumns(10);
 		
-		JLabel lblTimeBetweenRaces = new JLabel("Time Between Races");
-		lblTimeBetweenRaces.setBounds(6, 83, 130, 16);
+		lblTimeBetweenRaces = new JLabel("Time Between Races");
+		lblTimeBetweenRaces.setBounds(192, 126, 130, 16);
 		contentPane.add(lblTimeBetweenRaces);
 		
 		TBR = new JTextField();
 		TBR.setColumns(10);
-		TBR.setBounds(136, 78, 51, 26);
+		TBR.setBounds(322, 121, 51, 26);
 		contentPane.add(TBR);
 		
 		JLabel lblMinutes = new JLabel("Minutes");
-		lblMinutes.setBounds(193, 83, 51, 16);
+		lblMinutes.setBounds(379, 126, 51, 16);
 		contentPane.add(lblMinutes);
 		
 		JLabel lblMaxNumberOf = new JLabel("Max Number of Lanes");
-		lblMaxNumberOf.setBounds(6, 116, 142, 16);
+		lblMaxNumberOf.setBounds(192, 159, 142, 16);
 		contentPane.add(lblMaxNumberOf);
 		
 		LaneInput = new JTextField();
 		LaneInput.setColumns(10);
-		LaneInput.setBounds(146, 111, 44, 26);
+		LaneInput.setBounds(332, 154, 44, 26);
 		contentPane.add(LaneInput);
 		
 		JLabel lblBreakTimes = new JLabel("Break Time(s)");
-		lblBreakTimes.setBounds(274, 48, 84, 16);
+		lblBreakTimes.setBounds(519, 88, 84, 16);
 		contentPane.add(lblBreakTimes);
 		
 		//code i thought i'd use, but found a different way. might need to refer back to this
@@ -277,7 +301,7 @@ public class EventPageSetup extends JFrame {
 		
 		BreakTime = new JFormattedTextField();//broken);
 		BreakTime.setText("");
-		BreakTime.setBounds(359, 45, 51, 26);
+		BreakTime.setBounds(675, 83, 51, 26);
 		contentPane.add(BreakTime);
 		
 		JButton AddBreak = new JButton("+");
@@ -286,11 +310,12 @@ public class EventPageSetup extends JFrame {
 				addToBreak(BreakTime.getText(), BreakEndTime.getText());
 			}
 		});
-		AddBreak.setBounds(453, 45, 51, 29);
+		AddBreak.setBounds(769, 83, 51, 29);
 		contentPane.add(AddBreak);
 		
-		BreakList = new JFormattedTextField();//broken);
-		BreakList.setBounds(282, 83, 214, 63);
+		BreakList = new JTextPane();//broken);
+		BreakList.setEditable(false);
+		BreakList.setBounds(519, 115, 301, 99);
 		contentPane.add(BreakList);
 		
 		JButton DeleteBreak = new JButton("Delete");
@@ -299,7 +324,7 @@ public class EventPageSetup extends JFrame {
 				deleteBreak(BreakList.getSelectedText());
 				}
 		});
-		DeleteBreak.setBounds(363, 152, 69, 29);
+		DeleteBreak.setBounds(687, 213, 69, 29);
 		contentPane.add(DeleteBreak);
 		
 		JButton UndoDelBreak = new JButton("Undo");
@@ -308,16 +333,16 @@ public class EventPageSetup extends JFrame {
 				deleteBreakUndo();
 				}
 		});
-		UndoDelBreak.setBounds(427, 152, 69, 29);
+		UndoDelBreak.setBounds(751, 213, 69, 29);
 		contentPane.add(UndoDelBreak);
 		
 		JLabel lblCategories = new JLabel("Categories");
-		lblCategories.setBounds(6, 186, 76, 16);
+		lblCategories.setBounds(223, 253, 76, 16);
 		contentPane.add(lblCategories);
 		
 		AddCat = new JTextField();
 		AddCat.setColumns(10);
-		AddCat.setBounds(88, 181, 84, 26);
+		AddCat.setBounds(305, 248, 84, 26);
 		contentPane.add(AddCat);
 		
 		JButton AddCatButton = new JButton("+");
@@ -326,11 +351,12 @@ public class EventPageSetup extends JFrame {
 				addCat(AddCat.getText());
 			}
 		});
-		AddCatButton.setBounds(169, 181, 51, 29);
+		AddCatButton.setBounds(386, 248, 51, 29);
 		contentPane.add(AddCatButton);
 		
-		CatList = new JFormattedTextField();
-		CatList.setBounds(6, 228, 214, 63);
+		CatList = new JTextPane();
+		CatList.setEditable(false);
+		CatList.setBounds(223, 295, 214, 63);
 		contentPane.add(CatList);
 		
 		JButton DelCat = new JButton("Delete");
@@ -339,7 +365,7 @@ public class EventPageSetup extends JFrame {
 				deleteCat(CatList.getSelectedText());
 				}
 		});
-		DelCat.setBounds(87, 297, 69, 29);
+		DelCat.setBounds(304, 370, 69, 29);
 		contentPane.add(DelCat);
 		
 		JButton UndoDelCat = new JButton("Undo");
@@ -348,19 +374,20 @@ public class EventPageSetup extends JFrame {
 				deleteCatUndo();
 				}
 		});
-		UndoDelCat.setBounds(151, 297, 69, 29);
+		UndoDelCat.setBounds(368, 370, 69, 29);
 		contentPane.add(UndoDelCat);
 		
 		JLabel lblUnused = new JLabel("Unused");
-		lblUnused.setBounds(6, 210, 61, 16);
+		lblUnused.setBounds(223, 277, 61, 16);
 		contentPane.add(lblUnused);
 		
-		CatList2 = new JFormattedTextField();
-		CatList2.setBounds(282, 228, 214, 63);
+		CatList2 = new JTextPane();
+		CatList2.setEditable(false);
+		CatList2.setBounds(499, 295, 214, 63);
 		contentPane.add(CatList2);
 		
 		JLabel lblUsed = new JLabel("Used");
-		lblUsed.setBounds(282, 210, 61, 16);
+		lblUsed.setBounds(499, 277, 61, 16);
 		contentPane.add(lblUsed);
 		
 		JButton UseCat = new JButton(">");
@@ -369,7 +396,7 @@ public class EventPageSetup extends JFrame {
 				moveCatUse(CatList.getSelectedText());
 				}
 		});
-		UseCat.setBounds(226, 228, 44, 29);
+		UseCat.setBounds(443, 295, 44, 29);
 		contentPane.add(UseCat);
 		
 		JButton UnuseCat = new JButton("<");
@@ -378,7 +405,7 @@ public class EventPageSetup extends JFrame {
 				moveCatBack(CatList2.getSelectedText());
 				}
 		});
-		UnuseCat.setBounds(226, 262, 44, 29);
+		UnuseCat.setBounds(443, 329, 44, 29);
 		contentPane.add(UnuseCat);
 		
 		JButton btnNext = new JButton("Next");
@@ -387,20 +414,20 @@ public class EventPageSetup extends JFrame {
 				nextPage();
 			}
 		});
-		btnNext.setBounds(417, 331, 117, 29);
+		btnNext.setBounds(703, 414, 117, 29);
 		contentPane.add(btnNext);
 		
 		BreakEndTime = new JFormattedTextField();//broken);
-		BreakEndTime.setBounds(407, 45, 51, 26);
+		BreakEndTime.setBounds(723, 83, 51, 26);
 		BreakEndTime.setText("");
 		contentPane.add(BreakEndTime);
 		
 		JLabel lblStart = new JLabel("Start");
-		lblStart.setBounds(363, 29, 34, 16);
+		lblStart.setBounds(679, 67, 34, 16);
 		contentPane.add(lblStart);
 		
 		JLabel lblEnd = new JLabel("End");
-		lblEnd.setBounds(407, 29, 34, 16);
+		lblEnd.setBounds(723, 67, 34, 16);
 		contentPane.add(lblEnd);
 	}
 	
@@ -413,20 +440,22 @@ public class EventPageSetup extends JFrame {
 		w.add(that);
 		w.add(that1);
 		FestivalObject.breaksArray.add(w);
-		BreakList.setText(FestivalObject.getBreakList().toString());
+		BreakList.setText(String.valueOf(FestivalObject.getBreakList()));
 	}
 	//deletes break form list
 	public void deleteBreak(String selected){
 		tempBreak = selected;
 		System.out.println(tempBreak);
-		try{
-		FestivalObject.breaksArray.remove(tempBreak);}catch(NumberFormatException e){ e.getStackTrace();}
+		try{//won't remove // this is BS
+		FestivalObject.breaksArray.remove(FestivalObject.breaksArray.indexOf(tempBreak));}catch(IndexOutOfBoundsException e){ e.getStackTrace();}
 		BreakList.setText(String.valueOf(FestivalObject.getBreakList()));
 	}
 	//undo delete
 	public void deleteBreakUndo(){
-		//need to fix // don't know how yet
-		FestivalObject.breaksArray.add(tempBreak);
+		//need to fix // don't know how to fix // help // stopped it from being error, but still don't know what to do
+		ArrayList<Integer> br = new ArrayList<Integer>();
+		br.add(Integer.valueOf(tempBreak));
+		FestivalObject.breaksArray.add(br);
 		BreakList.setText(String.valueOf(FestivalObject.getBreakList()));
 	}
 	
@@ -486,28 +515,38 @@ public class EventPageSetup extends JFrame {
 		FestivalObject.timeBetweenRaces = Integer.parseInt(TBR.getText());
 		FestivalObject.lanes = Integer.parseInt(LaneInput.getText());
 		teamSetup.setVisible(true);
+		contentPane.setEnabled(false);
 	}
 	//goes back to event setup
 	public void prevPage(){
+		teamSetup.setEnabled(false);
 		teamSetup.setVisible(false);
+		contentPane.setEnabled(true);
 	}
-	
+	//goes back to team setup
 	public void toTeamSetup(){
+		teamSetup.setEnabled(true);
+		teamSetup.setVisible(true);
+		confirmation.setEnabled(false);
 		confirmation.setVisible(false);
-		//conFestName.setText("");
 	}
 	
-	public void finish(){//will bring up popup with entered information
+	public void finish(){//will display entered information
 		confirmation.setVisible(true);
-		//teamSetup.setVisible(false);
-		//contentPane.setVisible(false);
+		confirmation.setEnabled(true);
+		teamSetup.setEnabled(false);
+		teamSetup.setVisible(false);
 		
 		conFestName.setText("Festival Name: " + FestivalObject.getFestName());
 		conTimeBetweenRaces.setText("Time Between Races: " + FestivalObject.getTBR() + " mins");
 		conLanes.setText("Lanes per race: " + FestivalObject.getLanes());
-		conBreaks.setText("Breaks at: " + FestivalObject.getBreakList());
-		conTeams.setText("Teams Entered: " + FestivalObject.getTeam());
-		conCategories.setText("Categories: " + FestivalObject.getCategory_Use());
+		conBreaks.setText("Breaks at: ");
+		BreakPane.setText(String.valueOf(FestivalObject.getBreakList()));//doesn't print
+		conTeams.setText("Teams Entered: ");
+		TeamPane.setText(FestivalObject.getTeam().toString());//doesn't print
+		conCategories.setText("Categories that will be used: ");
+		CategoryPane.setText(FestivalObject.getCategory_Use().toString());//doesn't print
+		
 		//following prints are to test if the variables are getting information
 		System.out.println(FestivalObject.getFestName());
 		System.out.println(FestivalObject.getTBR());
@@ -550,19 +589,13 @@ public class EventPageSetup extends JFrame {
 		
 		FestivalObject.teamsArray.add(tempName + t.toString());
 		teamList.setText(String.valueOf(FestivalObject.getTeam()));
-		}
-		
-					
-		
-		
-		
-		
+			}
 	}
 	//remove team from arraylist
 	public void deleteTeam(String noTeam){
 		tempTeam = noTeam;
 		System.out.println(tempTeam);
-		FestivalObject.teamsArray.remove(noTeam);
+		FestivalObject.teamsArray.remove(FestivalObject.teamsArray.indexOf(noTeam));
 		teamList.setText(String.valueOf(FestivalObject.getTeam()));
 	}
 	//undo delete
