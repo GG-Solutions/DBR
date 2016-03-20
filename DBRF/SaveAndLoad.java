@@ -24,32 +24,58 @@ public class SaveAndLoad {
 		
 		Document doc = dB.newDocument();
 		
-		Element el = doc.createElement("TeamObject");
+		//build the teamsArray information
+		Element el = doc.createElement("teamsArray");
 		doc.appendChild(el);
 		
-		Attr attr = doc.createAttribute("teamName");
-//		attr.setValue();
-		el.setAttributeNode(attr);
+		for(int i = 0; i < TestUI.teamsArray.size(); i++) {
+			
+//			Attr attr = doc.createAttribute("TeamObject");
+//			attr.setValue("hi");
+//			el.setAttributeNode(attr);
+			
+			Element teamName = doc.createElement("teamName");
+			teamName.appendChild(doc.createTextNode(TestUI.teamsArray.get(i).getTeamName()));
+			el.appendChild(teamName);
+			
+			Element category = doc.createElement("category");
+			category.appendChild(doc.createTextNode(TestUI.teamsArray.get(i).getCategory()));
+			teamName.appendChild(category);
+			
+			Element place = doc.createElement("place");
+			place.appendChild(doc.createTextNode(TestUI.teamsArray.get(i).getPlace()));
+			teamName.appendChild(place);
+			
+			Element firstRaceTime = doc.createElement("firstRaceTime");
+			firstRaceTime.appendChild(doc.createTextNode(Integer.toString(TestUI.teamsArray.get(i).getFirstRaceTime())));
+			teamName.appendChild(firstRaceTime);
+			
+			Element secondRaceTime = doc.createElement("secondRaceTime");
+			secondRaceTime.appendChild(doc.createTextNode(Integer.toString(TestUI.teamsArray.get(i).getSecondRaceTime())));
+			teamName.appendChild(secondRaceTime);
+			
+			Element semiFinalRaceTime = doc.createElement("semiFinalRaceTime");
+			semiFinalRaceTime.appendChild(doc.createTextNode(Integer.toString(TestUI.teamsArray.get(i).getSemiFinalRaceTime())));
+			teamName.appendChild(semiFinalRaceTime);
+			
+			Element finalRaceTime = doc.createElement("finalRaceTime");
+			finalRaceTime.appendChild(doc.createTextNode(Integer.toString(TestUI.teamsArray.get(i).getFinalRaceTime())));
+			teamName.appendChild(finalRaceTime);
+			
+			Element averagedRaceTime = doc.createElement("averagedRaceTime");
+			averagedRaceTime.appendChild(doc.createTextNode(Integer.toString(TestUI.teamsArray.get(i).getAveragedRaceTime())));
+			teamName.appendChild(averagedRaceTime);
 		
-		Element name = doc.createElement("Name");
-		name.appendChild(doc.createTextNode("Sahil"));
-		el.appendChild(name);
+		}
 		
-		Element surname = doc.createElement("SurName");
-		surname.appendChild(doc.createTextNode("Chunky"));
-		el.appendChild(surname);
-		
-		Element age = doc.createElement("Age");
-		age.appendChild(doc.createTextNode("21"));
-		el.appendChild(age);
-		
+		//transfor the built information into a formatted xml file
 		TransformerFactory tF = TransformerFactory.newInstance();
 		Transformer tran = tF.newTransformer();
 		tran.setOutputProperty(OutputKeys.INDENT, "yes");	//add indenting to output xml file
-		tran.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");	//adds 2 spaces to each indexed xml line
+		tran.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");	//adds 2 spaces to each indexed xml line
 		DOMSource src = new DOMSource(doc);
 		
-		StreamResult sR = new StreamResult(new File("C:\\Users\\David van de Kamp\\Desktop\\festival.xml"));
+		StreamResult sR = new StreamResult(new File("C:\\Users\\David van de Kamp\\Desktop\\festival.xml"));	//TODO - change to the festivalName
 		
 		tran.transform(src, sR);	//output the file
 	}
@@ -61,19 +87,19 @@ public class SaveAndLoad {
 		DocumentBuilder dB = dBF.newDocumentBuilder();
 		Document doc = dB.parse(xmlFile);
 		
-		NodeList list = doc.getElementsByTagName("Dev");
+//		NodeList list = doc.getElementsByTagName("Dev");
 		
-		for(int i =0; i < list.getLength(); i++) {
-			Node node = list.item(i);
-			
-			if(node.getNodeType() == Node.ELEMENT_NODE) {
-				Element el = (Element) node;
-				System.out.println("ID: " + el.getAttribute("ID"));
-				System.out.println("Name: " + el.getElementsByTagName("Name").item(0).getTextContent());
-				System.out.println("SurName: " + el.getElementsByTagName("SurName").item(0).getTextContent());
-				System.out.println("Age: " + el.getElementsByTagName("Age").item(0).getTextContent());
-			}
-		}
+//		for(int i =0; i < list.getLength(); i++) {
+//			Node node = list.item(i);
+//			
+//			if(node.getNodeType() == Node.ELEMENT_NODE) {
+//				Element el = (Element) node;
+//				System.out.println("ID: " + el.getAttribute("ID"));
+//				System.out.println("Name: " + el.getElementsByTagName("Name").item(0).getTextContent());
+//				System.out.println("SurName: " + el.getElementsByTagName("SurName").item(0).getTextContent());
+//				System.out.println("Age: " + el.getElementsByTagName("Age").item(0).getTextContent());
+//			}
+//		}
 	}
 	
 }

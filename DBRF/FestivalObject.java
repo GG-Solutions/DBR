@@ -1,5 +1,6 @@
 package DBRF;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 
 
@@ -25,7 +26,8 @@ public class FestivalObject {
 	public static ArrayList<String> categoryUse = new ArrayList<String>();
 	
 	//should be TeamObject along w/ the getter and setter
-	public static ArrayList<String> teamsArray = new ArrayList<String>();
+	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
+	public static ArrayList<RaceObject> racesArray = new ArrayList<RaceObject>();
 
 	
 	public FestivalObject() {};
@@ -79,12 +81,26 @@ public class FestivalObject {
 		FestivalObject.categoryUse = categoryUse;
 	}
 	
-	public static ArrayList<String> getTeamsArray() {
+	public static ArrayList<TeamObject> getTeamsArray() {
 		return teamsArray;
 	}
 
-	public void setTeamsArray(ArrayList<String> teams) {
+	public void setTeamsArray(ArrayList<TeamObject> teams) {
 		teamsArray = teams;
 	}
+	
+	//call main here to start the program
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TestUI window = new TestUI();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 	
 }

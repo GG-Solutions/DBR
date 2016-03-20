@@ -56,12 +56,21 @@ public class TeamObject
 	}
 	
 	/**
-	 * Sets the private String category variable.
+	 * Sets the private int place variable.
 	 * Inputs - String cat - String to set the category variable.
 	 * Outputs - None.
 	 */
 	public void setCategory(String cat) {
 		category = cat;
+	}
+	
+	/**
+	 * Sets the private String category variable.
+	 * Inputs - int place - integer to set the place variable.
+	 * Outputs - None.
+	 */
+	public void setPlace(int place) {
+		this.place = place;
 	}
 	
 	/**
@@ -129,6 +138,15 @@ public class TeamObject
 	 * Outputs - Returns the category variable.
 	 */
 	public String getCategory() {
+		return category;
+	}
+	
+	/**
+	 * Gets the private int place variable.
+	 * Inputs - None.
+	 * Outputs - Returns the place variable.
+	 */
+	public String getPlace() {
 		return category;
 	}
 	
