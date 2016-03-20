@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFormattedTextField;
 
-public class RaceObject 
-{
+public class RaceObject {
 	private int raceNumber;
 	private int raceTime;			//the time at which the race will take place
 	private int numberOfLanes;		//numberOfLanes reference from the setup variable - do we need this?

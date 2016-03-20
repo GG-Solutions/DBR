@@ -5,6 +5,7 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -23,11 +24,11 @@ public class SaveAndLoad {
 		
 		Document doc = dB.newDocument();
 		
-		Element el = doc.createElement("Dev");
+		Element el = doc.createElement("TeamObject");
 		doc.appendChild(el);
 		
-		Attr attr = doc.createAttribute("ID");
-		attr.setValue("1");
+		Attr attr = doc.createAttribute("teamName");
+//		attr.setValue();
 		el.setAttributeNode(attr);
 		
 		Element name = doc.createElement("Name");
@@ -44,11 +45,13 @@ public class SaveAndLoad {
 		
 		TransformerFactory tF = TransformerFactory.newInstance();
 		Transformer tran = tF.newTransformer();
+		tran.setOutputProperty(OutputKeys.INDENT, "yes");	//add indenting to output xml file
+		tran.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");	//adds 2 spaces to each indexed xml line
 		DOMSource src = new DOMSource(doc);
 		
 		StreamResult sR = new StreamResult(new File("C:\\Users\\David van de Kamp\\Desktop\\festival.xml"));
 		
-		tran.transform(src, sR);
+		tran.transform(src, sR);	//output the file
 	}
 	
 	public static void loadXML() throws Exception {

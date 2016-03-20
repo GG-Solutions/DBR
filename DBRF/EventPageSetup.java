@@ -484,12 +484,12 @@ public class EventPageSetup extends JFrame {
 		tempCat2 = useCat;
 		ArrayList<String> uc = new ArrayList<String>();
 		uc.add(useCat);
-		FestivalObject.Category_Use.addAll(uc);
+		FestivalObject.categoryUse.addAll(uc);
 		if(FestivalObject.categoriesArray.contains(tempCat2)){
 		FestivalObject.categoriesArray.remove(useCat);}
 		
 		CatList.setText(String.valueOf(FestivalObject.getCategory()));
-		CatList2.setText(String.valueOf(FestivalObject.getCategory_Use()));
+		CatList2.setText(String.valueOf(FestivalObject.getCategoryUse()));
 		try{
 		CatBox.addItem(tempCat2);}catch(NullPointerException e){e.getStackTrace();}
 	}
@@ -499,10 +499,10 @@ public class EventPageSetup extends JFrame {
 		ArrayList<String> nuc = new ArrayList<String>();
 		nuc.add(noUseCat);
 		FestivalObject.categoriesArray.addAll(nuc);
-		if(FestivalObject.Category_Use.contains(tempCat3)){
-			FestivalObject.Category_Use.remove(noUseCat);}
+		if(FestivalObject.categoryUse.contains(tempCat3)){
+			FestivalObject.categoryUse.remove(noUseCat);}
 		
-		CatList2.setText(String.valueOf(FestivalObject.getCategory_Use()));
+		CatList2.setText(String.valueOf(FestivalObject.getCategoryUse()));
 		CatList.setText(String.valueOf(FestivalObject.getCategory()));
 		try{
 		CatBox.removeItem(tempCat3);}catch(NullPointerException e){e.getStackTrace();}
@@ -543,18 +543,18 @@ public class EventPageSetup extends JFrame {
 		conBreaks.setText("Breaks at: ");
 		BreakPane.setText(String.valueOf(FestivalObject.getBreakList()));//doesn't print
 		conTeams.setText("Teams Entered: ");
-		TeamPane.setText(FestivalObject.getTeam().toString());//doesn't print
+		TeamPane.setText(FestivalObject.getTeamsArray().toString());//doesn't print
 		conCategories.setText("Categories that will be used: ");
-		CategoryPane.setText(FestivalObject.getCategory_Use().toString());//doesn't print
+		CategoryPane.setText(FestivalObject.getCategoryUse().toString());//doesn't print
 		
 		//following prints are to test if the variables are getting information
 		System.out.println(FestivalObject.getFestName());
 		System.out.println(FestivalObject.getTBR());
 		System.out.println(FestivalObject.getLanes());
 		System.out.println(FestivalObject.getCategory());
-		System.out.println(FestivalObject.getCategory_Use());
+		System.out.println(FestivalObject.getCategoryUse());
 		System.out.println(FestivalObject.getBreakList());
-		System.out.println(FestivalObject.getTeam());
+		System.out.println(FestivalObject.getTeamsArray());
 	}
 	
 	public void createFestival(){
@@ -568,7 +568,7 @@ public class EventPageSetup extends JFrame {
 			System.out.println("Name Already Exists\n");
 		}else{
 			FestivalObject.teamsArray.add(tempName);
-			teamList.setText(String.valueOf(FestivalObject.getTeam()));
+			teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
 		}
 	}
 	//if team name exists and the names match up(as in it's not a new team) add the category to the team
@@ -588,7 +588,7 @@ public class EventPageSetup extends JFrame {
 		//}
 		
 		FestivalObject.teamsArray.add(tempName + t.toString());
-		teamList.setText(String.valueOf(FestivalObject.getTeam()));
+		teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
 			}
 	}
 	//remove team from arraylist
@@ -596,12 +596,12 @@ public class EventPageSetup extends JFrame {
 		tempTeam = noTeam;
 		System.out.println(tempTeam);
 		FestivalObject.teamsArray.remove(FestivalObject.teamsArray.indexOf(noTeam));
-		teamList.setText(String.valueOf(FestivalObject.getTeam()));
+		teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
 	}
 	//undo delete
 	public void teamUndoDelete(){
 		FestivalObject.teamsArray.add(tempTeam);
-		teamList.setText(String.valueOf(FestivalObject.getTeam()));
+		teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
 	}
 }
 
