@@ -15,15 +15,19 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import javax.swing.JPasswordField;
+import java.awt.Font;
 
 public class userLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtName;
-	private JTextField txtPassword;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -45,52 +49,28 @@ public class userLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public userLogin() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 465, 305);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
-		
-		JLabel lblLoginPage = new JLabel("Login Page");
-		GridBagConstraints gbc_lblLoginPage = new GridBagConstraints();
-		gbc_lblLoginPage.insets = new Insets(0, 0, 5, 5);
-		gbc_lblLoginPage.gridx = 4;
-		gbc_lblLoginPage.gridy = 1;
-		contentPane.add(lblLoginPage, gbc_lblLoginPage);
+		contentPane.setLayout(null);
 		
 		txtName = new JTextField();
-		txtName.setText("Name");
-		GridBagConstraints gbc_txtName = new GridBagConstraints();
-		gbc_txtName.insets = new Insets(0, 0, 5, 5);
-		gbc_txtName.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtName.gridx = 4;
-		gbc_txtName.gridy = 3;
-		contentPane.add(txtName, gbc_txtName);
+		txtName.setBounds(110, 136, 105, 20);
+		txtName.setToolTipText("Name");
+		contentPane.add(txtName);
 		txtName.setColumns(10);
 		
-		txtPassword = new JTextField();
-		txtPassword.setText("Password");
-		GridBagConstraints gbc_txtPassword = new GridBagConstraints();
-		gbc_txtPassword.insets = new Insets(0, 0, 5, 0);
-		gbc_txtPassword.anchor = GridBagConstraints.WEST;
-		gbc_txtPassword.fill = GridBagConstraints.VERTICAL;
-		gbc_txtPassword.gridx = 6;
-		gbc_txtPassword.gridy = 3;
-		contentPane.add(txtPassword, gbc_txtPassword);
-		txtPassword.setColumns(10);
-		
 		JButton btnNewButton = new JButton("Login");
+		btnNewButton.setBounds(188, 187, 86, 23);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try {
-					boolean loginFlag = LoginInfo.uLogin(txtName.getText(),txtPassword.getText());
+					@SuppressWarnings("deprecation")
+					boolean loginFlag = LoginInfo.uLogin(txtName.getText(),passwordField.getText());
 					if(loginFlag){
 					newSuccess();
 					} 
@@ -100,18 +80,41 @@ public class userLogin extends JFrame {
 				}
 			}
 		});
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 4;
-		gbc_btnNewButton.gridy = 5;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
+		contentPane.add(btnNewButton);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(306, 136, 86, 20);
+		passwordField.setToolTipText("Password");
+		contentPane.add(passwordField);
+		
+		JLabel lblNewLabel = new JLabel("User Name:");
+		lblNewLabel.setBounds(38, 139, 115, 14);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setBounds(238, 139, 105, 14);
+		contentPane.add(lblPassword);
+		
+		JLabel lblDragonBoatFestival = new JLabel("Dragon Boat Festival");
+		lblDragonBoatFestival.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		lblDragonBoatFestival.setBounds(108, 22, 284, 63);
+		contentPane.add(lblDragonBoatFestival);
 		
 	
 	}
 	
 	public void newSuccess (){
 		this.dispose();
-		new Success().setVisible(true);
+		int dialogButton = JOptionPane.YES_NO_OPTION;
+		int dialogResult = JOptionPane.showConfirmDialog(this, "Load a Festival?", "Festival Load", dialogButton);
+		if(dialogResult == 0) {
+		 this.dispose();
+		 new MainMenu().setVisible(true);
+		} else {
+		 this.dispose();
+		 new EventPageSetup().setVisible(true);
+		 
+		} 
+		
 	}
-
 }
