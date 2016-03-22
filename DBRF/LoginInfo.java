@@ -17,8 +17,11 @@ import java.util.Scanner;
 public class LoginInfo {
 	static boolean success=false;
 	
-	// I commented out most of this and made it really easy to login so that we could demo it with out any issues
-	// I am currently working on correcting these issues.
+	/**
+	 * Login tto the program
+	 * Inputs - Users Name and Password
+	 * Outputs 	- Boolean from the login attempt. 
+	 **/
 	
 	public static boolean uLogin(String uLogin, String uPass) throws IOException{
 	  	Scanner s1;
@@ -44,8 +47,13 @@ public class LoginInfo {
 		return success;
 	}
 	
+	/**
+	 * Adds a User
+	 * Inputs - Users Name and Password
+	 * Outputs 	- None 
+	 **/
+	
 	public static void addUser(String uName, String uPass) throws FileNotFoundException{
-      // this will add a user 
 		OutputStream output = new FileOutputStream("test.txt",true);
 		PrintStream printStream = new PrintStream(output);
 		printStream.println();
@@ -55,8 +63,13 @@ public class LoginInfo {
 		printStream.close();
 	}
 	
+	/**
+	 * Removes a User
+	 * Inputs - Users Name and Password
+	 * Outputs 	- None 
+	 **/
+	
 	public static void removeUser(String uName, String uPass) throws IOException{
-      // this will remove a user
 		File inputFile = new File("test.txt");
 		File tempFile = new File("myTempFile.txt");
 
