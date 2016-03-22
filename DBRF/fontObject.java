@@ -4,15 +4,17 @@ import java.applet.Applet;
 import java.awt.Font;
 import java.awt.Graphics;
 
-public class fontObject extends Applet {
-	@Override
+import javax.swing.JLabel;
+
+public class FontObject extends Applet {
+
+	//public FontClass fc = new FontClass();
 	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
 		
-		Font f= new Font("Times new romans", Font.PLAIN, 25);
+		Font x = new Font("Times new romans", Font.PLAIN, 19);
 		
-		g.setFont(f);
-		g.drawString("testing", 50, 50);
-		
+		g.setFont(x);
+	
+		g.drawString("testing", 19 ,19);
 	}
 }

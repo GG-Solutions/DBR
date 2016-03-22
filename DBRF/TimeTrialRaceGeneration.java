@@ -339,13 +339,4 @@ public class TimeTrialRaceGeneration {
 			//END OF FOR LOOP FOR ALL THE RACES ----------------------------------------------
 		}
 	}
-	
-	
-	//method to check if all the times are filled in and locked?
-		//can loop through the raceCards array and use 
-	//if they are, open up the semi-finals radio button
-	public void changeRaceTimes() {
-		
-	}
-	
 }

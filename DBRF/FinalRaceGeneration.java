@@ -72,11 +72,11 @@ public class FinalRaceGeneration
 		}
 //		System.out.println(thisOne);
 		//print out everything in tmCat for TESTING
-		for(int i = 0; i < tmCat.size(); i++) {
+//		for(int i = 0; i < tmCat.size(); i++) {
 //			for(int j = 0; j < tmCat.get(i).size(); j++) {
-				System.out.println(i + " - " + tmCat.get(i).size());
+//				System.out.println(i + " - " + tmCat.get(i).size());
 //			}
-		}
+//		}
 		
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		
@@ -284,9 +284,9 @@ public class FinalRaceGeneration
 			}
 			
 			//was using for TESTING
-			for(int k = 0; k < theseTeams.size(); k++) {
-				System.out.println(theseTeams.get(k).getSemiFinalRaceTime() + " - " + theseTeams.get(k).getTeamName());
-			}
+//			for(int k = 0; k < theseTeams.size(); k++) {
+//				System.out.println(theseTeams.get(k).getSemiFinalRaceTime() + " - " + theseTeams.get(k).getTeamName());
+//			}
 			
 			int tempSize = theseTeams.size();	//not sure why i need this to make it work yet
 			
@@ -406,13 +406,5 @@ public class FinalRaceGeneration
 			i++;
 		}
 		//END OF FOR LOOP FOR THE RACES ----------------------------------------------
-	}
-	
-	
-	//method to check if all the times are filled in and locked?
-		//can loop through the raceCards array and use 
-	//if they are, open up the semi-finals radio button
-	public void changeRaceTimes() {
-		
 	}
 }

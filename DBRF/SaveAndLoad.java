@@ -18,6 +18,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class SaveAndLoad {
+	
+	/**
+	 * Builds and exports an XML file that svaes all needed variables.
+	 * Inputs - None.
+	 * Outputs - An XML file.
+	 */
 	public static void saveXML() throws Exception {
 		DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dB = dBF.newDocumentBuilder();
@@ -28,42 +34,42 @@ public class SaveAndLoad {
 		Element el = doc.createElement("teamsArray");
 		doc.appendChild(el);
 		
-		for(int i = 0; i < TestUI.teamsArray.size(); i++) {
+		for(int i = 0; i < Schedule.teamsArray.size(); i++) {
 			
 //			Attr attr = doc.createAttribute("TeamObject");
 //			attr.setValue("hi");
 //			el.setAttributeNode(attr);
 			
 			Element teamName = doc.createElement("teamName");
-			teamName.appendChild(doc.createTextNode(TestUI.teamsArray.get(i).getTeamName()));
+			teamName.appendChild(doc.createTextNode(Schedule.teamsArray.get(i).getTeamName()));
 			el.appendChild(teamName);
 			
 			Element category = doc.createElement("category");
-			category.appendChild(doc.createTextNode(TestUI.teamsArray.get(i).getCategory()));
+			category.appendChild(doc.createTextNode(Schedule.teamsArray.get(i).getCategory()));
 			teamName.appendChild(category);
 			
 			Element place = doc.createElement("place");
-			place.appendChild(doc.createTextNode(TestUI.teamsArray.get(i).getPlace()));
+			place.appendChild(doc.createTextNode(Schedule.teamsArray.get(i).getPlace()));
 			teamName.appendChild(place);
 			
 			Element firstRaceTime = doc.createElement("firstRaceTime");
-			firstRaceTime.appendChild(doc.createTextNode(Integer.toString(TestUI.teamsArray.get(i).getFirstRaceTime())));
+			firstRaceTime.appendChild(doc.createTextNode(Integer.toString(Schedule.teamsArray.get(i).getFirstRaceTime())));
 			teamName.appendChild(firstRaceTime);
 			
 			Element secondRaceTime = doc.createElement("secondRaceTime");
-			secondRaceTime.appendChild(doc.createTextNode(Integer.toString(TestUI.teamsArray.get(i).getSecondRaceTime())));
+			secondRaceTime.appendChild(doc.createTextNode(Integer.toString(Schedule.teamsArray.get(i).getSecondRaceTime())));
 			teamName.appendChild(secondRaceTime);
 			
 			Element semiFinalRaceTime = doc.createElement("semiFinalRaceTime");
-			semiFinalRaceTime.appendChild(doc.createTextNode(Integer.toString(TestUI.teamsArray.get(i).getSemiFinalRaceTime())));
+			semiFinalRaceTime.appendChild(doc.createTextNode(Integer.toString(Schedule.teamsArray.get(i).getSemiFinalRaceTime())));
 			teamName.appendChild(semiFinalRaceTime);
 			
 			Element finalRaceTime = doc.createElement("finalRaceTime");
-			finalRaceTime.appendChild(doc.createTextNode(Integer.toString(TestUI.teamsArray.get(i).getFinalRaceTime())));
+			finalRaceTime.appendChild(doc.createTextNode(Integer.toString(Schedule.teamsArray.get(i).getFinalRaceTime())));
 			teamName.appendChild(finalRaceTime);
 			
 			Element averagedRaceTime = doc.createElement("averagedRaceTime");
-			averagedRaceTime.appendChild(doc.createTextNode(Integer.toString(TestUI.teamsArray.get(i).getAveragedRaceTime())));
+			averagedRaceTime.appendChild(doc.createTextNode(Integer.toString(Schedule.teamsArray.get(i).getAveragedRaceTime())));
 			teamName.appendChild(averagedRaceTime);
 		
 		}
@@ -80,6 +86,11 @@ public class SaveAndLoad {
 		tran.transform(src, sR);	//output the file
 	}
 	
+	/**
+	 * Loads information from an XML file.
+	 * Inputs - None.
+	 * Outputs - Builds the variables in the FestivalObject class.
+	 */
 	public static void loadXML() throws Exception {
 		File xmlFile = new File("C:\\Users\\David van de Kamp\\Desktop\\festival.xml");
 		

@@ -1,6 +1,7 @@
 package DBRF;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.util.ArrayList;
 
 
@@ -28,6 +29,8 @@ public class FestivalObject {
 	//should be TeamObject along w/ the getter and setter
 	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
 	public static ArrayList<RaceObject> racesArray = new ArrayList<RaceObject>();
+	
+//	public static Font font = new Font();
 
 	
 	public FestivalObject() {};

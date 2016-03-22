@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import javax.swing.JLabel;
@@ -70,8 +72,8 @@ public class GG extends JFrame {
 		JButton btnFont = new JButton("Change Font");
 		btnFont.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-		fC fontc = new fC();
-		
+		FontClass fontc = new FontClass();
+		//FontObject fontO = new FontObject();
 			
 			}
 		});
@@ -108,5 +110,6 @@ public class GG extends JFrame {
 		gbc_DeleteUser.gridy = 8;
 		contentPane.add(DeleteUser, gbc_DeleteUser);
 	}
+
 
 }

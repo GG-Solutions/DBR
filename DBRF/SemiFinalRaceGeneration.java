@@ -36,6 +36,16 @@ public class SemiFinalRaceGeneration {
 	public void generateSemiFinalRaces(int numOfLanes, ArrayList<ArrayList<Integer>> breaksArray, 
 			ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JPanel panel, ArrayList<String> categoriesArray) {
 		
+		//process all the time trial races to figure out the averaged race time for each team.
+		for(int i = 0; i < teams.size(); i++) {
+			//get both races times
+			float tempTime1 = teams.get(i).getFirstRaceTime();
+			float tempTime2 = teams.get(i).getSecondRaceTime();
+			
+			teams.get(i).setAveragedRaceTime((int)(tempTime1 + tempTime2) / 2);		//TODO - deal with rounding
+//			System.out.println(teams.get(i).getAveragedRaceTime());
+		}
+		
 		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(teams);		//duplicate the teams array
 		
 //		for(int i = 0; i < teams.size(); i++) {
@@ -43,7 +53,7 @@ public class SemiFinalRaceGeneration {
 //		}
 		
 		//sort the duplicated tm ArrayList based on the averagedRaceTime in ascending order before separating by category
-			//this makes them stay sorted before separation
+		//this makes them stay sorted before separation
 		Collections.sort(tm, new Comparator<TeamObject>() {
 			public int compare(TeamObject o1, TeamObject o2) {
 				return String.format("%06d", o1.getAveragedRaceTime()).compareTo(String.format("%06d", o2.getAveragedRaceTime()));
@@ -417,13 +427,4 @@ public class SemiFinalRaceGeneration {
 		}
 		//END OF FOR LOOP FOR THE RACES ----------------------------------------------
 	}
-	
-	
-	//method to check if all the times are filled in and locked?
-		//can loop through the raceCards array and use 
-	//if they are, open up the semi-finals radio button
-	public void changeRaceTimes() {
-		
-	}
-	
 }
