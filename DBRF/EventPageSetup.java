@@ -442,12 +442,12 @@ public class EventPageSetup extends JFrame {
 		FestivalObject.breaksArray.add(w);
 		BreakList.setText(String.valueOf(FestivalObject.getBreakList()));
 	}
-	//deletes break form list
+	//deletes break from list
 	public void deleteBreak(String selected){
 		tempBreak = selected;
 		System.out.println(tempBreak);
-		try{//won't remove // this is BS
-		FestivalObject.breaksArray.remove(FestivalObject.breaksArray.indexOf(tempBreak));}catch(IndexOutOfBoundsException e){ e.getStackTrace();}
+		try{//won't remove 
+		FestivalObject.breaksArray.remove(tempBreak);}catch(IndexOutOfBoundsException e){ e.getStackTrace();}
 		BreakList.setText(String.valueOf(FestivalObject.getBreakList()));
 	}
 	//undo delete
