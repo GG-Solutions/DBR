@@ -2,6 +2,7 @@ package DBRF;
 
 public class TeamObject
 {
+	private int teamID = -1;
 	private String teamName = "";
 	private String category = "";
 	private int place = -1;		//set to -1 as default? global place that the team is in
@@ -51,17 +52,35 @@ public class TeamObject
 	 * Inputs - String name - String to set the teamName variable.
 	 * Outputs - None.
 	 */
+	public void setTeamID(int num) {
+		teamID = num;
+	}
+	
+	/**
+	 * Sets the private int teamID variable.
+	 * Inputs - int name - int to set the teamID variable.
+	 * Outputs - None.
+	 */
 	public void setTeamName(String name) {
 		teamName = name;
 	}
 	
 	/**
-	 * Sets the private String category variable.
+	 * Sets the private int place variable.
 	 * Inputs - String cat - String to set the category variable.
 	 * Outputs - None.
 	 */
 	public void setCategory(String cat) {
 		category = cat;
+	}
+	
+	/**
+	 * Sets the private String category variable.
+	 * Inputs - int place - integer to set the place variable.
+	 * Outputs - None.
+	 */
+	public void setPlace(int num) {
+		place = num;
 	}
 	
 	/**
@@ -115,6 +134,15 @@ public class TeamObject
 	}
 	
 	/**
+	 * Gets the private int teamID variable. 
+	 * Inputs - None.
+	 * Outputs - Returns the teamID variable. 
+	 */
+	public int getTeamID() {
+		return teamID;
+	}
+	
+	/**
 	 * Gets the private String teamName variable. 
 	 * Inputs - None.
 	 * Outputs - Returns the teamName variable. 
@@ -129,6 +157,15 @@ public class TeamObject
 	 * Outputs - Returns the category variable.
 	 */
 	public String getCategory() {
+		return category;
+	}
+	
+	/**
+	 * Gets the private int place variable.
+	 * Inputs - None.
+	 * Outputs - Returns the place variable.
+	 */
+	public String getPlace() {
 		return category;
 	}
 	

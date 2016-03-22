@@ -17,7 +17,7 @@ public class fC extends JFrame {
     new fC();
   }
 
-  private JLabel sampleText = new JLabel("Label");
+  public JLabel sampleText = new JLabel("Lxxxabel");
 
   private JComboBox fontComboBox;
 
@@ -29,7 +29,7 @@ public class fC extends JFrame {
 
   public fC() {
     this.setSize(500, 150);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     FontListener fl = new FontListener();
     this.add(sampleText, BorderLayout.NORTH);

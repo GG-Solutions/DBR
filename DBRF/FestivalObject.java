@@ -1,18 +1,19 @@
 package DBRF;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 
 
-public class FestivalObject extends EventPageSetup{
+public class FestivalObject {
 
 	
 	/**
 	 * 
 	 */
 	//festival object that will contain needed information about the festival
-	private static final long serialVersionUID = 1L;
+	public static final long serialVersionUID = 1L;
 
-	protected static String festName;
+	public static String festName;
 	
 	public static int timeBetweenRaces;
 	
@@ -22,10 +23,11 @@ public class FestivalObject extends EventPageSetup{
 	
 	public static ArrayList<String> categoriesArray = new ArrayList<String>();
 	
-	protected static ArrayList<String> Category_Use = new ArrayList<String>();
+	public static ArrayList<String> categoryUse = new ArrayList<String>();
 	
 	//should be TeamObject along w/ the getter and setter
-	public static ArrayList<String> teamsArray = new ArrayList<String>();
+	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
+	public static ArrayList<RaceObject> racesArray = new ArrayList<RaceObject>();
 
 	
 	public FestivalObject() {};
@@ -44,7 +46,7 @@ public class FestivalObject extends EventPageSetup{
 	}
 
 	public static void setTBR(int tbr) {
-		FestivalObject.timeBetweenRaces = tbr;
+		timeBetweenRaces = tbr;
 	}
 
 	public static int getLanes() {
@@ -71,20 +73,34 @@ public class FestivalObject extends EventPageSetup{
 		categoriesArray = category;
 	}
 	
-	public static ArrayList<String> getCategory_Use() {
-		return Category_Use;
+	public static ArrayList<String> getCategoryUse() {
+		return categoryUse;
 	}
 
 	public void setCategory_Use(ArrayList<String> categoryUse) {
-		Category_Use = categoryUse;
+		FestivalObject.categoryUse = categoryUse;
 	}
 	
-	public static ArrayList<String> getTeam() {
+	public static ArrayList<TeamObject> getTeamsArray() {
 		return teamsArray;
 	}
 
-	public void setTeam(ArrayList<String> team) {
-		teamsArray = team;
+	public void setTeamsArray(ArrayList<TeamObject> teams) {
+		teamsArray = teams;
 	}
+	
+	//call main here to start the program
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TestUI window = new TestUI();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 	
 }

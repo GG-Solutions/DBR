@@ -27,7 +27,7 @@ public class TestUI {
 	
 	//testing global variables here
 	int numOfLanes = 3;
-	ArrayList<TeamObject> teamsArray;
+	public static ArrayList<TeamObject> teamsArray;
 	ArrayList<RaceObject> racesArray;
 	ArrayList<String> categoriesArray;
 	
