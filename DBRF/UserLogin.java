@@ -23,7 +23,7 @@ import java.io.IOException;
 import javax.swing.JPasswordField;
 import java.awt.Font;
 
-public class userLogin extends JFrame {
+public class UserLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtName;
@@ -36,7 +36,7 @@ public class userLogin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					userLogin frame = new userLogin();
+					UserLogin frame = new UserLogin();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +48,7 @@ public class userLogin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public userLogin() {
+	public UserLogin() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 465, 305);
@@ -102,6 +102,13 @@ public class userLogin extends JFrame {
 		
 	
 	}
+	
+	/**
+	 * Login after the password Success
+	 * Inputs - Yes or No
+	 * Outputs 	- Will take the user to the new festival or load a old one.
+	 * 
+	 **/
 	
 	public void newSuccess (){
 		this.dispose();

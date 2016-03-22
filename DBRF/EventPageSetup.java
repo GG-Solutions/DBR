@@ -78,10 +78,12 @@ public class EventPageSetup extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * 
+	 * Creates the whole window and anything that is needed in it.
 	 */
 	public EventPageSetup() {
-		setResizable(false);
 		//page getting setup!
+		setResizable(false);
 		setTitle("Setup");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 960, 540);
@@ -432,7 +434,14 @@ public class EventPageSetup extends JFrame {
 	}
 	
 	//breaks for event setup
-	//adds break to list
+	/**
+	 * addToBreak will take 2 integers as strings and enter them into an list, then enter that list into 
+	 * the breaks list. Finally, it will populate a textpane with the list of lists
+	 * 
+	 * Input: string of integers for the start and end times of a break
+	 * 
+	 * Output: ArrayList of breaks
+	 */
 	public void addToBreak(String start, String end){
 		ArrayList<Integer> w = new ArrayList<Integer>();
 		int that = Integer.parseInt(start);
@@ -442,15 +451,29 @@ public class EventPageSetup extends JFrame {
 		FestivalObject.breaksArray.add(w);
 		BreakList.setText(String.valueOf(FestivalObject.getBreakList()));
 	}
-	//deletes break form list
+	
+	/**
+	 * This will take the selected(highlighted) text from the textpane, find it in the list of lists, store it in a variable,
+	 * and then try to remove it.
+	 * 
+	 * Input: selected(highlighted) string
+	 * Output: list of breaks
+	 */
 	public void deleteBreak(String selected){
 		tempBreak = selected;
 		System.out.println(tempBreak);
-		try{//won't remove // this is BS
-		FestivalObject.breaksArray.remove(FestivalObject.breaksArray.indexOf(tempBreak));}catch(IndexOutOfBoundsException e){ e.getStackTrace();}
+		try{//won't remove 
+		FestivalObject.breaksArray.remove(tempBreak);}catch(IndexOutOfBoundsException e){ e.getStackTrace();}
 		BreakList.setText(String.valueOf(FestivalObject.getBreakList()));
 	}
-	//undo delete
+	
+	/**
+	 * This will try to undo what the delete did by taking the stored temporary variable and adding it back
+	 * into the list of list
+	 * 
+	 * Input: none
+	 * Output: list
+	 */
 	public void deleteBreakUndo(){
 		//need to fix // don't know how to fix // help // stopped it from being error, but still don't know what to do
 		ArrayList<Integer> br = new ArrayList<Integer>();
@@ -460,26 +483,54 @@ public class EventPageSetup extends JFrame {
 	}
 	
 	//actions for categories during event setup
-	//adds category
+	/**
+	 * This will add a string to an list and display it in a text pane
+	 * 
+	 * Input: string
+	 * 
+	 * Output: list into a list
+	 */
 	public void addCat(String cat){
 		ArrayList<String> c = new ArrayList<String>();
 		c.add(cat);
 		FestivalObject.categoriesArray.addAll(c);
 		CatList.setText(String.valueOf(FestivalObject.getCategory()));
 	}
-	//deletes category
+	
+	/**
+	 * This will take selected text, find in the list, and remove it while storing it in a temporary variable
+	 * 
+	 * Input: string
+	 * 
+	 * Output: list into textpane
+	 */
 	public void deleteCat(String deadCat){
 		tempCat = deadCat;
 		System.out.println(tempCat);
 		FestivalObject.categoriesArray.remove(tempCat);
 		CatList.setText(String.valueOf(FestivalObject.getCategory()));
 	}
-	//undo delete
+	
+	/**
+	 * This will try to undo what the delete function did by adding the temporary variable back into the list
+	 * 
+	 * Input: none
+	 * 
+	 * Output: list in a textpane
+	 */
 	public void deleteCatUndo(){
 		FestivalObject.categoriesArray.add(tempCat);
 		CatList.setText(String.valueOf(FestivalObject.getCategory()));
 	}
-	//moves category to be used and add to team setup combobox
+	
+	/**
+	 * This method will move the selected text over to the "will be used" textpane
+	 * as well as update/populate a dropdown list on the team setup page
+	 * 
+	 * Input: Selected text as a string
+	 * 
+	 * Output: updated lists to textpanes
+	 */
 	public void moveCatUse(String useCat){
 		tempCat2 = useCat;
 		ArrayList<String> uc = new ArrayList<String>();
@@ -493,7 +544,15 @@ public class EventPageSetup extends JFrame {
 		try{
 		CatBox.addItem(tempCat2);}catch(NullPointerException e){e.getStackTrace();}
 	}
-	//moves category back and removes form combobox on team setup
+	
+	/**
+	 * This will basically undo the move function above. Taking the selected text and moving it back to the
+	 * "unused" textpane and will update the dropdown on the team setup page
+	 * 
+	 * Input: string of selected text
+	 * 
+	 * Output: updated lists to textpanes
+	 */
 	public void moveCatBack(String noUseCat){
 		tempCat3 = noUseCat;
 		ArrayList<String> nuc = new ArrayList<String>();
@@ -509,7 +568,13 @@ public class EventPageSetup extends JFrame {
 	}
 	
 	//page buttons
-	//goes to team setup
+	/**
+	 * Will move forward in the festival setup process
+	 * 
+	 * Input: none
+	 * 
+	 * Output: stores festival name, time between races, and number of lanes to variables
+	 */
 	public void nextPage(){
 		FestivalObject.festName = FestName.getText();
 		FestivalObject.timeBetweenRaces = Integer.parseInt(TBR.getText());
@@ -517,13 +582,27 @@ public class EventPageSetup extends JFrame {
 		teamSetup.setVisible(true);
 		contentPane.setEnabled(false);
 	}
-	//goes back to event setup
+	
+	/**
+	 * Will go backwards in the festival setup process
+	 * 
+	 * Input: none
+	 * 
+	 * Output: none
+	 */
 	public void prevPage(){
 		teamSetup.setEnabled(false);
 		teamSetup.setVisible(false);
 		contentPane.setEnabled(true);
 	}
-	//goes back to team setup
+	
+	/**
+	 * Will go backwards in the festival process
+	 * 
+	 * Input: none
+	 * 
+	 * Output: none
+	 */
 	public void toTeamSetup(){
 		teamSetup.setEnabled(true);
 		teamSetup.setVisible(true);
@@ -531,7 +610,14 @@ public class EventPageSetup extends JFrame {
 		confirmation.setVisible(false);
 	}
 	
-	public void finish(){//will display entered information
+	/**
+	 * Will go forwards in the festival setup process to the confirmation page
+	 * 
+	 * Input: none
+	 * 
+	 * Output: displays information to be confirmed by the user
+	 */
+	public void finish(){
 		confirmation.setVisible(true);
 		confirmation.setEnabled(true);
 		teamSetup.setEnabled(false);
@@ -541,11 +627,11 @@ public class EventPageSetup extends JFrame {
 		conTimeBetweenRaces.setText("Time Between Races: " + FestivalObject.getTBR() + " mins");
 		conLanes.setText("Lanes per race: " + FestivalObject.getLanes());
 		conBreaks.setText("Breaks at: ");
-		BreakPane.setText(String.valueOf(FestivalObject.getBreakList()));//doesn't print
+		BreakPane.setText(String.valueOf(FestivalObject.getBreakList()));
 		conTeams.setText("Teams Entered: ");
-		TeamPane.setText(FestivalObject.getTeamsArray().toString());//doesn't print
+		TeamPane.setText(FestivalObject.getTeamsArray().toString());
 		conCategories.setText("Categories that will be used: ");
-		CategoryPane.setText(FestivalObject.getCategoryUse().toString());//doesn't print
+		CategoryPane.setText(FestivalObject.getCategoryUse().toString());
 		
 		//following prints are to test if the variables are getting information
 		System.out.println(FestivalObject.getFestName());
@@ -557,12 +643,20 @@ public class EventPageSetup extends JFrame {
 		System.out.println(FestivalObject.getTeamsArray());
 	}
 	
+	/**
+	 * WIP
+	 * 
+	 * Input: none
+	 * 
+	 * Output: pass information for race generation
+	 */
 	public void createFestival(){
 		//passes festival information
 	}
 	
-	//actions dealing w/ teams
+	//actions dealing with teams
 	public void addTeam(String name){
+		//currently not being used!
 		tempName = name;
 		if(FestivalObject.teamsArray.contains(name)){
 			System.out.println("Name Already Exists\n");
@@ -571,7 +665,16 @@ public class EventPageSetup extends JFrame {
 			teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
 		}
 	}
+	
 	//if team name exists and the names match up(as in it's not a new team) add the category to the team
+	/**
+	 * This will take a team add it to a list, then take the catgory add that to a separate list, then add the category list to the team
+	 * list.
+	 * 
+	 * Input: team name string and category string
+	 * 
+	 * Output: teams with a category(s) in a list to a textpane
+	 */
 	public void addCatToTeam(String Cat, String name){
 		//if(FestivalObject.teamsArray.contains(tempName)){// && teamName.getText() == tempName){
 			//add category to team
@@ -591,14 +694,28 @@ public class EventPageSetup extends JFrame {
 		teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
 			}
 	}
-	//remove team from arraylist
+	
+	/**
+	 * This will try to delete a team/category pair from the list, stored in a temporary variable, and update the textpane
+	 * 
+	 * Input: selected text
+	 * 
+	 * Output: updated team/category list and updates the textpane it's in
+	 */
 	public void deleteTeam(String noTeam){
 		tempTeam = noTeam;
 		System.out.println(tempTeam);
 		FestivalObject.teamsArray.remove(FestivalObject.teamsArray.indexOf(noTeam));
 		teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
 	}
-	//undo delete
+	
+	/**
+	 * Will undo the deletion from above using a temporary variable to add it back in
+	 * 
+	 * Input: none
+	 * 
+	 * Output: updated team/category list
+	 */
 	public void teamUndoDelete(){
 		FestivalObject.teamsArray.add(tempTeam);
 		teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
