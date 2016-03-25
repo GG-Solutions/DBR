@@ -24,7 +24,7 @@ public class FestivalObject {
 	
 	public static ArrayList<String> categoriesArray = new ArrayList<String>();
 	
-	public static ArrayList<String> categoryUse = new ArrayList<String>();
+	//public static ArrayList<String> categoryUse = new ArrayList<String>();
 	
 	//should be TeamObject along w/ the getter and setter
 	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
@@ -76,13 +76,13 @@ public class FestivalObject {
 		categoriesArray = category;
 	}
 	
-	public static ArrayList<String> getCategoryUse() {
-		return categoryUse;
-	}
-
-	public void setCategory_Use(ArrayList<String> categoryUse) {
-		FestivalObject.categoryUse = categoryUse;
-	}
+//	public static ArrayList<String> getCategoryUse() {
+//		return categoryUse;
+//	}
+//
+//	public void setCategory_Use(ArrayList<String> categoryUse) {
+//		FestivalObject.categoryUse = categoryUse;
+//	}
 	
 	public static ArrayList<TeamObject> getTeamsArray() {
 		return teamsArray;
