@@ -21,39 +21,31 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.lang.Integer;
 
-public class Schedule extends JFrame {
+public class Schedule {
 
 	public static JFrame frame;
 	
-	//testing global variables here
-	int numOfLanes = 4;
-	public static ArrayList<TeamObject> teamsArray;
-	ArrayList<RaceObject> racesArray;
-	ArrayList<String> categoriesArray;
-	
 	//booleans for generating the races only once
-	private boolean timeTrialRacesEh = false;
-	private boolean semiFinalRacesEh = false;
-	private boolean finalRacesEh = false;
-	
-	 ArrayList<ArrayList<Integer>> breaksArray;
+	static boolean timeTrialRacesEh = false;
+	static boolean semiFinalRacesEh = false;
+	static boolean finalRacesEh = false;
 
 	/**
 	 * Launch the application.
 	 * Used for testing the UI.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Schedule window = new Schedule();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Schedule window = new Schedule();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
@@ -70,33 +62,29 @@ public class Schedule extends JFrame {
 	 * Outputs 	- Creates a new JFrame and adds the necessary UI components.
 	 * 			- Calls the race generation scripts.
 	 */
-	public void initialize() {
+	public static void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 960, 540);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		teamsArray = new ArrayList<TeamObject>();
-		racesArray = new ArrayList<RaceObject>();
-		breaksArray = new ArrayList<ArrayList<Integer>>();
-		categoriesArray = new ArrayList<String>();
+		frame.setVisible(true);
 		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
-		teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
-		teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
-		teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
-		teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
-		teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
-		teamsArray.add(new TeamObject("Bust n Loose", "Special"));
-		teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
-		teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
-		teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed"));
-		teamsArray.add(new TeamObject("Fire On Water", "Mixed"));
-		teamsArray.add(new TeamObject("Despirit Housewives", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
+		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
+		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("Fire On Water", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("Despirit Housewives", "Mixed"));
 		
 		//testing for the breaks
 		ArrayList<Integer> q = new ArrayList<Integer>();
@@ -112,14 +100,14 @@ public class Schedule extends JFrame {
 		e.add(1600);		
 		
 		//adding the breaks to the main breaks array
-		breaksArray.add(q);
-		breaksArray.add(w);
-		breaksArray.add(e);
+		FestivalObject.breaksArray.add(q);
+		FestivalObject.breaksArray.add(w);
+		FestivalObject.breaksArray.add(e);
 		
-		categoriesArray.add("Mixed");
-		categoriesArray.add("Womens");
-		categoriesArray.add("Special");
-		categoriesArray.add("Mens");
+		FestivalObject.categoriesArray.add("Mixed");
+		FestivalObject.categoriesArray.add("Womens");
+		FestivalObject.categoriesArray.add("Special");
+		FestivalObject.categoriesArray.add("Mens");
 		
 		
 		JLabel lblSchedule = new JLabel("Schedule");
@@ -223,7 +211,7 @@ public class Schedule extends JFrame {
 					scrollPane.setViewportView(panel1);		//set the view of the scrollPane
 					if(!timeTrialRacesEh) {
 						TimeTrialRaceGeneration times1 = new TimeTrialRaceGeneration();	//create a new TimeTrialRaceGeneration object
-						times1.generateTimeTrailRaces(numOfLanes, breaksArray, racesArray, teamsArray, panel1);	//call generateTimeTrialRaces
+						times1.generateTimeTrailRaces(panel1);	//call generateTimeTrialRaces
 						timeTrialRacesEh = true;
 					}
 				}
@@ -232,7 +220,7 @@ public class Schedule extends JFrame {
 					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
 					if(!semiFinalRacesEh) {
 						SemiFinalRaceGeneration times2 = new SemiFinalRaceGeneration();
-						times2.generateSemiFinalRaces(numOfLanes, breaksArray, racesArray, teamsArray, panel2, categoriesArray);
+						times2.generateSemiFinalRaces(panel2);
 						semiFinalRacesEh = true;
 					}
 				}
@@ -241,7 +229,7 @@ public class Schedule extends JFrame {
 					scrollPane.setViewportView(panel3);		//set the view of the scrollPane
 					if(!finalRacesEh) {
 						FinalRaceGeneration times3 = new FinalRaceGeneration();
-						times3.generateFinalRaces(numOfLanes, breaksArray, racesArray, teamsArray, panel3, categoriesArray);
+						times3.generateFinalRaces(panel3);
 						finalRacesEh = true;
 					}
 				}

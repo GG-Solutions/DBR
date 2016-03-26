@@ -576,9 +576,9 @@ public class EventPageSetup extends JFrame {
 	 * Output: stores festival name, time between races, and number of lanes to variables
 	 */
 	public void nextPage(){
-		FestivalObject.festName = FestName.getText();
+		FestivalObject.festivalName = FestName.getText();
 		FestivalObject.timeBetweenRaces = Integer.parseInt(TBR.getText());
-		FestivalObject.lanes = Integer.parseInt(LaneInput.getText());
+		FestivalObject.numOfLanes = Integer.parseInt(LaneInput.getText());
 		teamSetup.setVisible(true);
 		contentPane.setEnabled(false);
 	}
@@ -623,7 +623,7 @@ public class EventPageSetup extends JFrame {
 		teamSetup.setEnabled(false);
 		teamSetup.setVisible(false);
 		
-		conFestName.setText("Festival Name: " + FestivalObject.getFestName());
+		conFestName.setText("Festival Name: " + FestivalObject.getFestivalName());
 		conTimeBetweenRaces.setText("Time Between Races: " + FestivalObject.getTBR() + " mins");
 		conLanes.setText("Lanes per race: " + FestivalObject.getLanes());
 		conBreaks.setText("Breaks at: ");
@@ -634,7 +634,7 @@ public class EventPageSetup extends JFrame {
 		CategoryPane.setText(FestivalObject.getCategoryUse().toString());
 		
 		//following prints are to test if the variables are getting information
-		System.out.println(FestivalObject.getFestName());
+		System.out.println(FestivalObject.getFestivalName());
 		System.out.println(FestivalObject.getTBR());
 		System.out.println(FestivalObject.getLanes());
 		System.out.println(FestivalObject.getCategory());

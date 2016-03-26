@@ -30,14 +30,13 @@ public class FinalRaceGeneration
 	 * 			- ArrayList<ArrayList<Integer>> breaksArray - Global ArrayList that is storing the breaks for the event.
 	 * 			- ArrayList<RaceObject> raceCards - Global ArrayList that has all the races.
 	 * 			- ArrayList<TeamObject> teamsArray - Global ArrayList that has all the teams.
-	 * 			- JPanel panel - Panel initialized in TestUI.
+	 * 			- JPanel panel - Panel initialized in Schedule.
 	 * Outputs 	- Adding UI components to the input JPanel panel.
 	 * 			- Adds the generated races to the RaceCards ArrayList.
 	 */
-	public void generateFinalRaces(int numOfLanes, ArrayList<ArrayList<Integer>> breaksArray, 
-			ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JPanel panel, ArrayList<String> categoriesArray) {
+	public void generateFinalRaces(JPanel panel) {
 		
-		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(teams);		//duplicate the teams array
+		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate the teams array
 		
 		//sort the duplicated tm ArrayList based on the semiFinalRaceTime in ascending order before separating by category
 			//this makes them stay sorted before separation
@@ -51,16 +50,16 @@ public class FinalRaceGeneration
 		ArrayList<ArrayList<TeamObject>> tmCat	= new ArrayList<ArrayList<TeamObject>>();	//do i need the whole teamobject stored? - prob easiest
 		
 		//loop through the teams and pre add the correct amount of spots based on the category name
-		for(int i = 0; i < categoriesArray.size() - 1; i++) {
+		for(int i = 0; i < FestivalObject.categoriesArray.size() - 1; i++) {
 			tmCat.add(new ArrayList<TeamObject>());
 		}
 //		String thisOne = "";
 		//loop through all the teams and separate them by categories
-		for(int i = 0; i < teams.size(); i++) {
+		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 			//loop through the categories to find a match
-			for(int j = 0; j < categoriesArray.size(); j++) {
+			for(int j = 0; j < FestivalObject.categoriesArray.size(); j++) {
 				//check if the teams category matches the one at the index of the categoriesArray
-				if(tm.get(0).getCategory() == categoriesArray.get(j) && (tmCat.get(j).size() < numOfLanes * 2)) {	//only get enough teams from each category for 2 races?
+				if(tm.get(0).getCategory() == FestivalObject.categoriesArray.get(j) && (tmCat.get(j).size() < FestivalObject.numOfLanes * 2)) {	//only get enough teams from each category for 2 races?
 					//do some stuff and add to the tmCat arraylist
 					TeamObject temp1 = new TeamObject();
 					temp1 = tm.get(0);
@@ -78,7 +77,7 @@ public class FinalRaceGeneration
 //			}
 //		}
 		
-		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(breaksArray);	//duplicate the breaks array so the duplicate can be modified
+		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		
 		boolean doneGenEh = false;		//set to true when do generating races
 		int i = 0;	//do i need this? - changed from next for loop to while loop
@@ -122,7 +121,7 @@ public class FinalRaceGeneration
 			
 			
 			//add the race label "Race # _ at"
-			JLabel raceNumberLabel = new JLabel("Race # " + (raceCard.size() + 1) + " at");	//auto-increment the race number
+			JLabel raceNumberLabel = new JLabel("Race # " + (FestivalObject.racesArray.size() + 1) + " at");	//auto-increment the race number
 			raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 			
@@ -217,22 +216,22 @@ public class FinalRaceGeneration
 			ArrayList<TeamObject> theseTeams = new ArrayList<TeamObject>();		//new array list to populate - temporarily stores the teams in each race
 			
 			//populate the theseTeams arraylist for each race
-			for(int k = 0; k < numOfLanes; k++) {
+			for(int k = 0; k < FestivalObject.numOfLanes; k++) {
 				//if there are still team objects left in the arraylist
 				if(tmCat.get(0).size() > 0) {
 					//only check this if k == 0
-					if(((tmCat.get(0).size() - numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
+					if(((tmCat.get(0).size() - FestivalObject.numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
 						
 						//add all of the teams to the current race except the last one
 							//pair the last one with the last reamaining team in the arraylist
 						
-						if((tmCat.get(0).size() - numOfLanes) == 0) {
+						if((tmCat.get(0).size() - FestivalObject.numOfLanes) == 0) {
 							theseTeams.addAll(tmCat.get(0));
 							tmCat.remove(0);
 							break;
 						}
 						
-						for(int j = 0; j < numOfLanes - 1; j++) {
+						for(int j = 0; j < FestivalObject.numOfLanes - 1; j++) {
 							theseTeams.add(tmCat.get(0).get(0));
 							tmCat.get(0).remove(0);
 						}
@@ -351,7 +350,7 @@ public class FinalRaceGeneration
 						public void mouseClicked(MouseEvent arg0) {
 							if(btnNewButton.getText() == "Lock") {
 								//need to loop through the panel instead?
-								for(int l = 0; l < numOfLanes; l++) {
+								for(int l = 0; l < FestivalObject.numOfLanes; l++) {
 									label_3.setEnabled(false);
 //									panel.getComponents().equals("label_" + race.getRaceNumber() + "_");
 									//need to get the other variable names
@@ -390,7 +389,7 @@ public class FinalRaceGeneration
 				//set everything in the race object
 				race.setRaceNumber(i + 1);		//set the race number
 				race.setRaceTime(currentTime);		//set the race time
-				race.setCategory(teams.get(0).getCategory());	//get the category from the team
+				race.setCategory(FestivalObject.teamsArray.get(0).getCategory());	//get the category from the team
 				
 				race.addTeamToRace(theseTeams.get(0));	//store the team to the ArrayList in the race object
 				
@@ -400,7 +399,7 @@ public class FinalRaceGeneration
 			}
 			//END OF FOR LOOP FOR THE TEAMS --------------------------------------------------------------------------------------------------------
 			
-			raceCard.add(race);		//lastly, add the created RaceObject to the global ArrayList
+			FestivalObject.racesArray.add(race);		//lastly, add the created RaceObject to the global ArrayList
 			
 			rowCounter++;
 			i++;

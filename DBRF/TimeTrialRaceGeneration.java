@@ -16,9 +16,10 @@ import java.util.ArrayList;		//allows resizable arrays
 import java.util.Collections;
 
 public class TimeTrialRaceGeneration {
+	
 	private int timeBetweenRaces = 20;	//stored in minutes
 	private int currentTime;	//stores the current time to generate the schedule times
-	private int startTime = 900;	//day starting time	
+	private int startTime = 900;	//hard coded day starting time
 	
 	private int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
 	
@@ -28,33 +29,25 @@ public class TimeTrialRaceGeneration {
 	 * 			- ArrayList<ArrayList<Integer>> breaksArray - Global ArrayList that is storing the breaks for the event.
 	 * 			- ArrayList<RaceObject> raceCards - Global ArrayList that has all the races.
 	 * 			- ArrayList<TeamObject> teamsArray - Global ArrayList that has all the teams.
-	 * 			- JPanel panel - Panel initialized in TestUI.
+	 * 			- JPanel panel - Panel initialized in Schedule.
 	 * Outputs 	- Adding UI components to the input JPanel panel.
 	 * 			- Adds the generated races to the RaceCards ArrayList.
 	 */
-	public void generateTimeTrailRaces(int numOfLanes, ArrayList<ArrayList<Integer>> breaksArray, 
-			ArrayList<RaceObject> raceCard, ArrayList<TeamObject> teams, JPanel panel) {
+	public void generateTimeTrailRaces(JPanel panel) {
 		
-		//duplicate the teams array twice?
-		ArrayList<TeamObject> teams1 = new ArrayList<TeamObject>(teams);
-//		ArrayList<TeamObject> teams2 = new ArrayList<TeamObject>(teams);
-		
-		
-		//append the mixed teams to the end of the first duplicated array (teams1)
-//		teams1.addAll(teams2);
-		
+		ArrayList<TeamObject> teams1 = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate the teams array
 		
 		//main loop ------------------------------------------------------------------------------------------------------------------------
 		//go through everything twice so each team races twice
 		for(int o = 0; o < 2; o++) {
 			
-			ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(breaksArray);	//duplicate the breaks array so the duplicate can be modified
+			ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
 			
-			teams1 = new ArrayList<TeamObject>(teams);		//reset the teams1 arraylist
+			teams1 = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//reset the teams1 arraylist
 			Collections.shuffle(teams1);	//shuffle the arraylist
 			
 			//round the number up cause you will always need that 
-			for(int i = 0; i < Math.ceil((double)teams.size() / (double)numOfLanes); i++) {
+			for(int i = 0; i < Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes); i++) {
 				
 				RaceObject race = new RaceObject();	//create a new raceCard to change
 //				System.out.println(Math.ceil(teams.size() / numOfLanes));
@@ -90,7 +83,7 @@ public class TimeTrialRaceGeneration {
 				
 				
 				//add the race label "Race # _ at"
-				JLabel raceNumberLabel = new JLabel("Race # " + (raceCard.size() + 1) + " at");	//auto-increment the race number
+				JLabel raceNumberLabel = new JLabel("Race # " + (FestivalObject.racesArray.size() + 1) + " at");	//auto-increment the race number
 				raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 				panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 				
@@ -179,17 +172,17 @@ public class TimeTrialRaceGeneration {
 				ArrayList<TeamObject> theseTeams = new ArrayList<TeamObject>();		//new array list to populate - temporarily stores the teams in each race
 				
 				//populate the theseTeams arraylist for each race
-				for(int k = 0; k < numOfLanes; k++) {
+				for(int k = 0; k < FestivalObject.numOfLanes; k++) {
 					//if there are still team objects left in the arraylist
 					if(teams1.size() > 0) {
 						//only check this if k == 0
-						if(((teams1.size() - numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
+						if(((teams1.size() - FestivalObject.numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
 							
 							//add all of the teams to the current race except the last one
 								//pair the last one with the last reamaining team in the arraylist
 							//if same amount of teams as lanes just add them all to the race
-							if((teams1.size() - numOfLanes) == 0) {
-								for(int j = 0; j < numOfLanes;) {
+							if((teams1.size() - FestivalObject.numOfLanes) == 0) {
+								for(int j = 0; j < FestivalObject.numOfLanes;) {
 									theseTeams.add(teams1.get(0));
 									teams1.remove(0);	//remove itself?
 									break;
@@ -197,7 +190,7 @@ public class TimeTrialRaceGeneration {
 							}
 							
 							//ex. if there is 4 teams left and 3 lanes, get 2 teams(numOfLanes - 1)
-							for(int j = 0; j < numOfLanes - 1; j++) {
+							for(int j = 0; j < FestivalObject.numOfLanes - 1; j++) {
 								theseTeams.add(teams1.get(0));
 								teams1.remove(0);
 							}
@@ -281,7 +274,7 @@ public class TimeTrialRaceGeneration {
 							public void mouseClicked(MouseEvent arg0) {
 								if(btnNewButton.getText() == "Lock") {
 									//need to loop through the panel instead?
-									for(int l = 0; l < numOfLanes; l++) {
+									for(int l = 0; l < FestivalObject.numOfLanes; l++) {
 										label_3.setEnabled(false);
 //										panel.getComponents().equals("label_" + race.getRaceNumber() + "_");
 										//need to get the other variable names
@@ -329,7 +322,7 @@ public class TimeTrialRaceGeneration {
 				}
 				//END OF FOR LOOP FOR THE TEAMS --------------------------------------------------------------------------------------------------------
 				
-				raceCard.add(race);		//lastly, add the created RaceObject to the global ArrayList
+				FestivalObject.racesArray.add(race);		//lastly, add the created RaceObject to the global ArrayList
 				
 //				theseTeams.remove(0);	//remove the team from the duplicated array list so the index will always be 0 to get information
 				

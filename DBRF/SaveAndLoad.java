@@ -34,47 +34,55 @@ public class SaveAndLoad {
 		Element el = doc.createElement("teamsArray");
 		doc.appendChild(el);
 		
-		for(int i = 0; i < Schedule.teamsArray.size(); i++) {
+		//output the festival name
+		//output the timeBetweenRaces
+		//output the lanes
+		//output the breaksArray
+		//output the categoriesArray
+		
+		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 			
 //			Attr attr = doc.createAttribute("TeamObject");
 //			attr.setValue("hi");
 //			el.setAttributeNode(attr);
 			
 			Element teamName = doc.createElement("teamName");
-			teamName.appendChild(doc.createTextNode(Schedule.teamsArray.get(i).getTeamName()));
+			teamName.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getTeamName()));
 			el.appendChild(teamName);
 			
 			Element category = doc.createElement("category");
-			category.appendChild(doc.createTextNode(Schedule.teamsArray.get(i).getCategory()));
+			category.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getCategory()));
 			teamName.appendChild(category);
 			
 			Element place = doc.createElement("place");
-			place.appendChild(doc.createTextNode(Schedule.teamsArray.get(i).getPlace()));
+			place.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getPlace()));
 			teamName.appendChild(place);
 			
 			Element firstRaceTime = doc.createElement("firstRaceTime");
-			firstRaceTime.appendChild(doc.createTextNode(Integer.toString(Schedule.teamsArray.get(i).getFirstRaceTime())));
+			firstRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getFirstRaceTime())));
 			teamName.appendChild(firstRaceTime);
 			
 			Element secondRaceTime = doc.createElement("secondRaceTime");
-			secondRaceTime.appendChild(doc.createTextNode(Integer.toString(Schedule.teamsArray.get(i).getSecondRaceTime())));
+			secondRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getSecondRaceTime())));
 			teamName.appendChild(secondRaceTime);
 			
 			Element semiFinalRaceTime = doc.createElement("semiFinalRaceTime");
-			semiFinalRaceTime.appendChild(doc.createTextNode(Integer.toString(Schedule.teamsArray.get(i).getSemiFinalRaceTime())));
+			semiFinalRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getSemiFinalRaceTime())));
 			teamName.appendChild(semiFinalRaceTime);
 			
 			Element finalRaceTime = doc.createElement("finalRaceTime");
-			finalRaceTime.appendChild(doc.createTextNode(Integer.toString(Schedule.teamsArray.get(i).getFinalRaceTime())));
+			finalRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getFinalRaceTime())));
 			teamName.appendChild(finalRaceTime);
 			
 			Element averagedRaceTime = doc.createElement("averagedRaceTime");
-			averagedRaceTime.appendChild(doc.createTextNode(Integer.toString(Schedule.teamsArray.get(i).getAveragedRaceTime())));
+			averagedRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getAveragedRaceTime())));
 			teamName.appendChild(averagedRaceTime);
 		
 		}
 		
-		//transfor the built information into a formatted xml file
+		//output the racesArray
+		
+		//transform the built information into a formatted xml file
 		TransformerFactory tF = TransformerFactory.newInstance();
 		Transformer tran = tF.newTransformer();
 		tran.setOutputProperty(OutputKeys.INDENT, "yes");	//add indenting to output xml file
