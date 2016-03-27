@@ -16,13 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
-public class FinalRaceGeneration 
-{
-	private int timeBetweenRaces = 20;	//stored in minutes
-	private int currentTime;	//stores the current time to generate the schedule times
-	private int startTime = 900;	//day starting time	
+public class FinalRaceGeneration {
 	
-	private int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
+	private static int currentTime;	//stores the current time to generate the schedule times
+	private static int startTime = 900;	//day starting time	
+	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
 	
 	/**
 	 * This function completely generates the Time Trial Races. It is called when the user first goes to the schedule from teh main menu.
@@ -34,9 +32,9 @@ public class FinalRaceGeneration
 	 * Outputs 	- Adding UI components to the input JPanel panel.
 	 * 			- Adds the generated races to the RaceCards ArrayList.
 	 */
-	public void generateFinalRaces(JPanel panel) {
+	public static void generateFinalRaces(JPanel panel) {
 		
-		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate the teams array
+		ArrayList<TeamObject> tm = FestivalObject.teamsArray;		//duplicate the teams array
 		
 		//sort the duplicated tm ArrayList based on the semiFinalRaceTime in ascending order before separating by category
 			//this makes them stay sorted before separation
@@ -95,7 +93,7 @@ public class FinalRaceGeneration
 			}
 			else {
 				//race time generation
-				if((currentTime + timeBetweenRaces) >= breaks.get(0).get(0)) {
+				if((currentTime + FestivalObject.timeBetweenRaces) >= breaks.get(0).get(0)) {
 					currentTime = breaks.get(0).get(1);
 					breaks.remove(0);
 					//add ability to recommend a time change of the break?
@@ -103,7 +101,7 @@ public class FinalRaceGeneration
 				}
 				//if no breaks were detected so just add to the current time
 				else {
-					currentTime += timeBetweenRaces;
+					currentTime += FestivalObject.timeBetweenRaces;
 				}
 			}
 			

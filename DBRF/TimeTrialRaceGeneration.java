@@ -17,11 +17,10 @@ import java.util.Collections;
 
 public class TimeTrialRaceGeneration {
 	
-	private int timeBetweenRaces = 20;	//stored in minutes
-	private int currentTime;	//stores the current time to generate the schedule times
-	private int startTime = 900;	//hard coded day starting time
+	private static int currentTime;	//stores the current time to generate the schedule times
+	private static int startTime = 900;	//hard coded day starting time
 	
-	private int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
+	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
 	
 	/**
 	 * This function completely generates the Time Trial Races. It is called when the user first goes to the schedule from teh main menu.
@@ -33,18 +32,18 @@ public class TimeTrialRaceGeneration {
 	 * Outputs 	- Adding UI components to the input JPanel panel.
 	 * 			- Adds the generated races to the RaceCards ArrayList.
 	 */
-	public void generateTimeTrailRaces(JPanel panel) {
+	public static void generateTimeTrailRaces(JPanel panel) {
 		
-		ArrayList<TeamObject> teams1 = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate the teams array
+		ArrayList<TeamObject> teams = FestivalObject.teamsArray;		//duplicate the teams array
 		
 		//main loop ------------------------------------------------------------------------------------------------------------------------
 		//go through everything twice so each team races twice
 		for(int o = 0; o < 2; o++) {
 			
-			ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
+			ArrayList<ArrayList<Integer>> breaks = FestivalObject.breaksArray;	//duplicate the breaks array so the duplicate can be modified
 			
-			teams1 = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//reset the teams1 arraylist
-			Collections.shuffle(teams1);	//shuffle the arraylist
+			teams = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//reset the teams1 arraylist
+			Collections.shuffle(teams);	//shuffle the arraylist
 			
 			//round the number up cause you will always need that 
 			for(int i = 0; i < Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes); i++) {
@@ -57,7 +56,7 @@ public class TimeTrialRaceGeneration {
 				}
 				else {
 					//race time generation
-					if((currentTime + timeBetweenRaces) >= breaks.get(0).get(0)) {
+					if((currentTime + FestivalObject.timeBetweenRaces) >= breaks.get(0).get(0)) {
 						currentTime = breaks.get(0).get(1);
 						breaks.remove(0);
 						//add ability to recommend a time change of the break?
@@ -65,7 +64,7 @@ public class TimeTrialRaceGeneration {
 					}
 					//if no breaks were detected so just add to the current time
 					else {
-						currentTime += timeBetweenRaces;
+						currentTime += FestivalObject.timeBetweenRaces;
 					}
 				}
 				
@@ -174,36 +173,36 @@ public class TimeTrialRaceGeneration {
 				//populate the theseTeams arraylist for each race
 				for(int k = 0; k < FestivalObject.numOfLanes; k++) {
 					//if there are still team objects left in the arraylist
-					if(teams1.size() > 0) {
+					if(teams.size() > 0) {
 						//only check this if k == 0
-						if(((teams1.size() - FestivalObject.numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
+						if(((teams.size() - FestivalObject.numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
 							
 							//add all of the teams to the current race except the last one
 								//pair the last one with the last reamaining team in the arraylist
 							//if same amount of teams as lanes just add them all to the race
-							if((teams1.size() - FestivalObject.numOfLanes) == 0) {
+							if((teams.size() - FestivalObject.numOfLanes) == 0) {
 								for(int j = 0; j < FestivalObject.numOfLanes;) {
-									theseTeams.add(teams1.get(0));
-									teams1.remove(0);	//remove itself?
+									theseTeams.add(teams.get(0));
+									teams.remove(0);	//remove itself?
 									break;
 								}
 							}
 							
 							//ex. if there is 4 teams left and 3 lanes, get 2 teams(numOfLanes - 1)
 							for(int j = 0; j < FestivalObject.numOfLanes - 1; j++) {
-								theseTeams.add(teams1.get(0));
-								teams1.remove(0);
+								theseTeams.add(teams.get(0));
+								teams.remove(0);
 							}
 							break;	//break generation if 2 or less teams are left so that there is always 2 teams racing, never 1
 						}
 						else {
-							theseTeams.add(teams1.get(0));	//get the object at the first index all the time
-							teams1.remove(0);
+							theseTeams.add(teams.get(0));	//get the object at the first index all the time
+							teams.remove(0);
 						}
 					}
 					//do this if no checking needs to be done
 					else {		//idk if you need this here - kinda a safety
-						teams1.remove(0);	//remove the first dimension
+						teams.remove(0);	//remove the first dimension
 						break;	//no more objects left to take out
 					}
 				}

@@ -70,44 +70,44 @@ public class Schedule {
 		frame.setVisible(true);
 		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
-		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Fire On Water", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Despirit Housewives", "Mixed"));
-		
-		//testing for the breaks
-		ArrayList<Integer> q = new ArrayList<Integer>();
-		q.add(1030);
-		q.add(1100);		
-		
-		ArrayList<Integer> w = new ArrayList<Integer>();
-		w.add(1200);
-		w.add(1300);		
-		
-		ArrayList<Integer> e = new ArrayList<Integer>();
-		e.add(1530);
-		e.add(1600);		
-		
-		//adding the breaks to the main breaks array
-		FestivalObject.breaksArray.add(q);
-		FestivalObject.breaksArray.add(w);
-		FestivalObject.breaksArray.add(e);
-		
-		FestivalObject.categoriesArray.add("Mixed");
-		FestivalObject.categoriesArray.add("Womens");
-		FestivalObject.categoriesArray.add("Special");
-		FestivalObject.categoriesArray.add("Mens");
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Fire On Water", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Despirit Housewives", "Mixed"));
+//		
+//		//testing for the breaks
+//		ArrayList<Integer> q = new ArrayList<Integer>();
+//		q.add(1030);
+//		q.add(1100);		
+//		
+//		ArrayList<Integer> w = new ArrayList<Integer>();
+//		w.add(1200);
+//		w.add(1300);		
+//		
+//		ArrayList<Integer> e = new ArrayList<Integer>();
+//		e.add(1530);
+//		e.add(1600);		
+//		
+//		//adding the breaks to the main breaks array
+//		FestivalObject.breaksArray.add(q);
+//		FestivalObject.breaksArray.add(w);
+//		FestivalObject.breaksArray.add(e);
+//		
+//		FestivalObject.categoriesArray.add("Mixed");
+//		FestivalObject.categoriesArray.add("Womens");
+//		FestivalObject.categoriesArray.add("Special");
+//		FestivalObject.categoriesArray.add("Mens");
 		
 		
 		JLabel lblSchedule = new JLabel("Schedule");
@@ -209,27 +209,27 @@ public class Schedule {
 			public void mouseClicked(MouseEvent arg0) {
 				if(rdbtnTimeTrials.isSelected()) {
 					scrollPane.setViewportView(panel1);		//set the view of the scrollPane
-					if(!timeTrialRacesEh) {
-						TimeTrialRaceGeneration times1 = new TimeTrialRaceGeneration();	//create a new TimeTrialRaceGeneration object
-						times1.generateTimeTrailRaces(panel1);	//call generateTimeTrialRaces
+					//protection from generating twice
+					if(timeTrialRacesEh == false) {
+						TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);	//call generateTimeTrialRaces
 						timeTrialRacesEh = true;
 					}
 				}
 				if(rdbtnSemiFinals.isSelected()) {
 					//generate the semi-final races
 					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
-					if(!semiFinalRacesEh) {
-						SemiFinalRaceGeneration times2 = new SemiFinalRaceGeneration();
-						times2.generateSemiFinalRaces(panel2);
+					//protection from generating twice
+					if(semiFinalRacesEh == false) {
+						SemiFinalRaceGeneration.generateSemiFinalRaces(panel2);
 						semiFinalRacesEh = true;
 					}
 				}
 				if(rdbtnFinals.isSelected()) {
 					//generate the final races
 					scrollPane.setViewportView(panel3);		//set the view of the scrollPane
-					if(!finalRacesEh) {
-						FinalRaceGeneration times3 = new FinalRaceGeneration();
-						times3.generateFinalRaces(panel3);
+					//protection from generating twice
+					if(finalRacesEh == false) {
+						FinalRaceGeneration.generateFinalRaces(panel3);
 						finalRacesEh = true;
 					}
 				}
