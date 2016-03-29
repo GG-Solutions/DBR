@@ -49,7 +49,7 @@ public class TimeTrialRaceGeneration {
 			for(int i = 0; i < Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes); i++) {
 				
 				RaceObject race = new RaceObject();	//create a new raceCard to change
-//				System.out.println(Math.ceil(teams.size() / numOfLanes));
+//				System.out.println(Math.ceil(teams.size() / FestivalObject.numOfLanes));
 				//figure out the raceTime
 				if(i == 0) {
 					currentTime = startTime;

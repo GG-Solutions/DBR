@@ -13,19 +13,12 @@ public class FestivalObject {
 	 */
 	//festival object that will contain needed information about the festival
 	public static final long serialVersionUID = 1L;
-
-	public static String festivalName;
-	
-	public static int timeBetweenRaces;
-	
-	public static int numOfLanes;
-	
+	public static String festivalName = "";
+	public static int timeBetweenRaces = 20;
+	public static int numOfLanes = 3;
 	public static ArrayList<ArrayList<Integer>> breaksArray = new ArrayList<ArrayList<Integer>>();
-	
 	public static ArrayList<String> categoriesArray = new ArrayList<String>();
-	
 	public static ArrayList<String> categoryUse = new ArrayList<String>();
-	
 	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
 	public static ArrayList<RaceObject> racesArray = new ArrayList<RaceObject>();
 	

@@ -101,16 +101,4 @@ public class RaceObject {
 	public void addTeamRaceTime(JFormattedTextField box) {
 		teamRaceTimes.add(box);
 	}
-	
-	/**
-	 * Not sure if this function is needed.
-	 * Inputs - 
-	 * Outputs - 
-	 */
-	public void processUI() {
-		//procedurally generate the UI here instead?
-		//process the panels and stuff
-		//how will that help me link it?
-		
-	}
 }
