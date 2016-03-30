@@ -2,9 +2,15 @@ package DBRF;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.ParseException;
+
+import javax.management.timer.TimerMBean;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -19,8 +25,9 @@ public class TimeTrialRaceGeneration {
 	
 	private static int currentTime;	//stores the current time to generate the schedule times
 	private static int startTime = 900;	//hard coded day starting time
-	
 	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
+	private static boolean timeChangedEh = false;	//setting it able to change the time change flag
+	private static boolean firstRoundEh = true;	//used to set proper time for the races
 	
 	/**
 	 * This function completely generates the Time Trial Races. It is called when the user first goes to the schedule from teh main menu.
@@ -49,10 +56,11 @@ public class TimeTrialRaceGeneration {
 			for(int i = 0; i < Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes); i++) {
 				
 				RaceObject race = new RaceObject();	//create a new raceCard to change
-//				System.out.println(Math.ceil(teams.size() / FestivalObject.numOfLanes));
+				
 				//figure out the raceTime
-				if(i == 0) {
+				if(firstRoundEh == true) {
 					currentTime = startTime;
+					firstRoundEh = false;
 				}
 				else {
 					//race time generation
@@ -116,9 +124,9 @@ public class TimeTrialRaceGeneration {
 							//loop through the remaining races and change the times
 								//also change the text boxes
 							
-//							currentTime = Integer.valueOf(timeField.getText());
+//							int tempTime = Integer.valueOf(timeField.getText());
 //							
-//							for(int j = raceCard.get().getRaceNumber(); j < raceCard.size(); j++) {
+//							for(int j = FestivalObject.racesArray.get().getRaceNumber(); j < FestivalObject.racesArray.size(); j++) {
 //								
 //							}
 							
@@ -259,45 +267,58 @@ public class TimeTrialRaceGeneration {
 					}
 					
 					//adding the formatted text field label under the Time heading
-					JFormattedTextField label_3 = new JFormattedTextField(timeMask);
-					label_3.setHorizontalAlignment(SwingConstants.LEADING);
-					label_3.setName("label_" + (i + 1) + "_" + k);
-					panel.add(label_3, "cell 5 " + rowCounter + ",growx,aligny center");
+					JFormattedTextField timeInputField = new JFormattedTextField(timeMask);
+					timeInputField.setHorizontalAlignment(SwingConstants.LEADING);
+					timeInputField.setForeground(new Color(0, 0, 0));
+					timeInputField.setName("label_" + (i + 1) + "_" + k);
+					timeInputField.addPropertyChangeListener(new PropertyChangeListener() {
+						public void propertyChange(PropertyChangeEvent arg0) {
+							if(timeChangedEh == true) {
+								label_2.setText("*");	//set the flag that the time changed
+							}
+						}
+					});
+					panel.add(timeInputField, "cell 5 " + rowCounter + ",growx,aligny center");
 					
 					//add the lock button on the first loop
-					if(k == 0) {
+//					if(k == 0) {
 						JButton btnNewButton = new JButton("Lock");
 						btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
 						btnNewButton.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent arg0) {
-								if(btnNewButton.getText() == "Lock") {
-									//need to loop through the panel instead?
-									for(int l = 0; l < FestivalObject.numOfLanes; l++) {
-										label_3.setEnabled(false);
-//										panel.getComponents().equals("label_" + race.getRaceNumber() + "_");
-										//need to get the other variable names
-										//if it contains the sting "_" + (i + 1) + "_"
-											//c
+//								System.out.println(timeInputField.getText());
+								if(!(timeInputField.getText() == " ")) {
+									if(btnNewButton.getText() == "Lock") {
+										//need to loop through the panel instead?
+										for(int l = 0; l < FestivalObject.numOfLanes; l++) {
+											timeInputField.setEnabled(false);
+											
+//											panel.getComponents().equals("label_" + race.getRaceNumber() + "_");
+//											need to get the other variable names
+//											if it contains the sting "_" + (i + 1) + "_"
+//												c
+										}
+										//TODO Change the place of the corresponding teams instead of having the dash
+										btnNewButton.setText("Unlock");
+										timeChangedEh = true;	//now if the time is changed it will enable the time change flag
 									}
-									//TODO Change the place of the corresponding teams instead of having the dash
-									btnNewButton.setText("Unlock");
-								}
-								else {
-									label_3.setEnabled(true);
-									btnNewButton.setText("Lock");
+									else {
+										timeInputField.setEnabled(true);
+										btnNewButton.setText("Lock");
+									}
 								}
 							}
 						});
 						btnNewButton.setBounds(0, 0, 100, 20);
 						panel.add(btnNewButton, "cell 6 " + rowCounter);
-					}
+//					}
 					
 					//add the print button on the second loop
-					if(k == 1) {
-						JButton btnNewButton = new JButton("Print");
-						btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
-						btnNewButton.addMouseListener(new MouseAdapter() {
+					if(k == 0) {
+						JButton btnNew = new JButton("Print");
+						btnNew.setHorizontalAlignment(SwingConstants.CENTER);
+						btnNew.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent arg0) {
 								//export a pdf to print out
@@ -305,8 +326,8 @@ public class TimeTrialRaceGeneration {
 								saving.showSaveDialog(null);
 							}
 						});
-						btnNewButton.setBounds(0, 0, 100, 20);
-						panel.add(btnNewButton, "cell 6 " + rowCounter);
+						btnNew.setBounds(0, 0, 100, 20);
+						panel.add(btnNew, "cell 6 " + rowCounter);
 					}
 					
 					//set everything in the race object

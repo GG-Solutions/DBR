@@ -20,6 +20,13 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.lang.Integer;
+import javax.swing.JTextField;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class Schedule {
 
@@ -29,6 +36,7 @@ public class Schedule {
 	static boolean timeTrialRacesEh = false;
 	static boolean semiFinalRacesEh = false;
 	static boolean finalRacesEh = false;
+	private static JTextField txtTest;
 
 	/**
 	 * Launch the application.
@@ -252,6 +260,13 @@ public class Schedule {
 		});
 		btnSave.setBounds(709, 51, 100, 20);
 		frame.getContentPane().add(btnSave);
+		
+		txtTest = new JTextField();
+		txtTest.setEditable(false);
+		txtTest.setText("testing");
+		txtTest.setBounds(456, 51, 86, 20);
+		frame.getContentPane().add(txtTest);
+		txtTest.setColumns(10);
 		
 		//main menu objects will be added later
 //		JMenuBar menuBar = new JMenuBar();
