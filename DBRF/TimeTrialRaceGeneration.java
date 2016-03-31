@@ -268,9 +268,8 @@ public class TimeTrialRaceGeneration {
 					
 					//adding the formatted text field label under the Time heading
 					JFormattedTextField timeInputField = new JFormattedTextField(timeMask);
+					timeInputField.setName("timeInputField_" + (i + 1) + "_" + k);
 					timeInputField.setHorizontalAlignment(SwingConstants.LEADING);
-					timeInputField.setForeground(new Color(0, 0, 0));
-					timeInputField.setName("label_" + (i + 1) + "_" + k);
 					timeInputField.addPropertyChangeListener(new PropertyChangeListener() {
 						public void propertyChange(PropertyChangeEvent arg0) {
 							if(timeChangedEh == true) {

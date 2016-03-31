@@ -148,66 +148,64 @@ public class Schedule {
 		
 		//initialize them first so they can be referenced in the stateChanged method
 		JRadioButton rdbtnTimeTrials = new JRadioButton("Time-Trials");
+//		rdbtnTimeTrials.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent arg0) {
+//				
+//			}
+//		});
 		JRadioButton rdbtnSemiFinals = new JRadioButton("Semi-Finals");
 		JRadioButton rdbtnFinals = new JRadioButton("Finals");
 		
-		rdbtnTimeTrials.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if(rdbtnTimeTrials.isSelected()) {
-					//need to set the other panels to invisible and then 
-					scrollPane.setViewportView(panel1);		//set the view of the scrollPane
-					panel1.setVisible(true);
-					panel2.setVisible(false);
-					panel3.setVisible(false);
-					rdbtnSemiFinals.setSelected(false);	//cant initialize it before it is declared :/
-					rdbtnFinals.setSelected(false);
-				}
-				else {
-//					rdbtnTimeTrials.setSelected(true);
-				}
+		rdbtnTimeTrials.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				//need to set the other panels to invisible
+				scrollPane.setViewportView(panel1);		//set the view of the scrollPane
+				panel1.setVisible(true);
+				panel2.setVisible(false);
+				panel3.setVisible(false);
+				rdbtnTimeTrials.setSelected(true);
+				rdbtnSemiFinals.setSelected(false);	//cant initialize it before it is declared :/
+				rdbtnFinals.setSelected(false);
 			}
 		});
+		rdbtnTimeTrials.setEnabled(true);
 		rdbtnTimeTrials.setSelected(true);
 		rdbtnTimeTrials.setBounds(44, 50, 134, 23);
 		frame.getContentPane().add(rdbtnTimeTrials);
 		
-		rdbtnSemiFinals.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if(rdbtnSemiFinals.isSelected()) {
-					//need to set the other panels to invisible and then 
-					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
-					panel1.setVisible(false);
-					panel2.setVisible(true);
-					panel3.setVisible(false);
-					rdbtnTimeTrials.setSelected(false);
-					rdbtnFinals.setSelected(false);
-				}
-				else {
-//					rdbtnTimeTrials.setSelected(true);
-				}
+		rdbtnSemiFinals.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				//need to set the other panels to invisible and then 
+				scrollPane.setViewportView(panel2);		//set the view of the scrollPane
+				panel1.setVisible(false);
+				panel2.setVisible(true);
+				panel3.setVisible(false);
+				rdbtnTimeTrials.setSelected(false);
+				rdbtnSemiFinals.setSelected(true);
+				rdbtnFinals.setSelected(false);
 			}
 		});
 		rdbtnSemiFinals.setEnabled(true);
+		rdbtnSemiFinals.setSelected(false);
 		rdbtnSemiFinals.setBounds(180, 50, 134, 23);
 		frame.getContentPane().add(rdbtnSemiFinals);
 		
-		rdbtnFinals.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if(rdbtnFinals.isSelected()) {
-					//need to set the other panels to invisible and then 
-					scrollPane.setViewportView(panel3);		//set the view of the scrollPane
-					panel1.setVisible(false);
-					panel2.setVisible(false);
-					panel3.setVisible(true);
-					rdbtnTimeTrials.setSelected(false);
-					rdbtnSemiFinals.setSelected(false);
-				}
-				else {
-//					rdbtnFinals.setSelected(true);
-				}
+		rdbtnFinals.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				//need to set the other panels to invisible and then 
+				scrollPane.setViewportView(panel3);		//set the view of the scrollPane
+				panel1.setVisible(false);
+				panel2.setVisible(false);
+				panel3.setVisible(true);
+				rdbtnTimeTrials.setSelected(false);
+				rdbtnSemiFinals.setSelected(false);
+				rdbtnFinals.setSelected(true);
 			}
 		});
 		rdbtnFinals.setEnabled(true);
+		rdbtnFinals.setSelected(false);
 		rdbtnFinals.setBounds(316, 50, 134, 23);
 		frame.getContentPane().add(rdbtnFinals);
 		
@@ -244,6 +242,7 @@ public class Schedule {
 //				System.out.println(teamsArray.size()+"\n");
 			}
 		});
+		btnGenerate.setFocusable(false);
 		btnGenerate.setBounds(834, 51, 100, 20);
 		frame.getContentPane().add(btnGenerate);
 		
@@ -262,7 +261,6 @@ public class Schedule {
 		frame.getContentPane().add(btnSave);
 		
 		txtTest = new JTextField();
-		txtTest.setEditable(false);
 		txtTest.setText("testing");
 		txtTest.setBounds(456, 51, 86, 20);
 		frame.getContentPane().add(txtTest);
@@ -301,4 +299,18 @@ public class Schedule {
 //		mntmLogout.setBackground(Color.WHITE);
 //		menuBar.add(mntmLogout);
 	}
+	
+	//i'm not sure if i need this here
+	public static void changeRaceTimes(int changedTime, int index) {
+		for(int i = index; i < FestivalObject.racesArray.size(); i++) {
+			FestivalObject.racesArray.get(i).setRaceTime(changedTime + FestivalObject.timeBetweenRaces);
+		}
+	}
 }
+
+
+
+
+
+
+
