@@ -1,6 +1,18 @@
 package DBRF;
 
-public class TeamObject
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.text.ParseException;
+
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.text.MaskFormatter;
+
+public class TeamObject implements MouseListener
 {
 	private int teamID = -1;
 	private String teamName = "";
@@ -18,12 +30,50 @@ public class TeamObject
 	private int finalRaceTime = -1; 		//not every team will have a final race time?
 	private int averagedRaceTime = -1; 
 	
+	private JFormattedTextField timeInputField;
+	
+	private JButton btnLockButton = new JButton("Lock");
+	
+	//build and return the JFormattedTextField?
+	public JFormattedTextField getTimeField() throws ParseException {
+		MaskFormatter timeMask = new MaskFormatter("##m:##s.##ms");
+		try {
+			timeMask = new MaskFormatter("##m:##s.##ms");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		
+		timeInputField = new JFormattedTextField(timeMask);
+		
+		return timeInputField;
+	}
+	
+//	btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
+//	btnNewButton.addMouseListener(new MouseAdapter());
+//	@Override
+//	btnLockButton.addMouseListener(this);
+//	addMouseListener(this);
+//	public void mouseClicked(MouseEvent arg0) {
+//		if(btnLockButton.getText() == "Lock") {
+////			this.setFirstRaceTime(time);
+//			System.out.print(this.getFirstRaceTime());
+//			btnLockButton.setText("Unlock");
+//		}
+//		else {
+//			btnLockButton.setText("Lock");
+//		}
+//	}
+//	btnNewButton.setBounds(0, 0, 100, 20);
+//	panel.add(btnNewButton, "cell 6 " + rowCounter);
+	
 	/**
 	 * Default constructor.
 	 * Inputs - None.
 	 * Outputs - Creates a new TeamObject object.
 	 */
-	public TeamObject() {}
+	public TeamObject() {
+//		btnLockButton.addMouseListener(this);
+	}
 	
 	/**
 	 * Constructor that sets the teamName.
@@ -31,6 +81,7 @@ public class TeamObject
 	 * Outputs - Creates a new TeamObject object with set teamName
 	 */
 	public TeamObject(String name) {
+//		btnLockButton.addMouseListener(this);
 		teamName = name;
 	}
 	
@@ -41,6 +92,7 @@ public class TeamObject
 	 * Outputs - Creates a new TeamObject object with set teamName and category.
 	 */
 	public TeamObject(String name, String cat) {
+//		btnLockButton.addMouseListener(this);
 		teamName = name;
 		category = cat;
 	}
@@ -216,4 +268,70 @@ public class TeamObject
 	{
 		return averagedRaceTime;
 	}
+	
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+//		Thread t = new Thread(new Runnable()) {
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					if(btnLockButton.getText() == "Lock") {
+		//				this.setFirstRaceTime(time);
+						timeInputField.setEditable(false);
+		//				timeInputField.setEnabled(false);
+						
+						try {
+							getTimeField().setEditable(false);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+		//				System.out.print(this.getFirstRaceTime());
+						btnLockButton.setText("Unlock");
+					}
+					else {
+						timeInputField.setEditable(true);
+		//				timeInputField.setEnabled(true);
+						
+						try {
+							getTimeField().setEditable(false);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+						btnLockButton.setText("Lock");
+					}
+				}
+			});
+//		}
+//		t.start();
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public JButton getLockButton() {
+//		setFirstRaceTime(time);		//set the race time
+		//need to add if statments to identity which race it is???
+		btnLockButton.addMouseListener(this);
+		btnLockButton.setHorizontalAlignment(SwingConstants.CENTER);
+		btnLockButton.setBounds(0, 0, 100, 20);
+		return btnLockButton;
+	}
+	
 }

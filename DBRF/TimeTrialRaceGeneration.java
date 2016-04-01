@@ -259,59 +259,72 @@ public class TimeTrialRaceGeneration {
 					panel.add(label_2, "cell 4 " + rowCounter + ",aligny center");
 					
 					//input mask for the time input for each row
-					MaskFormatter timeMask = null;
-					try {
-						timeMask = new MaskFormatter("##m:##s.##ms");
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
+//					MaskFormatter timeMask = null;
+//					try {
+//						timeMask = new MaskFormatter("##m:##s.##ms");
+//					} catch (ParseException e1) {
+//						e1.printStackTrace();
+//					}
 					
 					//adding the formatted text field label under the Time heading
-					JFormattedTextField timeInputField = new JFormattedTextField(timeMask);
-					timeInputField.setName("timeInputField_" + (i + 1) + "_" + k);
-					timeInputField.setHorizontalAlignment(SwingConstants.LEADING);
-					timeInputField.addPropertyChangeListener(new PropertyChangeListener() {
-						public void propertyChange(PropertyChangeEvent arg0) {
-							if(timeChangedEh == true) {
-								label_2.setText("*");	//set the flag that the time changed
-							}
-						}
-					});
-					panel.add(timeInputField, "cell 5 " + rowCounter + ",growx,aligny center");
+//					JFormattedTextField timeInputField = new JFormattedTextField(timeMask);
+//					timeInputField.setName("timeInputField_" + (i + 1) + "_" + k);
+//					timeInputField.setHorizontalAlignment(SwingConstants.LEADING);
+//					timeInputField.addPropertyChangeListener(new PropertyChangeListener() {
+//						public void propertyChange(PropertyChangeEvent arg0) {
+//							if(timeChangedEh == true) {
+//								label_2.setText("*");	//set the flag that the time changed
+//							}
+//						}
+//					});
+					
+					try {
+						panel.add(theseTeams.get(0).getTimeField(), "cell 5 " + rowCounter + ",growx,aligny center");
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+						System.out.println(e1);
+					}
 					
 					//add the lock button on the first loop
-//					if(k == 0) {
-						JButton btnNewButton = new JButton("Lock");
-						btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
-						btnNewButton.addMouseListener(new MouseAdapter() {
-							@Override
-							public void mouseClicked(MouseEvent arg0) {
-//								System.out.println(timeInputField.getText());
-								if(!(timeInputField.getText() == " ")) {
-									if(btnNewButton.getText() == "Lock") {
-										//need to loop through the panel instead?
-										for(int l = 0; l < FestivalObject.numOfLanes; l++) {
-											timeInputField.setEnabled(false);
-											
-//											panel.getComponents().equals("label_" + race.getRaceNumber() + "_");
-//											need to get the other variable names
-//											if it contains the sting "_" + (i + 1) + "_"
-//												c
-										}
-										//TODO Change the place of the corresponding teams instead of having the dash
-										btnNewButton.setText("Unlock");
-										timeChangedEh = true;	//now if the time is changed it will enable the time change flag
-									}
-									else {
-										timeInputField.setEnabled(true);
-										btnNewButton.setText("Lock");
-									}
-								}
-							}
-						});
-						btnNewButton.setBounds(0, 0, 100, 20);
-						panel.add(btnNewButton, "cell 6 " + rowCounter);
-//					}
+////					if(k == 0) {
+//						JButton btnNewButton = new JButton("Lock");
+//						btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
+//						btnNewButton.addMouseListener(new MouseAdapter() {
+//							@Override
+//							public void mouseClicked(MouseEvent arg0) {
+////								System.out.println(timeInputField.getText());
+//								if(!(timeInputField.getText() == " ")) {
+//									if(btnNewButton.getText() == "Lock") {
+//										//need to loop through the panel instead?
+////										for(int l = 0; l < FestivalObject.numOfLanes; l++) {
+////											timeInputField.setEnabled(false);
+////											
+////											panel.getComponents().equals("label_" + race.getRaceNumber() + "_");
+////											need to get the other variable names
+////											if it contains the sting "_" + (i + 1) + "_"
+////												c
+////										}
+//										//TODO Change the place of the corresponding teams instead of having the dash
+//										theseTeams.get(0).setFirstRaceTime(Integer.getInteger(timeInputField.getText()));
+//										System.out.print(theseTeams.get(0).getFirstRaceTime());
+//										btnNewButton.setText("Unlock");
+//										timeChangedEh = true;	//now if the time is changed it will enable the time change flag
+//									}
+//									else {
+//										timeInputField.setEnabled(true);
+//										btnNewButton.setText("Lock");
+//									}
+//								}
+//							}
+//						});
+//						btnNewButton.setBounds(0, 0, 100, 20);
+//						panel.add(btnNewButton, "cell 6 " + rowCounter);
+////					}
+					
+					
+//					theseTeams.get(0).getLockButtonUI(panel);
+					panel.add(theseTeams.get(0).getLockButton(), "cell 6 " + rowCounter);		//Integer.parseInt(timeInputField.getText()
+					
 					
 					//add the print button on the second loop
 					if(k == 0) {

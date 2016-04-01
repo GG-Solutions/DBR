@@ -56,8 +56,8 @@ public class FinalRaceGeneration {
 		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 			//loop through the categories to find a match
 			for(int j = 0; j < FestivalObject.categoriesArray.size(); j++) {
-				//check if the teams category matches the one at the index of the categoriesArray
-				if(tm.get(0).getCategory() == FestivalObject.categoriesArray.get(j) && (tmCat.get(j).size() < FestivalObject.numOfLanes * 2)) {	//only get enough teams from each category for 2 races?
+				//check if the teams category matches the one at the index of the categoriesArray and is not the Special category
+				if(tm.get(0).getCategory() == FestivalObject.categoriesArray.get(j) && (tmCat.get(j).size() < FestivalObject.numOfLanes * 2) && !(tm.get(j).getCategory() == "Special")) {	//only get enough teams from each category for 2 races?
 					//do some stuff and add to the tmCat arraylist
 					TeamObject temp1 = new TeamObject();
 					temp1 = tm.get(0);
@@ -211,6 +211,7 @@ public class FinalRaceGeneration {
 //			}
 			
 			//get the numOfLanes amount of teams from then multi-dimensional arraylist for this race
+			
 			ArrayList<TeamObject> theseTeams = new ArrayList<TeamObject>();		//new array list to populate - temporarily stores the teams in each race
 			
 			//populate the theseTeams arraylist for each race
