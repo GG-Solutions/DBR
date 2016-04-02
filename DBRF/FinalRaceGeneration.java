@@ -123,52 +123,9 @@ public class FinalRaceGeneration {
 			raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 			
-			//input mask for the time input
-			MaskFormatter raceTimeMask = null;
-			try {
-				raceTimeMask = new MaskFormatter(" ##h:##m");
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
+			panel.add(race.getTimeInputField(currentTime), "cell 1 " + rowCounter);		//add the race time test field
 			
-			//the time field set to non-editable in the beginning
-			JFormattedTextField timeField = new JFormattedTextField(raceTimeMask);
-			timeField.setText(String.format("%04d", currentTime));	//format output to four 0's
-			timeField.setEditable(false);
-			panel.add(timeField, "cell 1 " + rowCounter);
-			timeField.setColumns(8);
-			
-			//edit button for the time field
-			JButton editButton = new JButton("edit");
-			editButton.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if(editButton.getText() == "edit") {
-						editButton.setText("done");
-						timeField.setEditable(true);
-					}
-					else {
-						
-						//get the race number
-						//loop through the remaining races and change the times
-							//also change the text boxes
-						
-//						currentTime = Integer.valueOf(timeField.getText());
-//						
-//						for(int j = raceCard.get().getRaceNumber(); j < raceCard.size(); j++) {
-//							
-//						}
-						
-						editButton.setText("edit");
-						timeField.setEditable(false);
-						//change all the times on all the other races here
-					}
-				}
-			});
-			editButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
-			editButton.setForeground(Color.BLUE);
-//			editButton.setBounds(0, 0, 40, 15);
-			panel.add(editButton, "cell 1 " + rowCounter);
+			panel.add(race.getEditTimeButton(), "cell 1 " + rowCounter);
 			
 			rowCounter++;
 			
@@ -326,51 +283,12 @@ public class FinalRaceGeneration {
 				label_2.setHorizontalAlignment(SwingConstants.CENTER);
 				panel.add(label_2, "cell 4 " + rowCounter + ",aligny center");
 				
-				//input mask for the time input for each row
-				MaskFormatter timeMask = null;
-				try {
-					timeMask = new MaskFormatter("##m:##s.##ms");
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
+				panel.add(theseTeams.get(0).getTimeInputField(4), "cell 5 " + rowCounter + ",growx,aligny center");
 				
-				//adding the formatted text field label under the Time heading
-				JFormattedTextField label_3 = new JFormattedTextField(timeMask);
-				label_3.setHorizontalAlignment(SwingConstants.LEADING);
-				label_3.setName("label_" + (i + 1) + "_" + k);
-				panel.add(label_3, "cell 5 " + rowCounter + ",growx,aligny center");
-				
-				//add the lock button on the first loop
-				if(k == 0) {
-					JButton btnNewButton = new JButton("Lock");
-					btnNewButton.setHorizontalAlignment(SwingConstants.LEADING);
-					btnNewButton.addMouseListener(new MouseAdapter() {
-						@Override
-						public void mouseClicked(MouseEvent arg0) {
-							if(btnNewButton.getText() == "Lock") {
-								//need to loop through the panel instead?
-								for(int l = 0; l < FestivalObject.numOfLanes; l++) {
-									label_3.setEnabled(false);
-//									panel.getComponents().equals("label_" + race.getRaceNumber() + "_");
-									//need to get the other variable names
-									//if it contains the sting "_" + (i + 1) + "_"
-										//c
-								}
-								//TODO Change the place of the corresponding teams instead of having the dash
-								btnNewButton.setText("Unlock");
-							}
-							else {
-								label_3.setEnabled(true);
-								btnNewButton.setText("Lock");
-							}
-						}
-					});
-					btnNewButton.setBounds(0, 0, 100, 20);
-					panel.add(btnNewButton, "cell 6 " + rowCounter);
-				}
+				panel.add(theseTeams.get(0).getLockButton(4), "cell 6 " + rowCounter);
 				
 				//add the print button on the second loop
-				if(k == 1) {
+				if(k == 0) {
 					JButton btnNewButton = new JButton("Print");
 					btnNewButton.setHorizontalAlignment(SwingConstants.LEADING);
 					btnNewButton.addMouseListener(new MouseAdapter() {

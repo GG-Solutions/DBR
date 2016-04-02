@@ -18,8 +18,11 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.MaskFormatter;
 import javax.swing.event.ChangeEvent;
 import java.lang.Integer;
+import java.text.ParseException;
+
 import javax.swing.JTextField;
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
@@ -27,6 +30,7 @@ import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JFormattedTextField;
 
 public class Schedule {
 
@@ -36,7 +40,6 @@ public class Schedule {
 	static boolean timeTrialRacesEh = false;
 	static boolean semiFinalRacesEh = false;
 	static boolean finalRacesEh = false;
-	private static JTextField txtTest;
 
 	/**
 	 * Launch the application.
@@ -255,16 +258,18 @@ public class Schedule {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+//				for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
+//					System.out.println(FestivalObject.teamsArray.get(i).getFirstRaceTime() 
+//							+ " - " + FestivalObject.teamsArray.get(i).getSecondRaceTime()
+//							+ " - " + FestivalObject.teamsArray.get(i).getSemiFinalRaceTime()
+//							+ " - " + FestivalObject.teamsArray.get(i).getFinalRaceTime());
+//				}
 			}
 		});
+		btnSave.setFocusable(false);
 		btnSave.setBounds(709, 51, 100, 20);
 		frame.getContentPane().add(btnSave);
-		
-		txtTest = new JTextField();
-		txtTest.setText("testing");
-		txtTest.setBounds(456, 51, 86, 20);
-		frame.getContentPane().add(txtTest);
-		txtTest.setColumns(10);
 		
 		//main menu objects will be added later
 //		JMenuBar menuBar = new JMenuBar();

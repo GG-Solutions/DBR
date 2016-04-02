@@ -2,18 +2,14 @@ package DBRF;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.ParseException;
-
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.text.MaskFormatter;
 
-public class TeamObject implements MouseListener
-{
+public class TeamObject {
+	
 	private int teamID = -1;
 	private String teamName = "";
 	private String category = "";
@@ -30,49 +26,154 @@ public class TeamObject implements MouseListener
 	private int finalRaceTime = -1; 		//not every team will have a final race time?
 	private int averagedRaceTime = -1; 
 	
-	private JFormattedTextField timeInputField;
+	private JFormattedTextField timeFirstRaceInputField = null;
+	private JFormattedTextField timeSecondRaceInputField = null;
+	private JFormattedTextField timeSemiFinalRaceInputField = null;
+	private JFormattedTextField timeFinalRaceInputField = null;
 	
-	private JButton btnLockButton = new JButton("Lock");
+	private JButton firstRaceLockButton = new JButton("Lock");
+	private JButton secondRaceLockButton = new JButton("Lock");
+	private JButton semiFinalRaceLockButton = new JButton("Lock");
+	private JButton finalRaceLockButton = new JButton("Lock");
 	
 	//build and return the JFormattedTextField?
-	public JFormattedTextField getTimeField() throws ParseException {
-		MaskFormatter timeMask = new MaskFormatter("##m:##s.##ms");
+	public JFormattedTextField getTimeInputField(int round) {
+		
+		JFormattedTextField tempField = null;
+		MaskFormatter timeMask = null;
+		
 		try {
 			timeMask = new MaskFormatter("##m:##s.##ms");
-		} catch (ParseException e1) {
-			e1.printStackTrace();
+			timeMask.setValueContainsLiteralCharacters(false);
+			
+			tempField = new JFormattedTextField(timeMask);
+		} 
+		catch (ParseException e) {
+			e.printStackTrace();
 		}
 		
-		timeInputField = new JFormattedTextField(timeMask);
+		if(round == 1) {
+			timeFirstRaceInputField = tempField;
+		}
+		if(round == 2) {
+			timeSecondRaceInputField = tempField;
+		}
+		if(round == 3) {
+			timeSemiFinalRaceInputField = tempField;
+		}
+		if(round == 4) {
+			timeFinalRaceInputField = tempField;
+		}
 		
-		return timeInputField;
+		return tempField;
 	}
 	
-//	btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
-//	btnNewButton.addMouseListener(new MouseAdapter());
-//	@Override
-//	btnLockButton.addMouseListener(this);
-//	addMouseListener(this);
-//	public void mouseClicked(MouseEvent arg0) {
-//		if(btnLockButton.getText() == "Lock") {
-////			this.setFirstRaceTime(time);
-//			System.out.print(this.getFirstRaceTime());
-//			btnLockButton.setText("Unlock");
-//		}
-//		else {
-//			btnLockButton.setText("Lock");
-//		}
-//	}
-//	btnNewButton.setBounds(0, 0, 100, 20);
-//	panel.add(btnNewButton, "cell 6 " + rowCounter);
+	//returns the correct lock back to the pane depending on what round is passed to this function
+	public JButton getLockButton(int round) {
+		
+		JButton tempButton = null;	//create a temp variable to return depending on which integer is passed to this function
+		
+		if(round == 1) {
+			tempButton = firstRaceLockButton;
+		}
+		
+		if(round == 2) {
+			tempButton = secondRaceLockButton;
+		}
+		
+		if(round == 3) {
+			tempButton = semiFinalRaceLockButton;
+		}
+		
+		if(round == 4) {
+			tempButton = finalRaceLockButton;
+		}
+		
+		return tempButton;
+	}
+	
+	//----------------------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
 	 * Default constructor.
 	 * Inputs - None.
-	 * Outputs - Creates a new TeamObject object.
+	 * Outputs - Creates a new TeamObject object and builds the 4 lock buttons.
 	 */
 	public TeamObject() {
-//		btnLockButton.addMouseListener(this);
+		//build the firstRaceLockButton variable
+		firstRaceLockButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(firstRaceLockButton.getText() == "Lock" && timeFirstRaceInputField.getValue() != null) {
+					firstRaceTime = Integer.parseInt((String)timeFirstRaceInputField.getValue());	//set the firstRaceTime variable
+					timeFirstRaceInputField.setEditable(false);
+					firstRaceLockButton.setText("Unlock");
+				}
+				else if(firstRaceLockButton.getText() == "Unlock") {
+					timeFirstRaceInputField.setEditable(true);
+					firstRaceLockButton.setText("Lock");
+				}
+			}
+		});
+		firstRaceLockButton.setHorizontalAlignment(SwingConstants.CENTER);
+		firstRaceLockButton.setBounds(0, 0, 100, 20);
+		firstRaceLockButton.setFocusable(false);
+		
+		//build the secondRaceLockButton variable
+		secondRaceLockButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				//for the second race lock button click
+				if(secondRaceLockButton.getText() == "Lock" && timeSecondRaceInputField.getValue() != null) {
+					secondRaceTime = Integer.parseInt((String)timeSecondRaceInputField.getValue());	//set the secondRaceTime variable
+					timeSecondRaceInputField.setEditable(false);
+					secondRaceLockButton.setText("Unlock");
+				}
+				else if(secondRaceLockButton.getText() == "Unlock") {
+					timeSecondRaceInputField.setEditable(true);
+					secondRaceLockButton.setText("Lock");
+				}
+			}
+		});
+		secondRaceLockButton.setHorizontalAlignment(SwingConstants.CENTER);
+		secondRaceLockButton.setBounds(0, 0, 100, 20);
+		secondRaceLockButton.setFocusable(false);
+		
+		//build the semiFinalRaceLockButton variable
+		semiFinalRaceLockButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				//for the semi final race button click
+				if(semiFinalRaceLockButton.getText() == "Lock" && timeSemiFinalRaceInputField.getValue() != null) {
+					semiFinalRaceTime = Integer.parseInt((String)timeSemiFinalRaceInputField.getValue());	//set the semiFinalRaceTime variable
+					timeSemiFinalRaceInputField.setEditable(false);
+					semiFinalRaceLockButton.setText("Unlock");
+				}
+				else if(semiFinalRaceLockButton.getText() == "Unlock") {
+					timeSemiFinalRaceInputField.setEditable(true);
+					semiFinalRaceLockButton.setText("Lock");
+				}
+			}
+		});
+		semiFinalRaceLockButton.setHorizontalAlignment(SwingConstants.CENTER);
+		semiFinalRaceLockButton.setBounds(0, 0, 100, 20);
+		semiFinalRaceLockButton.setFocusable(false);
+		
+		//build the finalRaceLockButton variable
+		finalRaceLockButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				//for the final race button click
+				if(finalRaceLockButton.getText() == "Lock" && timeFinalRaceInputField.getValue() != null) {
+					finalRaceTime = Integer.parseInt((String)timeFinalRaceInputField.getValue());	//set the finalRaceTime variable
+					timeFinalRaceInputField.setEditable(false);
+					finalRaceLockButton.setText("Unlock");
+				}
+				else if(finalRaceLockButton.getText() == "Unlock") {
+					timeFinalRaceInputField.setEditable(true);
+					finalRaceLockButton.setText("Lock");
+				}
+			}
+		});
+		finalRaceLockButton.setHorizontalAlignment(SwingConstants.CENTER);
+		finalRaceLockButton.setBounds(0, 0, 100, 20);
+		finalRaceLockButton.setFocusable(false);
 	}
 	
 	/**
@@ -81,7 +182,7 @@ public class TeamObject implements MouseListener
 	 * Outputs - Creates a new TeamObject object with set teamName
 	 */
 	public TeamObject(String name) {
-//		btnLockButton.addMouseListener(this);
+		this();		//call the first constructor to build the lock buttons
 		teamName = name;
 	}
 	
@@ -92,7 +193,7 @@ public class TeamObject implements MouseListener
 	 * Outputs - Creates a new TeamObject object with set teamName and category.
 	 */
 	public TeamObject(String name, String cat) {
-//		btnLockButton.addMouseListener(this);
+		this();		//call the first constructor to build the lock buttons
 		teamName = name;
 		category = cat;
 	}
@@ -268,70 +369,4 @@ public class TeamObject implements MouseListener
 	{
 		return averagedRaceTime;
 	}
-	
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-//		Thread t = new Thread(new Runnable()) {
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					if(btnLockButton.getText() == "Lock") {
-		//				this.setFirstRaceTime(time);
-						timeInputField.setEditable(false);
-		//				timeInputField.setEnabled(false);
-						
-						try {
-							getTimeField().setEditable(false);
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-		//				System.out.print(this.getFirstRaceTime());
-						btnLockButton.setText("Unlock");
-					}
-					else {
-						timeInputField.setEditable(true);
-		//				timeInputField.setEnabled(true);
-						
-						try {
-							getTimeField().setEditable(false);
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-						btnLockButton.setText("Lock");
-					}
-				}
-			});
-//		}
-//		t.start();
-	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public JButton getLockButton() {
-//		setFirstRaceTime(time);		//set the race time
-		//need to add if statments to identity which race it is???
-		btnLockButton.addMouseListener(this);
-		btnLockButton.setHorizontalAlignment(SwingConstants.CENTER);
-		btnLockButton.setBounds(0, 0, 100, 20);
-		return btnLockButton;
-	}
-	
 }

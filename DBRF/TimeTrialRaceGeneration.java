@@ -25,8 +25,7 @@ public class TimeTrialRaceGeneration {
 	
 	private static int currentTime;	//stores the current time to generate the schedule times
 	private static int startTime = 900;	//hard coded day starting time
-	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
-	private static boolean timeChangedEh = false;	//setting it able to change the time change flag
+	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in mig layout
 	private static boolean firstRoundEh = true;	//used to set proper time for the races
 	
 	/**
@@ -94,52 +93,9 @@ public class TimeTrialRaceGeneration {
 				raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 				panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 				
-				//input mask for the time input
-				MaskFormatter raceTimeMask = null;
-				try {
-					raceTimeMask = new MaskFormatter(" ##h:##m");
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
+				panel.add(race.getTimeInputField(currentTime), "cell 1 " + rowCounter);		//add the race time test field
 				
-				//the time field set to non-editable in the beginning
-				JFormattedTextField timeField = new JFormattedTextField(raceTimeMask);
-				timeField.setText(String.format("%04d", currentTime));	//format output to four 0's
-				timeField.setEditable(false);
-				panel.add(timeField, "cell 1 " + rowCounter);
-				timeField.setColumns(8);
-				
-				//edit button for the time field
-				JButton editButton = new JButton("edit");
-				editButton.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						if(editButton.getText() == "edit") {
-							editButton.setText("done");
-							timeField.setEditable(true);
-						}
-						else {
-							
-							//get the race number
-							//loop through the remaining races and change the times
-								//also change the text boxes
-							
-//							int tempTime = Integer.valueOf(timeField.getText());
-//							
-//							for(int j = FestivalObject.racesArray.get().getRaceNumber(); j < FestivalObject.racesArray.size(); j++) {
-//								
-//							}
-							
-							editButton.setText("edit");
-							timeField.setEditable(false);
-							//change all the times on all the other races here
-						}
-					}
-				});
-				editButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
-				editButton.setForeground(Color.BLUE);
-//				editButton.setBounds(0, 0, 40, 15);
-				panel.add(editButton, "cell 1 " + rowCounter);
+				panel.add(race.getEditTimeButton(), "cell 1 " + rowCounter);
 				
 				rowCounter += 1;
 				
@@ -258,73 +214,9 @@ public class TimeTrialRaceGeneration {
 					label_2.setHorizontalAlignment(SwingConstants.CENTER);
 					panel.add(label_2, "cell 4 " + rowCounter + ",aligny center");
 					
-					//input mask for the time input for each row
-//					MaskFormatter timeMask = null;
-//					try {
-//						timeMask = new MaskFormatter("##m:##s.##ms");
-//					} catch (ParseException e1) {
-//						e1.printStackTrace();
-//					}
+					panel.add(theseTeams.get(0).getTimeInputField(o + 1), "cell 5 " + rowCounter + ",growx,aligny center");
 					
-					//adding the formatted text field label under the Time heading
-//					JFormattedTextField timeInputField = new JFormattedTextField(timeMask);
-//					timeInputField.setName("timeInputField_" + (i + 1) + "_" + k);
-//					timeInputField.setHorizontalAlignment(SwingConstants.LEADING);
-//					timeInputField.addPropertyChangeListener(new PropertyChangeListener() {
-//						public void propertyChange(PropertyChangeEvent arg0) {
-//							if(timeChangedEh == true) {
-//								label_2.setText("*");	//set the flag that the time changed
-//							}
-//						}
-//					});
-					
-					try {
-						panel.add(theseTeams.get(0).getTimeField(), "cell 5 " + rowCounter + ",growx,aligny center");
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-						System.out.println(e1);
-					}
-					
-					//add the lock button on the first loop
-////					if(k == 0) {
-//						JButton btnNewButton = new JButton("Lock");
-//						btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
-//						btnNewButton.addMouseListener(new MouseAdapter() {
-//							@Override
-//							public void mouseClicked(MouseEvent arg0) {
-////								System.out.println(timeInputField.getText());
-//								if(!(timeInputField.getText() == " ")) {
-//									if(btnNewButton.getText() == "Lock") {
-//										//need to loop through the panel instead?
-////										for(int l = 0; l < FestivalObject.numOfLanes; l++) {
-////											timeInputField.setEnabled(false);
-////											
-////											panel.getComponents().equals("label_" + race.getRaceNumber() + "_");
-////											need to get the other variable names
-////											if it contains the sting "_" + (i + 1) + "_"
-////												c
-////										}
-//										//TODO Change the place of the corresponding teams instead of having the dash
-//										theseTeams.get(0).setFirstRaceTime(Integer.getInteger(timeInputField.getText()));
-//										System.out.print(theseTeams.get(0).getFirstRaceTime());
-//										btnNewButton.setText("Unlock");
-//										timeChangedEh = true;	//now if the time is changed it will enable the time change flag
-//									}
-//									else {
-//										timeInputField.setEnabled(true);
-//										btnNewButton.setText("Lock");
-//									}
-//								}
-//							}
-//						});
-//						btnNewButton.setBounds(0, 0, 100, 20);
-//						panel.add(btnNewButton, "cell 6 " + rowCounter);
-////					}
-					
-					
-//					theseTeams.get(0).getLockButtonUI(panel);
-					panel.add(theseTeams.get(0).getLockButton(), "cell 6 " + rowCounter);		//Integer.parseInt(timeInputField.getText()
-					
+					panel.add(theseTeams.get(0).getLockButton(o + 1), "cell 6 " + rowCounter);
 					
 					//add the print button on the second loop
 					if(k == 0) {
@@ -343,17 +235,17 @@ public class TimeTrialRaceGeneration {
 					}
 					
 					//set everything in the race object
-					race.setRaceNumber(i + 1);		//set the race number
-					race.setRaceTime(currentTime);		//set the race time
-					race.setCategory(theseTeams.get(0).getCategory());	//get the category from the team
 					
 					race.addTeamToRace(theseTeams.get(0));	//store the team to the ArrayList in the race object
+					race.setCategory(theseTeams.get(0).getCategory());	//get the category from the team
 					
 //					System.out.println(label_3.getName());
 					theseTeams.remove(0);	//remove the team from the duplicated array list so the index will always be 0 to get information
 				}
 				//END OF FOR LOOP FOR THE TEAMS --------------------------------------------------------------------------------------------------------
 				
+				race.setRaceNumber(i + 1);		//set the race number
+				race.setRaceTime(currentTime);		//set the race time
 				FestivalObject.racesArray.add(race);		//lastly, add the created RaceObject to the global ArrayList
 				
 //				theseTeams.remove(0);	//remove the team from the duplicated array list so the index will always be 0 to get information

@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
 
-
 public class FestivalObject {
 
 	
