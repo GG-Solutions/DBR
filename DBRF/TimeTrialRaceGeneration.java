@@ -40,13 +40,13 @@ public class TimeTrialRaceGeneration {
 	 */
 	public static void generateTimeTrailRaces(JPanel panel) {
 		
-		ArrayList<TeamObject> teams = FestivalObject.teamsArray;		//duplicate the teams array
+		ArrayList<TeamObject> teams = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate the teams array
+		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
+		RaceObject race = new RaceObject();		//create a new race to populate and later send to the racesArray
 		
 		//main loop ------------------------------------------------------------------------------------------------------------------------
 		//go through everything twice so each team races twice
 		for(int o = 0; o < 2; o++) {
-			
-			ArrayList<ArrayList<Integer>> breaks = FestivalObject.breaksArray;	//duplicate the breaks array so the duplicate can be modified
 			
 			teams = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//reset the teams1 arraylist
 			Collections.shuffle(teams);	//shuffle the arraylist
@@ -54,7 +54,7 @@ public class TimeTrialRaceGeneration {
 			//round the number up cause you will always need that 
 			for(int i = 0; i < Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes); i++) {
 				
-				RaceObject race = new RaceObject();	//create a new raceCard to change
+				race = new RaceObject();	//create a new raceCard to change
 				
 				//figure out the raceTime
 				if(firstRoundEh == true) {
@@ -65,7 +65,7 @@ public class TimeTrialRaceGeneration {
 					//race time generation
 					if((currentTime + FestivalObject.timeBetweenRaces) >= breaks.get(0).get(0)) {
 						currentTime = breaks.get(0).get(1);
-//						breaks.remove(0);
+						breaks.remove(0);
 						//add ability to recommend a time change of the break?
 							//refer to programming notes doc
 					}
@@ -219,19 +219,9 @@ public class TimeTrialRaceGeneration {
 					panel.add(theseTeams.get(0).getLockButton(o + 1), "cell 6 " + rowCounter);
 					
 					//add the print button on the second loop
+					//TODO - change it to one lock button instead in the RaceObject?
 					if(k == 0) {
-						JButton btnNew = new JButton("Print");
-						btnNew.setHorizontalAlignment(SwingConstants.CENTER);
-						btnNew.addMouseListener(new MouseAdapter() {
-							@Override
-							public void mouseClicked(MouseEvent arg0) {
-								//export a pdf to print out
-								JFileChooser saving = new JFileChooser();
-								saving.showSaveDialog(null);
-							}
-						});
-						btnNew.setBounds(0, 0, 100, 20);
-						panel.add(btnNew, "cell 6 " + rowCounter);
+						panel.add(race.getPrintButton(), "cell 6 " + rowCounter);
 					}
 					
 					//set everything in the race object
@@ -239,7 +229,6 @@ public class TimeTrialRaceGeneration {
 					race.addTeamToRace(theseTeams.get(0));	//store the team to the ArrayList in the race object
 					race.setCategory(theseTeams.get(0).getCategory());	//get the category from the team
 					
-//					System.out.println(label_3.getName());
 					theseTeams.remove(0);	//remove the team from the duplicated array list so the index will always be 0 to get information
 				}
 				//END OF FOR LOOP FOR THE TEAMS --------------------------------------------------------------------------------------------------------

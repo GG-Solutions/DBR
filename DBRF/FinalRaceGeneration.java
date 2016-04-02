@@ -34,7 +34,7 @@ public class FinalRaceGeneration {
 	 */
 	public static void generateFinalRaces(JPanel panel) {
 		
-		ArrayList<TeamObject> tm = FestivalObject.teamsArray;		//duplicate the teams array
+		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate the teams array
 		
 		//sort the duplicated tm ArrayList based on the semiFinalRaceTime in ascending order before separating by category
 			//this makes them stay sorted before separation

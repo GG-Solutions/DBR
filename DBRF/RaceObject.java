@@ -7,7 +7,9 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
+import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
 public class RaceObject {
@@ -20,6 +22,7 @@ public class RaceObject {
 	
 	private JFormattedTextField timeEditField = null;
 	private JButton editTimeButton = new JButton("edit");
+	private JButton printButton = new JButton("Print");
 	
 	
 	public JFormattedTextField setTimeInputField(int time) {
@@ -35,7 +38,6 @@ public class RaceObject {
 			timeEditField.setEditable(false);
 			timeEditField.setColumns(8);
 			setRaceTime(time);		//set the raceTime variable
-//			timeEditField.setText(time);	//set the UI to have the time
 		} 
 		catch (ParseException e) {
 			e.printStackTrace();
@@ -50,6 +52,10 @@ public class RaceObject {
 	
 	public JButton getEditTimeButton() {
 		return editTimeButton;
+	}
+	
+	public JButton getPrintButton() {
+		return printButton;
 	}
 	
 	
@@ -72,9 +78,7 @@ public class RaceObject {
 					
 					int tempTime = getRaceTime();	//get this race number for the index
 					
-					ArrayList<ArrayList<Integer>> breaks = FestivalObject.breaksArray;	//duplicate the breaks array so the duplicate can be modified
-					
-					System.out.println(breaks.size());
+					ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
 					
 					//duplicate the breaksArray
 					//loop through and remove the breaks that already passed
@@ -87,7 +91,7 @@ public class RaceObject {
 						//if the current break end in the ArrayList is less than this object's race time, remove it
 						if(breaks.get(0).get(1) < tempTime) {
 							breaks.remove(0);
-//							System.out.println(breaks.size());
+							System.out.println("took break out, left: " + breaks.size());
 						}
 						//enough breaks have been removed
 						else {
@@ -95,6 +99,7 @@ public class RaceObject {
 						}
 					}
 					
+					System.out.println(breaks.size());
 					System.out.println("changing race # " + getRaceNumber());
 					
 					//loop to change all the next race times depending on this object's raceID
@@ -132,15 +137,15 @@ public class RaceObject {
 					timeEditField.setEditable(false);
 					
 					
-					for(int k = 0; k < FestivalObject.breaksArray.size(); k ++) {
-						System.out.println(FestivalObject.breaksArray.get(k).get(0) + " - " + FestivalObject.breaksArray.get(k).get(1));
-					}
+//					for(int k = 0; k < FestivalObject.breaksArray.size(); k ++) {
+//						System.out.println(FestivalObject.breaksArray.get(k).get(0) + " - " + FestivalObject.breaksArray.get(k).get(1));
+//					}
 					
 					//test print out all the race times
-//					for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
-//						System.out.println(FestivalObject.racesArray.get(i).getRaceNumber()
-//								+ " - " + FestivalObject.racesArray.get(i).getRaceTime());
-//					}
+					for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
+						System.out.println(FestivalObject.racesArray.get(i).getRaceNumber()
+								+ " - " + FestivalObject.racesArray.get(i).getRaceTime());
+					}
 				}
 			}
 		});
@@ -148,6 +153,21 @@ public class RaceObject {
 		editTimeButton.setForeground(Color.BLUE);
 //		editTimeButton.setBounds(0, 0, 40, 15);
 		editTimeButton.setFocusable(false);
+		
+		//set up the print button
+		printButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				
+				System.out.println("clicked print button with race number of: " + getRaceNumber());
+				
+				//TODO - export a pdf to print out
+				JFileChooser saving = new JFileChooser();
+				saving.showSaveDialog(null);
+			}
+		});
+		printButton.setHorizontalAlignment(SwingConstants.CENTER);
+		printButton.setBounds(0, 0, 100, 20);
+		printButton.setFocusable(false);
 	}
 	
 	/**

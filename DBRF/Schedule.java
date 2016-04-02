@@ -268,10 +268,6 @@ public class Schedule {
 //				for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
 //					System.out.println(FestivalObject.racesArray.get(i).getRaceNumber());
 //				}
-				
-				for(int k = 0; k < FestivalObject.breaksArray.size(); k ++) {
-					System.out.println(FestivalObject.breaksArray.get(k).get(0) + " - " + FestivalObject.breaksArray.get(k).get(1));
-				}
 			}
 		});
 		btnSave.setFocusable(false);

@@ -18,7 +18,7 @@ import javax.swing.text.MaskFormatter;
 
 public class SemiFinalRaceGeneration {
 	
-	private static int currentTime;	//stores the current time to generate the schedule times
+	private static int currentTime = -1;	//stores the current time to generate the schedule times
 	private static int startTime = 900;	//day starting time	
 	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
 	
@@ -44,7 +44,7 @@ public class SemiFinalRaceGeneration {
 //			System.out.println(teams.get(i).getAveragedRaceTime());
 		}
 		
-		ArrayList<TeamObject> tm = FestivalObject.teamsArray;		//duplicate the teams array
+		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate teamsArray
 		
 //		for(int i = 0; i < teams.size(); i++) {
 //			System.out.println(teams.get(i).getTeamName() + " - " + tm.get(i).getAveragedRaceTime());
@@ -68,7 +68,7 @@ public class SemiFinalRaceGeneration {
 		//empty multidimensional arraylist to separate the teams by category
 		ArrayList<ArrayList<TeamObject>> tmCat	= new ArrayList<ArrayList<TeamObject>>();	//do i need the whole teamobject stored? - prob easiest
 		
-		//loop through the teams and pre add the correct amount of spots based on the category name
+		//loop through the teams and pre-add the correct amount of spots based on the category name
 		for(int i = 0; i < FestivalObject.categoriesArray.size() - 1; i++) {
 			tmCat.add(new ArrayList<TeamObject>());
 		}
