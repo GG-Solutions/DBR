@@ -12,9 +12,9 @@ import javax.swing.text.MaskFormatter;
 
 public class RaceObject {
 	
-	private int raceNumber;
-	private int raceTime;		//the time at which the race will take place
-	private String category;	//category variable from the array
+	private int raceNumber = -1;
+	private int raceTime = -1;		//the time at which the race will take place
+	private String category = "";	//category variable from the array
 	private ArrayList<TeamObject> teamsRacing = new ArrayList<TeamObject>();	//array of teams that are in this race
 	private ArrayList<JFormattedTextField> teamRaceTimes = new ArrayList<JFormattedTextField>();	//store the UI that was created?
 	
@@ -22,7 +22,7 @@ public class RaceObject {
 	private JButton editTimeButton = new JButton("edit");
 	
 	
-	public JFormattedTextField getTimeInputField(int time) {
+	public JFormattedTextField setTimeInputField(int time) {
 		
 		MaskFormatter timeMask = null;
 		
@@ -31,7 +31,7 @@ public class RaceObject {
 			timeMask.setValueContainsLiteralCharacters(false);
 			
 			timeEditField = new JFormattedTextField(timeMask);
-			timeEditField.setText(String.format("%04d", time));	//format output to four 0's
+			timeEditField.setValue(String.format("%04d", time));	//format output to four 0's
 			timeEditField.setEditable(false);
 			timeEditField.setColumns(8);
 			setRaceTime(time);		//set the raceTime variable
@@ -41,6 +41,10 @@ public class RaceObject {
 			e.printStackTrace();
 		}
 		
+		return timeEditField;
+	}
+	
+	public JFormattedTextField getTimeInputField() {
 		return timeEditField;
 	}
 	
@@ -64,18 +68,26 @@ public class RaceObject {
 					//loop through the remaining races and change the times
 						//also change the text boxes
 					
-					int tempTime = getRaceTime();
+					setRaceTime(Integer.parseInt((String)timeEditField.getValue()));
+					
+					int tempTime = getRaceTime();	//get this race number for the index
 					
 					ArrayList<ArrayList<Integer>> breaks = FestivalObject.breaksArray;	//duplicate the breaks array so the duplicate can be modified
 					
 					System.out.println(breaks.size());
 					
+					//duplicate the breaksArray
+					//loop through and remove the breaks that already passed
+					//loop to change the times from the current race on
+						//set the race time
+						//break when the race time = the start day time
+					
 					//loop through the breaks to remove any breaks before this raceTime
 					for(int i = 0; i < breaks.size(); i++) {
 						//if the current break end in the ArrayList is less than this object's race time, remove it
-						if(breaks.get(0).get(1) < getRaceTime()) {
+						if(breaks.get(0).get(1) < tempTime) {
 							breaks.remove(0);
-							System.out.println(breaks.size());
+//							System.out.println(breaks.size());
 						}
 						//enough breaks have been removed
 						else {
@@ -83,8 +95,10 @@ public class RaceObject {
 						}
 					}
 					
+					System.out.println("changing race # " + getRaceNumber());
+					
 					//loop to change all the next race times depending on this object's raceID
-					for(int j = getRaceNumber(); j < FestivalObject.racesArray.size(); j++) {
+					for(int j = getRaceNumber() + 1; j < FestivalObject.racesArray.size(); j++) {
 						
 						//change the race time
 						if((tempTime + FestivalObject.timeBetweenRaces) >= breaks.get(0).get(0)) {
@@ -110,11 +124,23 @@ public class RaceObject {
 						}
 						tempTime += tempTime2;	//add the formatted minutes back to the currentTime
 						
+						FestivalObject.racesArray.get(j).setTimeInputField(tempTime);
 						FestivalObject.racesArray.get(j).setRaceTime(tempTime);
 					}
 					
 					editTimeButton.setText("edit");
 					timeEditField.setEditable(false);
+					
+					
+					for(int k = 0; k < FestivalObject.breaksArray.size(); k ++) {
+						System.out.println(FestivalObject.breaksArray.get(k).get(0) + " - " + FestivalObject.breaksArray.get(k).get(1));
+					}
+					
+					//test print out all the race times
+//					for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
+//						System.out.println(FestivalObject.racesArray.get(i).getRaceNumber()
+//								+ " - " + FestivalObject.racesArray.get(i).getRaceTime());
+//					}
 				}
 			}
 		});

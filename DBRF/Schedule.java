@@ -253,11 +253,11 @@ public class Schedule {
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				try {
-					SaveAndLoad.saveXML();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+//				try {
+//					SaveAndLoad.saveXML();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 				
 //				for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 //					System.out.println(FestivalObject.teamsArray.get(i).getFirstRaceTime() 
@@ -265,6 +265,13 @@ public class Schedule {
 //							+ " - " + FestivalObject.teamsArray.get(i).getSemiFinalRaceTime()
 //							+ " - " + FestivalObject.teamsArray.get(i).getFinalRaceTime());
 //				}
+//				for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
+//					System.out.println(FestivalObject.racesArray.get(i).getRaceNumber());
+//				}
+				
+				for(int k = 0; k < FestivalObject.breaksArray.size(); k ++) {
+					System.out.println(FestivalObject.breaksArray.get(k).get(0) + " - " + FestivalObject.breaksArray.get(k).get(1));
+				}
 			}
 		});
 		btnSave.setFocusable(false);

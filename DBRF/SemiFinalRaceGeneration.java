@@ -144,7 +144,7 @@ public class SemiFinalRaceGeneration {
 			raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 			
-			panel.add(race.getTimeInputField(currentTime), "cell 1 " + rowCounter);		//add the race time test field
+			panel.add(race.setTimeInputField(currentTime), "cell 1 " + rowCounter);		//add the race time test field
 			
 			panel.add(race.getEditTimeButton(), "cell 1 " + rowCounter);
 			
@@ -324,8 +324,6 @@ public class SemiFinalRaceGeneration {
 				}
 				
 				//set everything in the race object
-				race.setRaceNumber(i + 1);		//set the race number
-				race.setRaceTime(currentTime);		//set the race time
 				race.setCategory(FestivalObject.teamsArray.get(0).getCategory());	//get the category from the team
 				
 				race.addTeamToRace(theseTeams.get(0));	//store the team to the ArrayList in the race object
@@ -336,6 +334,8 @@ public class SemiFinalRaceGeneration {
 			}
 			//END OF FOR LOOP FOR THE TEAMS --------------------------------------------------------------------------------------------------------
 			
+			race.setRaceNumber(FestivalObject.racesArray.size() + 1);		//set the race number
+			race.setRaceTime(currentTime);		//set the race time
 			FestivalObject.racesArray.add(race);		//lastly, add the created RaceObject to the global ArrayList
 			
 			rowCounter++;

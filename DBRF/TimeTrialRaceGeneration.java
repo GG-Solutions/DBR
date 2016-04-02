@@ -65,7 +65,7 @@ public class TimeTrialRaceGeneration {
 					//race time generation
 					if((currentTime + FestivalObject.timeBetweenRaces) >= breaks.get(0).get(0)) {
 						currentTime = breaks.get(0).get(1);
-						breaks.remove(0);
+//						breaks.remove(0);
 						//add ability to recommend a time change of the break?
 							//refer to programming notes doc
 					}
@@ -93,7 +93,7 @@ public class TimeTrialRaceGeneration {
 				raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 				panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 				
-				panel.add(race.getTimeInputField(currentTime), "cell 1 " + rowCounter);		//add the race time test field
+				panel.add(race.setTimeInputField(currentTime), "cell 1 " + rowCounter);		//add the race time test field
 				
 				panel.add(race.getEditTimeButton(), "cell 1 " + rowCounter);
 				
@@ -244,7 +244,7 @@ public class TimeTrialRaceGeneration {
 				}
 				//END OF FOR LOOP FOR THE TEAMS --------------------------------------------------------------------------------------------------------
 				
-				race.setRaceNumber(i + 1);		//set the race number
+				race.setRaceNumber(FestivalObject.racesArray.size() + 1);		//set the race number
 				race.setRaceTime(currentTime);		//set the race time
 				FestivalObject.racesArray.add(race);		//lastly, add the created RaceObject to the global ArrayList
 				
