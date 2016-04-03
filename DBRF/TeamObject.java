@@ -47,6 +47,7 @@ public class TeamObject {
 			timeMask.setValueContainsLiteralCharacters(false);
 			
 			tempField = new JFormattedTextField(timeMask);
+			tempField.setFont(FestivalObject.getFont());	//set the correct font
 		} 
 		catch (ParseException e) {
 			e.printStackTrace();
@@ -114,6 +115,7 @@ public class TeamObject {
 				}
 			}
 		});
+		firstRaceLockButton.setFont(FestivalObject.getFont());
 		firstRaceLockButton.setHorizontalAlignment(SwingConstants.CENTER);
 		firstRaceLockButton.setBounds(0, 0, 100, 20);
 		firstRaceLockButton.setFocusable(false);
@@ -133,6 +135,7 @@ public class TeamObject {
 				}
 			}
 		});
+		secondRaceLockButton.setFont(FestivalObject.getFont());
 		secondRaceLockButton.setHorizontalAlignment(SwingConstants.CENTER);
 		secondRaceLockButton.setBounds(0, 0, 100, 20);
 		secondRaceLockButton.setFocusable(false);
@@ -152,6 +155,7 @@ public class TeamObject {
 				}
 			}
 		});
+		semiFinalRaceLockButton.setFont(FestivalObject.getFont());
 		semiFinalRaceLockButton.setHorizontalAlignment(SwingConstants.CENTER);
 		semiFinalRaceLockButton.setBounds(0, 0, 100, 20);
 		semiFinalRaceLockButton.setFocusable(false);
@@ -171,6 +175,7 @@ public class TeamObject {
 				}
 			}
 		});
+		finalRaceLockButton.setFont(FestivalObject.getFont());
 		finalRaceLockButton.setHorizontalAlignment(SwingConstants.CENTER);
 		finalRaceLockButton.setBounds(0, 0, 100, 20);
 		finalRaceLockButton.setFocusable(false);

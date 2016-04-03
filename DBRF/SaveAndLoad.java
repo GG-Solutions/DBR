@@ -7,6 +7,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -24,9 +26,14 @@ public class SaveAndLoad {
 	 * Inputs - None.
 	 * Outputs - An XML file.
 	 */
-	public static void saveXML() throws Exception {
+	public static void saveXML() {
 		DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dB = dBF.newDocumentBuilder();
+		DocumentBuilder dB = null;
+		try {
+			dB = dBF.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
 		
 		Document doc = dB.newDocument();
 		
@@ -84,14 +91,24 @@ public class SaveAndLoad {
 		
 		//transform the built information into a formatted xml file
 		TransformerFactory tF = TransformerFactory.newInstance();
-		Transformer tran = tF.newTransformer();
+		Transformer tran = null;
+		try {
+			tran = tF.newTransformer();
+		} catch (TransformerConfigurationException e) {
+			e.printStackTrace();
+		}
 		tran.setOutputProperty(OutputKeys.INDENT, "yes");	//add indenting to output xml file
 		tran.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");	//adds 2 spaces to each indexed xml line
 		DOMSource src = new DOMSource(doc);
 		
 		StreamResult sR = new StreamResult(new File("C:\\Users\\David van de Kamp\\Desktop\\festival.xml"));	//TODO - change to the festivalName
 		
-		tran.transform(src, sR);	//output the file
+		//output the file
+		try {
+			tran.transform(src, sR);
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	/**

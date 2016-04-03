@@ -20,6 +20,8 @@ public class FestivalObject {
 	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
 	public static ArrayList<RaceObject> racesArray = new ArrayList<RaceObject>();
 	
+	private static Font thisFont = null;
+	
 //	public static Font font = new Font();
 
 	
@@ -63,8 +65,18 @@ public class FestivalObject {
 		return categoriesArray;
 	}
 
-	public void setCategory(ArrayList<String> category) {
+	public static void setCategorys(ArrayList<String> category) {
 		categoriesArray = category;
+	}
+	
+	public static void setFont(Font font) {
+		thisFont = font;
+	}
+	
+	public static Font getFont() {
+		Font font = new Font("Dialog", Font.BOLD, 12);
+		
+		return font;
 	}
 	
 //	public static ArrayList<String> getCategoryUse() {
@@ -88,52 +100,11 @@ public class FestivalObject {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Schedule.initialize();		//testing my thing
+					MainMenu.initialize();		//staring at the main menu for now
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		
-		
-		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
-		teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
-		teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
-		teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
-		teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
-		teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
-		teamsArray.add(new TeamObject("Bust n Loose", "Special"));
-		teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
-		teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
-		teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
-		teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed"));
-		teamsArray.add(new TeamObject("Fire On Water", "Mixed"));
-		teamsArray.add(new TeamObject("Despirit Housewives", "Mixed"));
-		
-		//testing for the breaks
-		ArrayList<Integer> q = new ArrayList<Integer>();
-		q.add(1030);
-		q.add(1100);		
-		
-		ArrayList<Integer> w = new ArrayList<Integer>();
-		w.add(1200);
-		w.add(1300);		
-		
-		ArrayList<Integer> e = new ArrayList<Integer>();
-		e.add(1530);
-		e.add(1600);		
-		
-		//adding the breaks to the main breaks array
-		breaksArray.add(q);
-		breaksArray.add(w);
-		breaksArray.add(e);
-		
-		categoriesArray.add("Mixed");
-		categoriesArray.add("Womens");
-		categoriesArray.add("Special");
-		categoriesArray.add("Mens");
 	}
 }

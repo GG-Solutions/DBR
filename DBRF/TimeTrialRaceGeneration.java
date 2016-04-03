@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.ParseException;
-
 import javax.management.timer.TimerMBean;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -91,6 +90,7 @@ public class TimeTrialRaceGeneration {
 				//add the race label "Race # _ at"
 				JLabel raceNumberLabel = new JLabel("Race # " + (FestivalObject.racesArray.size() + 1) + " at");	//auto-increment the race number
 				raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
+				raceNumberLabel.setFont(FestivalObject.getFont());
 				panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 				
 				panel.add(race.setTimeInputField(currentTime), "cell 1 " + rowCounter);		//add the race time test field
@@ -102,31 +102,37 @@ public class TimeTrialRaceGeneration {
 				//create place label
 				JLabel lblPlace = new JLabel("Place");
 				lblPlace.setHorizontalAlignment(SwingConstants.CENTER);
+				lblPlace.setFont(FestivalObject.getFont());
 				panel.add(lblPlace, "flowx,cell 0 " + rowCounter + ",growx,aligny center");
 				
 				//create team name label
 				JLabel lblTeamName = new JLabel("Team Name");
 				lblTeamName.setHorizontalAlignment(SwingConstants.LEADING);
+				lblTeamName.setFont(FestivalObject.getFont());
 				panel.add(lblTeamName, "cell 1 " + rowCounter + ",growx,aligny center");
 				
 				//create lane label
 				JLabel lblLane = new JLabel("Lane");
 				lblLane.setHorizontalAlignment(SwingConstants.LEADING);
+				lblLane.setFont(FestivalObject.getFont());
 				panel.add(lblLane, "cell 2 " + rowCounter + ",growx,aligny center");
 				
 				//create category label
 				JLabel lblCategory = new JLabel("Category");
 				lblCategory.setHorizontalAlignment(SwingConstants.LEADING);
+				lblCategory.setFont(FestivalObject.getFont());
 				panel.add(lblCategory, "cell 3 " + rowCounter + ",growx,aligny center");
 				
 				//create flag label
 				JLabel lblFlag = new JLabel("*");
 				lblFlag.setHorizontalAlignment(SwingConstants.CENTER);
+				lblFlag.setFont(FestivalObject.getFont());
 				panel.add(lblFlag, "cell 4 " + rowCounter + ",aligny center");
 				
 				//create time label
 				JLabel lblTime = new JLabel("Time");
 				lblTime.setHorizontalAlignment(SwingConstants.LEADING);
+				lblTime.setFont(FestivalObject.getFont());
 				panel.add(lblTime, "cell 5 " + rowCounter + ",growx,aligny center");
 				
 				rowCounter += 1;
@@ -192,26 +198,31 @@ public class TimeTrialRaceGeneration {
 					JLabel lblNewLabel = new JLabel("-");	//set it to a dash and change it when the times are locked in?
 					lblNewLabel.setName("lblNewLabel" + (i + 1));
 					lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+					lblNewLabel.setFont(FestivalObject.getFont());
 					panel.add(lblNewLabel, "flowx,cell 0 " + rowCounter + ",growx,aligny center");
 					
 					//adding the team name label under the Team Name heading
 					JLabel lblMyTeamName = new JLabel(theseTeams.get(0).getTeamName());
 					lblMyTeamName.setHorizontalAlignment(SwingConstants.LEADING);
+					lblMyTeamName.setFont(FestivalObject.getFont());
 					panel.add(lblMyTeamName, "cell 1 " + rowCounter + ",growx,aligny center");
 					
 					//adding the lane number label under the Lane heading
 					JLabel label_1 = new JLabel(Integer.toString(k+1));
 					label_1.setHorizontalAlignment(SwingConstants.LEADING);
+					label_1.setFont(FestivalObject.getFont());
 					panel.add(label_1, "cell 2 " + rowCounter + ",growx,aligny center");
 					
 					//adding the teams category label under the Category heading
 					JLabel lblMixed = new JLabel(theseTeams.get(0).getCategory());
 					lblMixed.setHorizontalAlignment(SwingConstants.LEADING);
+					lblMixed.setFont(FestivalObject.getFont());
 					panel.add(lblMixed, "cell 3 " + rowCounter + ",growx,aligny center");
 					
 					//adding the space character label under the * heading for the time change flag
 					JLabel label_2 = new JLabel(" ");	//first set it to just a space character
 					label_2.setHorizontalAlignment(SwingConstants.CENTER);
+					label_2.setFont(FestivalObject.getFont());
 					panel.add(label_2, "cell 4 " + rowCounter + ",aligny center");
 					
 					panel.add(theseTeams.get(0).getTimeInputField(o + 1), "cell 5 " + rowCounter + ",growx,aligny center");
@@ -219,7 +230,6 @@ public class TimeTrialRaceGeneration {
 					panel.add(theseTeams.get(0).getLockButton(o + 1), "cell 6 " + rowCounter);
 					
 					//add the print button on the second loop
-					//TODO - change it to one lock button instead in the RaceObject?
 					if(k == 0) {
 						panel.add(race.getPrintButton(), "cell 6 " + rowCounter);
 					}

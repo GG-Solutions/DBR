@@ -37,6 +37,7 @@ public class RaceObject {
 			timeEditField.setValue(String.format("%04d", time));	//format output to four 0's
 			timeEditField.setEditable(false);
 			timeEditField.setColumns(8);
+			timeEditField.setFont(FestivalObject.getFont());
 			setRaceTime(time);		//set the raceTime variable
 		} 
 		catch (ParseException e) {
@@ -149,7 +150,7 @@ public class RaceObject {
 				}
 			}
 		});
-		editTimeButton.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		editTimeButton.setFont(FestivalObject.getFont());
 		editTimeButton.setForeground(Color.BLUE);
 //		editTimeButton.setBounds(0, 0, 40, 15);
 		editTimeButton.setFocusable(false);
@@ -165,6 +166,7 @@ public class RaceObject {
 				saving.showSaveDialog(null);
 			}
 		});
+		printButton.setFont(FestivalObject.getFont());
 		printButton.setHorizontalAlignment(SwingConstants.CENTER);
 		printButton.setBounds(0, 0, 100, 20);
 		printButton.setFocusable(false);

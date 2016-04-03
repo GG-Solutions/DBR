@@ -669,24 +669,27 @@ public class EventPageSetup extends JFrame {
 	 * 
 	 * Output: teams with a category(s) in a list to a textpane
 	 */
-	public void addCatToTeam(String Cat, String Cat2, String name){
+	public void addCatToTeam(String Cat, String Cat2, String name) {
 		//if(FestivalObject.teamsArray.contains(tempName)){// && teamName.getText() == tempName){
 			//add category to team
 			//FestivalObject.teamsArray.add(Cat);
 			ArrayList<String> t = new ArrayList<String>();
 			tempName = name;
-			if(FestivalObject.teamsArray.contains(tempName)){System.out.println("Team already in category.");}else{
-			t.add(Cat);
-			t.add(Cat2);
-			//FestivalObject.teamsArray.addAll(t);}
-			
-		//}else{
-			//nothing
-		//	System.out.println("team doesn't exist");
-		//}
-		
-		FestivalObject.teamsArray.add(tempName + t.toString());
-		teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
+			if(FestivalObject.teamsArray.contains(tempName)) {
+				System.out.println("Team already in category.");
+			}
+			else {
+				t.add(Cat);
+				t.add(Cat2);
+				//FestivalObject.teamsArray.addAll(t);}
+					
+				//}else{
+					//nothing
+				//	System.out.println("team doesn't exist");
+				//}
+				
+				FestivalObject.teamsArray.add(tempName + t.toString());
+				teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
 			}
 	}
 	
