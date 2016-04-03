@@ -57,13 +57,23 @@ public class MainMenu extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				openTestUI ();
+					try {
+						Schedule.initialize();		
+					} catch (Exception e) {
+						e.printStackTrace();
+				}
 			}
 		});
 		contentPane.setLayout(null);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Results");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new Results().setVisible(true);
+			}
+		});
 		btnNewButton_1.setBounds(129, 155, 97, 23);
 		contentPane.add(btnNewButton_1);
 		
@@ -74,7 +84,6 @@ public class MainMenu extends JFrame {
 	}
 	public void openTestUI (){
 		this.dispose();
-		new EventPageSetup().setVisible(true);
 	}
 	
 
