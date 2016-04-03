@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.text.MaskFormatter;
 
 public class RaceObject {
@@ -64,6 +65,7 @@ public class RaceObject {
 	public RaceObject() {
 		//build the editTimeButton 
 		editTimeButton.addMouseListener(new MouseAdapter() {
+			//TODO - will an invokelater function work for this instead?
 			public void mouseClicked(MouseEvent e) {
 				if(editTimeButton.getText() == "edit") {
 					editTimeButton.setText("done");
