@@ -1,21 +1,30 @@
 package DBRF;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.ScrollPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class Results extends JFrame {
 
 	private JPanel contentPane;
+	private static JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -37,6 +46,7 @@ public class Results extends JFrame {
 	 * Create the frame.
 	 */
 	public Results() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 950, 540);
 		contentPane = new JPanel();
@@ -78,5 +88,86 @@ public class Results extends JFrame {
 		});
 		btnDisplay.setBounds(473, 74, 89, 23);
 		contentPane.add(btnDisplay);
+		
+//		JMenuBar menuBar = new JMenuBar();
+//		frame.setJMenuBar(menuBar);
+//		
+//		JMenuItem mntmHome = new JMenuItem("Home");
+//		mntmHome.addMouseListener(new MouseAdapter() {
+//			public void mouseClicked(MouseEvent arg0) {
+//				MainMenu.initialize();
+//			}
+//		});
+//		mntmHome.setFont(FestivalObject.getFont());
+//		mntmHome.setHorizontalTextPosition(SwingConstants.CENTER);
+//		mntmHome.setHorizontalAlignment(SwingConstants.CENTER);
+//		mntmHome.setPreferredSize(new Dimension(100, 25));
+//		mntmHome.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(128, 128, 128), null, null));
+//		mntmHome.setBackground(Color.WHITE);
+//		menuBar.add(mntmHome);
+//		
+//		JMenuItem mntmSave = new JMenuItem("Save");
+//		mntmSave.addMouseListener(new MouseAdapter() {
+//			public void mouseClicked(MouseEvent arg0) {
+//				SaveAndLoad.saveXML();
+//			}
+//		});
+//		mntmSave.setFont(FestivalObject.getFont());
+//		mntmSave.setHorizontalTextPosition(SwingConstants.CENTER);
+//		mntmSave.setHorizontalAlignment(SwingConstants.CENTER);
+//		mntmSave.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(128, 128, 128), null, null));
+//		mntmSave.setPreferredSize(new Dimension(100, 25));
+//		mntmSave.setBackground(Color.WHITE);
+//		menuBar.add(mntmSave);
+//		
+//		JMenuItem mntmSettings = new JMenuItem("Settings");
+//		mntmSettings.addMouseListener(new MouseAdapter() {
+//			public void mouseClicked(MouseEvent arg0) {
+//				Settings.initialize();
+//			}
+//		});
+//		mntmSettings.setFont(FestivalObject.getFont());
+//		mntmSettings.setHorizontalTextPosition(SwingConstants.CENTER);
+//		mntmSettings.setHorizontalAlignment(SwingConstants.CENTER);
+//		mntmSettings.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(128, 128, 128), null, null));
+//		mntmSettings.setPreferredSize(new Dimension(100, 25));
+//		mntmSettings.setBackground(Color.WHITE);
+//		menuBar.add(mntmSettings);
+//		
+//		JMenuItem mntmHelp = new JMenuItem("Help");
+//		mntmHelp.addMouseListener(new MouseAdapter() {
+//			public void mouseClicked(MouseEvent arg0) {
+//				
+//			}
+//		});
+//		mntmHelp.setFont(FestivalObject.getFont());
+//		mntmHelp.setHorizontalTextPosition(SwingConstants.CENTER);
+//		mntmHelp.setHorizontalAlignment(SwingConstants.CENTER);
+//		mntmHelp.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(128, 128, 128), null, null));
+//		mntmHelp.setPreferredSize(new Dimension(100, 25));
+//		mntmHelp.setBackground(Color.WHITE);
+//		menuBar.add(mntmHelp);
+//		
+//		JMenuItem mntmNewMenuItem = new JMenuItem("");
+//		mntmNewMenuItem.setBorderPainted(true);
+//		mntmNewMenuItem.setBorder(null);
+//		mntmNewMenuItem.setOpaque(true);
+//		mntmNewMenuItem.setPreferredSize(new Dimension(600, 25));
+//		menuBar.add(mntmNewMenuItem);
+//		
+//		JMenuItem mntmLogout = new JMenuItem("Logout");
+//		mntmLogout.addMouseListener(new MouseAdapter() {
+//			public void mouseClicked(MouseEvent arg0) {
+//				
+//			}
+//		});
+//		mntmLogout.setFont(FestivalObject.getFont());
+//		mntmLogout.setHorizontalTextPosition(SwingConstants.CENTER);
+//		mntmLogout.setHorizontalAlignment(SwingConstants.CENTER);
+//		mntmLogout.setBorder(new BevelBorder(BevelBorder.RAISED, null, new Color(128, 128, 128), null, null));
+//		mntmLogout.setPreferredSize(new Dimension(100, 25));
+//		mntmLogout.setBackground(Color.WHITE);
+//		menuBar.add(mntmLogout);
+
 	}
 }
