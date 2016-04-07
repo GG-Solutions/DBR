@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
@@ -49,7 +50,7 @@ public class Schedule extends JFrame {
 	static boolean timeTrialRacesEh = false;
 	static boolean semiFinalRacesEh = false;
 	static boolean finalRacesEh = false;
-
+	
 	/**
 	 * Launch the application.
 	 * Used for testing the UI.
@@ -60,7 +61,8 @@ public class Schedule extends JFrame {
 				try {
 					Schedule frame = new Schedule();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				} 
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -143,20 +145,20 @@ public class Schedule extends JFrame {
 		scrollPane.setBounds(10, 75, 924, 388);
 		contentPane.add(scrollPane);
 		
-		//add the 3 differnt panels
+		//add the 3 different panels
 		JPanel panel1 = new JPanel();
-//		panel1.setVisible(true);
-//		scrollPane.setViewportView(panel1);
+		panel1.setVisible(true);
+		scrollPane.setViewportView(panel1);
 		panel1.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 		
 		JPanel panel2 = new JPanel();
-//		panel2.setVisible(false);
-//		scrollPane.setViewportView(panel2);
+		panel2.setVisible(false);
+		scrollPane.setViewportView(panel2);
 		panel2.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 		
 		JPanel panel3 = new JPanel();
-//		panel3.setVisible(false);
-//		scrollPane.setViewportView(panel3);
+		panel3.setVisible(false);
+		scrollPane.setViewportView(panel3);
 		panel3.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 		
 		//initialize them first so they can be referenced in the mouseClicked method
@@ -257,6 +259,21 @@ public class Schedule extends JFrame {
 				//TODO - add a pop up window with a are you sure message, all input information will be lost. have yes and no buttons.
 				//then loop to call TimeTrialRaces.generateTimeTrailRaces(panel1);
 				//refernce how Kevin did it in the UserLogin class.
+				int dialogButton = JOptionPane.YES_NO_OPTION;
+				int dialogResult = JOptionPane.showConfirmDialog(null, 
+						"Are you sure you like to regenerate the time trial races? \nAll race times entered will be lost", "Festival Load", dialogButton);
+				if(dialogResult == 0) {
+					//regenerate the time trial races
+					FestivalObject.racesArray = new ArrayList<RaceObject>();	//reset the ArrayList of races
+					panel1.removeAll();		//remove all compenents from the time trial panel
+					panel1.setVisible(true);
+					scrollPane.setViewportView(panel1);
+					panel1.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
+					TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);
+				} 
+				else {
+					//close the popup
+				} 
 			}
 		});
 		btnGenerate.setFont(FestivalObject.getFont());

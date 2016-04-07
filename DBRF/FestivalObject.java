@@ -31,9 +31,8 @@ public class FestivalObject {
 	
 	public static String bounds = "";
 	
-	private static Font thisFont = null;	//TODO
+	private static Font thisFont = null;	//TODO - build this varible
 	
-	//TODO - dont need a UserLogin JPanel???
 //	public static JPanel userLoginPane;
 //	public static JPanel mainMenuPane;
 //	public static JPanel eventPageSetupPane;

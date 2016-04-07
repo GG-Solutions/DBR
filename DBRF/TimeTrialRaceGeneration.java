@@ -43,6 +43,8 @@ public class TimeTrialRaceGeneration {
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		RaceObject race = new RaceObject();		//create a new race to populate and later send to the racesArray
 		
+		rowCounter = 0;		//reset the counter
+		
 		//main loop ------------------------------------------------------------------------------------------------------------------------
 		//go through everything twice so each team races twice
 		for(int o = 0; o < 2; o++) {

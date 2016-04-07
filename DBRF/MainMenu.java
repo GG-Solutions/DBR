@@ -58,13 +58,10 @@ public class MainMenu extends JFrame {
 		
 		JButton btnNewButton = new JButton("Schedule");
 		btnNewButton.setBounds(129, 110, 97, 23);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 				new Schedule().setVisible(true);
 				dispose();
 			}
@@ -72,14 +69,15 @@ public class MainMenu extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Results");
+		btnNewButton_1.setBounds(129, 155, 97, 23);
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 				new Results().setVisible(true);
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(129, 155, 97, 23);
 		contentPane.add(btnNewButton_1);
 		
 		JLabel lblMainMenu = new JLabel("Main Menu");

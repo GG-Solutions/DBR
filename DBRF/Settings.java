@@ -39,8 +39,9 @@ public class Settings extends JFrame {
 			public void run() {
 				try {
 					Settings frame = new Settings();
-//					frame.setVisible(true);
-				} catch (Exception e) {
+					frame.setVisible(true);
+				} 
+				catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -60,36 +61,27 @@ public class Settings extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-//		GridBagLayout gbl_contentPane = new GridBagLayout();
-//		gbl_contentPane.columnWidths = new int[]{286, 0, 0, 0, 0, 0};
-//		gbl_contentPane.rowHeights = new int[]{23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-//		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-//		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-//		frame.setLayout(gbl_contentPane);
-		
 		JButton deleteUser = new JButton("Delete User");
-		deleteUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		deleteUser.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
 				
 			}
 		});
 		deleteUser.setFont(FestivalObject.getFont());
 		deleteUser.setEnabled(true);
-		deleteUser.setSelected(true);
-		deleteUser.setBounds(439, 252, 134, 23);
+		deleteUser.setBounds(428, 284, 156, 31);
 		deleteUser.setFocusable(false);
 		contentPane.add(deleteUser);
 		
 		JButton signUpNewUser = new JButton("Sign Up New User");
-		signUpNewUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		signUpNewUser.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
 				
 			}
 		});
 		signUpNewUser.setFont(FestivalObject.getFont());
 		signUpNewUser.setEnabled(true);
-		signUpNewUser.setSelected(true);
-		signUpNewUser.setBounds(439, 218, 134, 23);
+		signUpNewUser.setBounds(428, 158, 156, 31);
 		signUpNewUser.setFocusable(false);
 		contentPane.add(signUpNewUser);
 		
@@ -104,46 +96,33 @@ public class Settings extends JFrame {
 		});
 		fontButton.setFont(FestivalObject.getFont());
 		fontButton.setEnabled(true);
-		fontButton.setSelected(true);
-		fontButton.setBounds(439, 82, 134, 23);
+		fontButton.setBounds(428, 116, 156, 31);
 		fontButton.setFocusable(false);
 		contentPane.add(fontButton);
 		
+		JButton changeUserName = new JButton("Change Username");
+		changeUserName.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
+		changeUserName.setFont(FestivalObject.getFont());
+		changeUserName.setEnabled(true);
+		changeUserName.setBounds(428, 200, 156, 31);
+		changeUserName.setFocusable(false);
+		contentPane.add(changeUserName);
 		
-//		GridBagConstraints gbc_btnFont = new GridBagConstraints();
-//		gbc_btnFont.insets = new Insets(0, 0, 5, 0);
-//		gbc_btnFont.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_btnFont.anchor = GridBagConstraints.NORTH;
-//		gbc_btnFont.gridx = 4;
-//		gbc_btnFont.gridy = 4;
-//		frame.getContentPane().add(fontButton, gbc_btnFont);
-//		
-//		GridBagConstraints gbc_SignUpNewUser = new GridBagConstraints();
-//		gbc_SignUpNewUser.insets = new Insets(0, 0, 5, 0);
-//		gbc_SignUpNewUser.gridx = 4;
-//		gbc_SignUpNewUser.gridy = 5;
-//		frame.getContentPane().add(signUpNewUser, gbc_SignUpNewUser);
-//		
-//		JButton ChangeUserName = new JButton("Change Username");
-//		GridBagConstraints gbc_ChangeUserName = new GridBagConstraints();
-//		gbc_ChangeUserName.insets = new Insets(0, 0, 5, 0);
-//		gbc_ChangeUserName.gridx = 4;
-//		gbc_ChangeUserName.gridy = 6;
-//		frame.getContentPane().add(ChangeUserName, gbc_ChangeUserName);
-//		
-//		JButton ChangePassword = new JButton("Change Password");
-//		GridBagConstraints gbc_ChangePassword = new GridBagConstraints();
-//		gbc_ChangePassword.insets = new Insets(0, 0, 5, 0);
-//		gbc_ChangePassword.gridx = 4;
-//		gbc_ChangePassword.gridy = 7;
-//		frame.getContentPane().add(ChangePassword, gbc_ChangePassword);
-//		
-//		GridBagConstraints gbc_DeleteUser = new GridBagConstraints();
-//		gbc_DeleteUser.fill = GridBagConstraints.HORIZONTAL;
-//		gbc_DeleteUser.insets = new Insets(0, 0, 5, 0);
-//		gbc_DeleteUser.gridx = 4;
-//		gbc_DeleteUser.gridy = 8;
-//		frame.getContentPane().add(deleteUser, gbc_DeleteUser);
+		JButton changePassword = new JButton("Change Password");
+		changePassword.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
+		changePassword.setFont(FestivalObject.getFont());
+		changePassword.setEnabled(true);
+		changePassword.setBounds(428, 242, 156, 31);
+		changePassword.setFocusable(false);
+		contentPane.add(changePassword);
 		
 		//main menu stuff is first set here since it is alwayse where you start
 		JMenuBar menuBar = new JMenuBar();

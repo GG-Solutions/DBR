@@ -46,6 +46,7 @@ public class SaveAndLoad {
 		//output the lanes
 		//output the breaksArray
 		//output the categoriesArray
+		//output the bounds
 		
 		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 			
