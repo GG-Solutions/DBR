@@ -20,13 +20,15 @@ import javax.swing.JTextPane;
 
 
 public class EventPageSetup extends JFrame {
-
+	
 	/**
 	 * 
 	 */
 	//variables jumbled up b/c i added them as needed
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	
+	public JPanel contentPane;
+	
 	private JPanel teamSetup;
 	private JPanel confirmation;
 	private JTextField FestName;
@@ -89,7 +91,7 @@ public class EventPageSetup extends JFrame {
 		setResizable(false);
 		setTitle("Setup");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 960, 540);
+		setBounds(FestivalObject.getXPos(), FestivalObject.getYPos(), FestivalObject.getWindowWidth(), FestivalObject.getWindowHeight());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -112,6 +114,8 @@ public class EventPageSetup extends JFrame {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createFestival();
+				new MainMenu().setVisible(true);
+				dispose();
 			}
 		});
 		btnCreate.setBounds(724, 463, 150, 49);
@@ -225,7 +229,7 @@ public class EventPageSetup extends JFrame {
 		previous.setBounds(219, 460, 117, 29);
 		teamSetup.add(previous);
 		
-		JButton finish = new JButton("Finish");
+		JButton finish = new JButton("Next");
 		finish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finish();

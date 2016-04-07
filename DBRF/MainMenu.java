@@ -26,46 +26,35 @@ import java.awt.Font;
 
 public class MainMenu extends JFrame {
 
-//	private static JPanel contentPane;
-	private static JFrame frame;
+	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					MainMenu frame = new MainMenu();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainMenu frame = new MainMenu();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public MainMenu() {
-		initialize();
-	}
 	
-	public static void initialize() {
-		
-//		setResizable(false);
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setBounds(100, 100, 399, 302);
-//		contentPane = new JPanel();
-//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-//		setContentPane(contentPane);
-		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 960, 540);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setVisible(true);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(FestivalObject.getXPos(), FestivalObject.getYPos(), FestivalObject.getWindowWidth(), FestivalObject.getWindowHeight());
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
 		
 		JButton btnNewButton = new JButton("Schedule");
 		btnNewButton.setBounds(129, 110, 97, 23);
@@ -76,39 +65,37 @@ public class MainMenu extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-					try {
-						Schedule.initialize();		
-					} catch (Exception e) {
-						e.printStackTrace();
-				}
+				new Schedule().setVisible(true);
+				dispose();
 			}
 		});
-		frame.setLayout(null);
-		frame.add(btnNewButton);
+		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Results");
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				new Results().setVisible(true);
+				dispose();
 			}
 		});
 		btnNewButton_1.setBounds(129, 155, 97, 23);
-		frame.add(btnNewButton_1);
+		contentPane.add(btnNewButton_1);
 		
 		JLabel lblMainMenu = new JLabel("Main Menu");
 		lblMainMenu.setFont(new Font("Times New Roman", Font.BOLD, 24));
 		lblMainMenu.setBounds(117, 44, 155, 38);
-		frame.add(lblMainMenu);
+		contentPane.add(lblMainMenu);
 		
+		//main menu stuff is first set here since it is alwayse where you start
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 		
 		//the menu items
 		JMenuItem mntmHome = new JMenuItem("Home");
 		mntmHome.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				MainMenu.initialize();
+				//dont do anything here because MainMenu is already open
 			}
 		});
 		mntmHome.setFont(FestivalObject.getFont());
@@ -136,7 +123,8 @@ public class MainMenu extends JFrame {
 		JMenuItem mntmSettings = new JMenuItem("Settings");
 		mntmSettings.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				Settings.initialize();
+				new Settings().setVisible(true);
+				dispose();
 			}
 		});
 		mntmSettings.setFont(FestivalObject.getFont());
@@ -150,7 +138,7 @@ public class MainMenu extends JFrame {
 		JMenuItem mntmHelp = new JMenuItem("Help");
 		mntmHelp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				
+				//TODO - add help stuff
 			}
 		});
 		mntmHelp.setFont(FestivalObject.getFont());
@@ -171,7 +159,8 @@ public class MainMenu extends JFrame {
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mntmLogout.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				
+				new UserLogin().setVisible(true);
+				dispose();
 			}
 		});
 		mntmLogout.setFont(FestivalObject.getFont());

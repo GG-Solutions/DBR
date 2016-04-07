@@ -47,6 +47,7 @@ public class TeamObject {
 			timeMask.setValueContainsLiteralCharacters(false);
 			
 			tempField = new JFormattedTextField(timeMask);
+			tempField.setValue("000000");
 			tempField.setFont(FestivalObject.getFont());	//set the correct font
 		} 
 		catch (ParseException e) {

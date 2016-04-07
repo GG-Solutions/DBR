@@ -4,6 +4,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
+import org.w3c.dom.events.EventException;
+
 public class FestivalObject {
 
 	
@@ -20,11 +24,64 @@ public class FestivalObject {
 	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
 	public static ArrayList<RaceObject> racesArray = new ArrayList<RaceObject>();
 	
-	private static Font thisFont = null;
+	public static int xPos = 480;
+	public static int yPos = 270;
+	public static int width = 960;
+	public static int height = 540;
+	
+	public static String bounds = "";
+	
+	private static Font thisFont = null;	//TODO
+	
+	//TODO - dont need a UserLogin JPanel???
+//	public static JPanel userLoginPane;
+//	public static JPanel mainMenuPane;
+//	public static JPanel eventPageSetupPane;
+//	public static JPanel schedulePane;
+//	public static JPanel resultsPane;
+//	public static JPanel settingsPane;
+//	public static JPanel helpPane;
 	
 //	public static Font font = new Font();
-
 	
+	
+	//call main here to start the program
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UserLogin frame = new UserLogin();
+					frame.setVisible(true);
+				} 
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				//initializing the JPanels on start of program
+//				userLoginPane = new UserLogin().contentPane;
+//				userLoginPane.setVisible(false);		//set to false so we can return to this page when logging out
+//				
+//				mainMenuPane = new MainMenu().contentPane;
+//				mainMenuPane.setVisible(false);
+//				
+//				eventPageSetupPane = new EventPageSetup().contentPane;
+//				eventPageSetupPane.setVisible(false);
+//				
+//				schedulePane = new Schedule().contentPane;
+//				schedulePane.setVisible(false);
+//				
+//				resultsPane = new Results().contentPane;
+//				resultsPane.setVisible(false);
+//				
+//				settingsPane = new Settings().contentPane;
+//				settingsPane.setVisible(false);
+				
+//				helpPane = new Help().contentPane;
+//				helpPane.setVisible(false);
+			}
+		});
+	}
+
 	public FestivalObject() {
 		
 	};
@@ -74,37 +131,62 @@ public class FestivalObject {
 	}
 	
 	public static Font getFont() {
-		Font font = new Font("Dialog", Font.BOLD, 12);
+		Font font = new Font("Dialog", Font.BOLD, 12);	//TODO
 		
 		return font;
 	}
-	
-//	public static ArrayList<String> getCategoryUse() {
-//		return categoryUse;
-//	}
-//
-//	public void setCategory_Use(ArrayList<String> categoryUse) {
-//		FestivalObject.categoryUse = categoryUse;
-//	}
 	
 	public static ArrayList<TeamObject> getTeamsArray() {
 		return teamsArray;
 	}
 
-	public void setTeamsArray(ArrayList<TeamObject> teams) {
+	public static void setTeamsArray(ArrayList<TeamObject> teams) {
 		teamsArray = teams;
 	}
 	
-	//call main here to start the program
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainMenu.initialize();		//staring at the main menu for now
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public static void setXPos(int pos) {
+		xPos = pos;
+	}
+	
+	public static void setYPos(int pos) {
+		yPos = pos;
+	}
+	
+	public static void setWidth(int w) {
+		width = w;
+	}
+	
+	public static void setHeight(int h) {
+		height = h;
+	}
+	
+	public static int getXPos() {
+		return xPos;
+	}
+	
+	public static int getYPos() {
+		return yPos;
+	}
+	
+	public static int getWindowWidth() {
+		return width;
+	}
+	
+	public static int getWindowHeight() {
+		return height;
+	}
+	
+	public static void setWindowPosition(int x, int y) {
+		xPos = x;
+		yPos = y;
 	}
 }
+
+
+
+
+
+
+
+
+

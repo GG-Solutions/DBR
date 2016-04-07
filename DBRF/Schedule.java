@@ -40,9 +40,10 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JFormattedTextField;
 
-public class Schedule {
+public class Schedule extends JFrame {
 
-	public static JFrame frame;
+//	public static JFrame frame;
+	public JPanel contentPane;
 	
 	//booleans for generating the races only once
 	static boolean timeTrialRacesEh = false;
@@ -57,8 +58,8 @@ public class Schedule {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Schedule window = new Schedule();
-					window.frame.setVisible(true);
+					Schedule frame = new Schedule();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -72,21 +73,22 @@ public class Schedule {
 	 * Outputs - Goes through the initialize method.
 	 */
 	public Schedule() {
-		initialize();
-	}
-
+		
+	//TODO
 	/**
 	 * Initializes the contents of the frame.
 	 * Inputs - None.
 	 * Outputs 	- Creates a new JFrame and adds the necessary UI components.
 	 * 			- Calls the race generation scripts.
 	 */
-	public static void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 960, 540);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setVisible(true);
+		
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(FestivalObject.getXPos(), FestivalObject.getYPos(), FestivalObject.getWindowWidth(), FestivalObject.getWindowHeight());
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
 		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
@@ -133,13 +135,13 @@ public class Schedule {
 		lblSchedule.setFont(FestivalObject.getFont());
 		lblSchedule.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSchedule.setBounds(10, 26, 924, 14);
-		frame.getContentPane().add(lblSchedule);
+		contentPane.add(lblSchedule);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(10, 75, 924, 388);
-		frame.getContentPane().add(scrollPane);
+		contentPane.add(scrollPane);
 		
 		//add the 3 differnt panels
 		JPanel panel1 = new JPanel();
@@ -180,7 +182,7 @@ public class Schedule {
 		timeTrialsRadioButton.setSelected(true);
 		timeTrialsRadioButton.setBounds(44, 50, 134, 23);
 		timeTrialsRadioButton.setFocusable(false);
-		frame.getContentPane().add(timeTrialsRadioButton);
+		contentPane.add(timeTrialsRadioButton);
 		
 		semiFinalsRadioButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -199,7 +201,7 @@ public class Schedule {
 		semiFinalsRadioButton.setSelected(false);
 		semiFinalsRadioButton.setBounds(180, 50, 134, 23);
 		semiFinalsRadioButton.setFocusable(false);
-		frame.getContentPane().add(semiFinalsRadioButton);
+		contentPane.add(semiFinalsRadioButton);
 		
 		finalsRadioButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -218,7 +220,7 @@ public class Schedule {
 		finalsRadioButton.setSelected(false);
 		finalsRadioButton.setBounds(316, 50, 134, 23);
 		finalsRadioButton.setFocusable(false);
-		frame.getContentPane().add(finalsRadioButton);
+		contentPane.add(finalsRadioButton);
 		
 		JButton btnGenerate = new JButton("Regenerate");
 		btnGenerate.addMouseListener(new MouseAdapter() {
@@ -251,12 +253,16 @@ public class Schedule {
 					}
 				}
 //				System.out.println(teamsArray.size()+"\n");
+				
+				//TODO - add a pop up window with a are you sure message, all input information will be lost. have yes and no buttons.
+				//then loop to call TimeTrialRaces.generateTimeTrailRaces(panel1);
+				//refernce how Kevin did it in the UserLogin class.
 			}
 		});
 		btnGenerate.setFont(FestivalObject.getFont());
 		btnGenerate.setFocusable(false);
 		btnGenerate.setBounds(814, 51, 120, 20);
-		frame.getContentPane().add(btnGenerate);
+		contentPane.add(btnGenerate);
 		
 		JButton btnTest = new JButton("test");
 		btnTest.addMouseListener(new MouseAdapter() {
@@ -277,46 +283,18 @@ public class Schedule {
 		btnTest.setFont(FestivalObject.getFont());
 		btnTest.setFocusable(false);
 		btnTest.setBounds(650, 51, 100, 20);
-		frame.getContentPane().add(btnTest);
+		contentPane.add(btnTest);
 		
-		//main menu objects will be added later
+		//main menu stuff is first set here since it is always where you start
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
-		
-//		JMenuItem mntmHome = new JMenuItem("Home");
-//		mntmHome.setBackground(Color.WHITE);
-//		menuBar.add(mntmHome);
-//		
-//		JMenuItem mntmNewMenuItem = new JMenuItem("Save");
-//		mntmNewMenuItem.setBackground(Color.WHITE);
-//		menuBar.add(mntmNewMenuItem);
-//		
-//		JMenuItem mntmSettings = new JMenuItem("Settings");
-//		mntmSettings.setBackground(Color.WHITE);
-//		menuBar.add(mntmSettings);
-//		
-//		JMenuItem mntmPrint = new JMenuItem("Print");
-//		mntmPrint.setBackground(Color.WHITE);
-//		menuBar.add(mntmPrint);
-//		
-//		JMenuItem mntmBackuprestore = new JMenuItem("BackUp/Restore");
-//		mntmBackuprestore.setBackground(Color.WHITE);
-//		menuBar.add(mntmBackuprestore);
-//		
-//		JMenuItem mntmHelp = new JMenuItem("Help");
-//		mntmHelp.setBackground(Color.WHITE);
-//		menuBar.add(mntmHelp);
-//		
-//		JMenuItem mntmLogout = new JMenuItem("Logout");
-//		mntmLogout.setHorizontalAlignment(SwingConstants.TRAILING);
-//		mntmLogout.setBackground(Color.WHITE);
-//		menuBar.add(mntmLogout);
+		setJMenuBar(menuBar);
 		
 		//the menu items
 		JMenuItem mntmHome = new JMenuItem("Home");
 		mntmHome.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				MainMenu.initialize();
+				new MainMenu().setVisible(true);
+				dispose();
 			}
 		});
 		mntmHome.setFont(FestivalObject.getFont());
@@ -344,7 +322,8 @@ public class Schedule {
 		JMenuItem mntmSettings = new JMenuItem("Settings");
 		mntmSettings.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				Settings.initialize();
+				new Settings().setVisible(true);
+				dispose();
 			}
 		});
 		mntmSettings.setFont(FestivalObject.getFont());
@@ -358,7 +337,7 @@ public class Schedule {
 		JMenuItem mntmHelp = new JMenuItem("Help");
 		mntmHelp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				
+				//TODO - add help stuff
 			}
 		});
 		mntmHelp.setFont(FestivalObject.getFont());
@@ -379,7 +358,9 @@ public class Schedule {
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mntmLogout.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				
+				FestivalObject.setWindowPosition(getX(), getY());
+				new UserLogin().setVisible(true);
+				dispose();
 			}
 		});
 		mntmLogout.setFont(FestivalObject.getFont());

@@ -27,9 +27,9 @@ import javax.swing.JMenuItem;
 
 import java.awt.Dimension;
 
-public class Settings {
+public class Settings extends JFrame {
 
-	private static JFrame frame;
+	public JPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -51,24 +51,14 @@ public class Settings {
 	 * Create the frame.
 	 */
 	public Settings() {
-		initialize();
-	}
-	
-	public static void initialize() {
-//		frame = new JFrame
-//		setMinimumSize(new Dimension(960, 540));
-//		setMaximumSize(new Dimension(960, 540));
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setBounds(100, 100, 637, 300);
-//		contentPane = new JPanel();
-//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-//		setContentPane(contentPane);
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 960, 540);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setVisible(true);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(FestivalObject.getXPos(), FestivalObject.getYPos(), FestivalObject.getWindowWidth(), FestivalObject.getWindowHeight());
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 //		GridBagLayout gbl_contentPane = new GridBagLayout();
 //		gbl_contentPane.columnWidths = new int[]{286, 0, 0, 0, 0, 0};
@@ -88,7 +78,7 @@ public class Settings {
 		deleteUser.setSelected(true);
 		deleteUser.setBounds(439, 252, 134, 23);
 		deleteUser.setFocusable(false);
-		frame.getContentPane().add(deleteUser);
+		contentPane.add(deleteUser);
 		
 		JButton signUpNewUser = new JButton("Sign Up New User");
 		signUpNewUser.addActionListener(new ActionListener() {
@@ -101,7 +91,7 @@ public class Settings {
 		signUpNewUser.setSelected(true);
 		signUpNewUser.setBounds(439, 218, 134, 23);
 		signUpNewUser.setFocusable(false);
-		frame.getContentPane().add(signUpNewUser);
+		contentPane.add(signUpNewUser);
 		
 		JButton fontButton = new JButton("Change Font");
 		fontButton.addMouseListener(new MouseAdapter() {
@@ -117,7 +107,7 @@ public class Settings {
 		fontButton.setSelected(true);
 		fontButton.setBounds(439, 82, 134, 23);
 		fontButton.setFocusable(false);
-		frame.getContentPane().add(fontButton);
+		contentPane.add(fontButton);
 		
 		
 //		GridBagConstraints gbc_btnFont = new GridBagConstraints();
@@ -155,15 +145,16 @@ public class Settings {
 //		gbc_DeleteUser.gridy = 8;
 //		frame.getContentPane().add(deleteUser, gbc_DeleteUser);
 		
-		//menu bar
+		//main menu stuff is first set here since it is alwayse where you start
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 		
 		//the menu items
 		JMenuItem mntmHome = new JMenuItem("Home");
 		mntmHome.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				MainMenu.initialize();
+				new MainMenu().setVisible(true);
+				dispose();
 			}
 		});
 		mntmHome.setFont(FestivalObject.getFont());
@@ -191,7 +182,7 @@ public class Settings {
 		JMenuItem mntmSettings = new JMenuItem("Settings");
 		mntmSettings.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				Settings.initialize();
+				
 			}
 		});
 		mntmSettings.setFont(FestivalObject.getFont());
@@ -205,7 +196,7 @@ public class Settings {
 		JMenuItem mntmHelp = new JMenuItem("Help");
 		mntmHelp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				
+				//TODO - add help stuff
 			}
 		});
 		mntmHelp.setFont(FestivalObject.getFont());
@@ -226,7 +217,8 @@ public class Settings {
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mntmLogout.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				
+				new UserLogin().setVisible(true);
+				dispose();
 			}
 		});
 		mntmLogout.setFont(FestivalObject.getFont());

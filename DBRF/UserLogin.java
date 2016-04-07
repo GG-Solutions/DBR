@@ -25,7 +25,7 @@ import java.awt.Font;
 
 public class UserLogin extends JFrame {
 
-	private JPanel contentPane;
+	JPanel contentPane;
 	private JTextField txtName;
 	private JPasswordField passwordField;
 
@@ -51,7 +51,7 @@ public class UserLogin extends JFrame {
 	public UserLogin() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 465, 305);
+		setBounds(FestivalObject.getXPos(), FestivalObject.getYPos(), FestivalObject.getWindowWidth(), FestivalObject.getWindowHeight());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -111,16 +111,16 @@ public class UserLogin extends JFrame {
 	 **/
 	
 	public void newSuccess (){
-		this.dispose();
+//		this.dispose();
 		int dialogButton = JOptionPane.YES_NO_OPTION;
 		int dialogResult = JOptionPane.showConfirmDialog(this, "Load a Festival?", "Festival Load", dialogButton);
 		if(dialogResult == 0) {
-		 this.dispose();
-		 new MainMenu().setVisible(true);
-		} else {
-		 this.dispose();
-		 new EventPageSetup().setVisible(true);
-		 
+			new MainMenu().setVisible(true);
+			this.dispose();
+		} 
+		else {
+			new EventPageSetup().setVisible(true);
+			this.dispose();
 		} 
 		
 	}
