@@ -153,6 +153,7 @@ public class Settings extends JFrame {
 		JMenuItem mntmHome = new JMenuItem("Home");
 		mntmHome.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
+				FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 				new MainMenu().setVisible(true);
 				dispose();
 			}
@@ -182,7 +183,7 @@ public class Settings extends JFrame {
 		JMenuItem mntmSettings = new JMenuItem("Settings");
 		mntmSettings.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				
+				//don't do anything here
 			}
 		});
 		mntmSettings.setFont(FestivalObject.getFont());
@@ -196,6 +197,7 @@ public class Settings extends JFrame {
 		JMenuItem mntmHelp = new JMenuItem("Help");
 		mntmHelp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
+				FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 				//TODO - add help stuff
 			}
 		});
@@ -217,6 +219,7 @@ public class Settings extends JFrame {
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mntmLogout.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
+				FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 				new UserLogin().setVisible(true);
 				dispose();
 			}

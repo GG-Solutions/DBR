@@ -114,6 +114,7 @@ public class EventPageSetup extends JFrame {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createFestival();
+				FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 				new MainMenu().setVisible(true);
 				dispose();
 			}

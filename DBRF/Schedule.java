@@ -293,6 +293,7 @@ public class Schedule extends JFrame {
 		JMenuItem mntmHome = new JMenuItem("Home");
 		mntmHome.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
+				FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 				new MainMenu().setVisible(true);
 				dispose();
 			}
@@ -322,6 +323,7 @@ public class Schedule extends JFrame {
 		JMenuItem mntmSettings = new JMenuItem("Settings");
 		mntmSettings.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
+				FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 				new Settings().setVisible(true);
 				dispose();
 			}
@@ -337,6 +339,7 @@ public class Schedule extends JFrame {
 		JMenuItem mntmHelp = new JMenuItem("Help");
 		mntmHelp.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
+				FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 				//TODO - add help stuff
 			}
 		});

@@ -72,9 +72,10 @@ public class UserLogin extends JFrame {
 					@SuppressWarnings("deprecation")
 					boolean loginFlag = LoginInfo.uLogin(txtName.getText(),passwordField.getText());
 					if(loginFlag){
-					newSuccess();
+						newSuccess();
 					} 
-				} catch (IOException e1) {
+				} 
+				catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -115,10 +116,12 @@ public class UserLogin extends JFrame {
 		int dialogButton = JOptionPane.YES_NO_OPTION;
 		int dialogResult = JOptionPane.showConfirmDialog(this, "Load a Festival?", "Festival Load", dialogButton);
 		if(dialogResult == 0) {
+			FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 			new MainMenu().setVisible(true);
 			this.dispose();
 		} 
 		else {
+			FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
 			new EventPageSetup().setVisible(true);
 			this.dispose();
 		} 
