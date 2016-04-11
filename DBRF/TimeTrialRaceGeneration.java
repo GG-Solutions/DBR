@@ -187,8 +187,6 @@ public class TimeTrialRaceGeneration {
 					//every team raced twice, etc.
 				for(int k = 0; k < tempSize; k++) {		//need algorithm to figure out how many races there will be? - wont know how many races there are supposed to be
 					
-					race = new RaceObject();	//does this refresh the last RaceObject?
-					
 					if(k == 0) {
 						rowCounter += 0;
 					}

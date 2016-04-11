@@ -43,7 +43,7 @@ public class TeamObject {
 		MaskFormatter timeMask = null;
 		
 		try {
-			timeMask = new MaskFormatter("##m:##s.##ms");
+			timeMask = new MaskFormatter("##:##.##");
 			timeMask.setValueContainsLiteralCharacters(false);
 			
 			tempField = new JFormattedTextField(timeMask);
@@ -109,6 +109,18 @@ public class TeamObject {
 					firstRaceTime = Integer.parseInt((String)timeFirstRaceInputField.getValue());	//set the firstRaceTime variable
 					timeFirstRaceInputField.setEditable(false);
 					firstRaceLockButton.setText("Unlock");
+					
+					
+					//loop to check if all the races are locked and not 000000 so that the semi finals radaio button can be unlocked 
+//					for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
+//						for(int j = 0; j < FestivalObject.racesArray.get(i).getTeamsRacing().size(); j++) {
+//							//if the time is 000000 break cause not all have been set
+//							if(FestivalObject.racesArray.get(i).get)
+//							//else if all are not 000000 then unlock the semi finals radio button and build the panel?
+//						}
+//					}
+					
+					
 				}
 				else if(firstRaceLockButton.getText() == "Unlock") {
 					timeFirstRaceInputField.setEditable(true);

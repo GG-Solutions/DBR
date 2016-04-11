@@ -50,6 +50,7 @@ public class Schedule extends JFrame {
 	static boolean timeTrialRacesEh = false;
 	static boolean semiFinalRacesEh = false;
 	static boolean finalRacesEh = false;
+	static boolean firstPassEh = true;		//used to generate the time trial races on startup of this frame
 	
 	/**
 	 * Launch the application.
@@ -136,7 +137,7 @@ public class Schedule extends JFrame {
 		JLabel lblSchedule = new JLabel("Schedule");
 		lblSchedule.setFont(FestivalObject.getFont());
 		lblSchedule.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSchedule.setBounds(10, 26, 924, 14);
+		lblSchedule.setBounds(10, 26, 934, 14);
 		contentPane.add(lblSchedule);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -165,6 +166,7 @@ public class Schedule extends JFrame {
 		JRadioButton timeTrialsRadioButton = new JRadioButton("Time-Trials");
 		JRadioButton semiFinalsRadioButton = new JRadioButton("Semi-Finals");
 		JRadioButton finalsRadioButton = new JRadioButton("Finals");
+		JButton btnGenerate = new JButton("Regenerate");
 		
 		timeTrialsRadioButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -177,6 +179,7 @@ public class Schedule extends JFrame {
 				timeTrialsRadioButton.setSelected(true);
 				semiFinalsRadioButton.setSelected(false);	//cant initialize it before it is declared :/
 				finalsRadioButton.setSelected(false);
+				btnGenerate.setEnabled(true);
 			}
 		});
 		timeTrialsRadioButton.setFont(FestivalObject.getFont());
@@ -196,6 +199,7 @@ public class Schedule extends JFrame {
 				timeTrialsRadioButton.setSelected(false);
 				semiFinalsRadioButton.setSelected(true);
 				finalsRadioButton.setSelected(false);
+				btnGenerate.setEnabled(false);
 			}
 		});
 		semiFinalsRadioButton.setFont(FestivalObject.getFont());
@@ -215,6 +219,7 @@ public class Schedule extends JFrame {
 				timeTrialsRadioButton.setSelected(false);
 				semiFinalsRadioButton.setSelected(false);
 				finalsRadioButton.setSelected(true);
+				btnGenerate.setEnabled(false);
 			}
 		});
 		finalsRadioButton.setFont(FestivalObject.getFont());
@@ -224,7 +229,6 @@ public class Schedule extends JFrame {
 		finalsRadioButton.setFocusable(false);
 		contentPane.add(finalsRadioButton);
 		
-		JButton btnGenerate = new JButton("Regenerate");
 		btnGenerate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -261,7 +265,7 @@ public class Schedule extends JFrame {
 				//refernce how Kevin did it in the UserLogin class.
 				int dialogButton = JOptionPane.YES_NO_OPTION;
 				int dialogResult = JOptionPane.showConfirmDialog(null, 
-						"Are you sure you like to regenerate the time trial races? \nAll race times entered will be lost", "Festival Load", dialogButton);
+						"Are you sure you like to regenerate the time trial races? \nAll race times entered will be lost.", "Regenerate", dialogButton);
 				if(dialogResult == 0) {
 					//regenerate the time trial races
 					FestivalObject.racesArray = new ArrayList<RaceObject>();	//reset the ArrayList of races
@@ -292,9 +296,9 @@ public class Schedule extends JFrame {
 //							+ " - " + FestivalObject.teamsArray.get(i).getSemiFinalRaceTime()
 //							+ " - " + FestivalObject.teamsArray.get(i).getFinalRaceTime());
 //				}
-//				for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
-//					System.out.println(FestivalObject.racesArray.get(i).getRaceNumber());
-//				}
+				for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
+					System.out.println(FestivalObject.racesArray.get(i).getRaceNumber());
+				}
 			}
 		});
 		btnTest.setFont(FestivalObject.getFont());
@@ -326,7 +330,11 @@ public class Schedule extends JFrame {
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				SaveAndLoad.saveXML();
+				int dialogButton = JOptionPane.YES_NO_OPTION;
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Save the festival?", "Festival Save", dialogButton);
+				if(dialogResult == 0) { 
+					SaveAndLoad.saveXML();
+				}
 			}
 		});
 		mntmSave.setFont(FestivalObject.getFont());

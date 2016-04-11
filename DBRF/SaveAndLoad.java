@@ -50,9 +50,9 @@ public class SaveAndLoad {
 		
 		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 			
-//			Attr attr = doc.createAttribute("TeamObject");
-//			attr.setValue("hi");
-//			el.setAttributeNode(attr);
+			Attr attr = doc.createAttribute("teamID");
+			attr.setValue(Integer.toString(FestivalObject.teamsArray.get(i).getTeamID()));
+			el.setAttributeNode(attr);
 			
 			Element teamName = doc.createElement("teamName");
 			teamName.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getTeamName()));
@@ -99,7 +99,7 @@ public class SaveAndLoad {
 			e.printStackTrace();
 		}
 		tran.setOutputProperty(OutputKeys.INDENT, "yes");	//add indenting to output xml file
-		tran.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");	//adds 2 spaces to each indexed xml line
+		tran.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");	//adds 4 spaces to each indexed xml line
 		DOMSource src = new DOMSource(doc);
 		
 		StreamResult sR = new StreamResult(new File("C:\\Users\\David van de Kamp\\Desktop\\festival.xml"));	//TODO - change to the festivalName
