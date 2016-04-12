@@ -219,15 +219,11 @@ public class TimeTrialRaceGeneration {
 					lblMixed.setFont(FestivalObject.getFont());
 					panel.add(lblMixed, "cell 3 " + rowCounter + ",growx,aligny center");
 					
-					//adding the space character label under the * heading for the time change flag
-					JLabel label_2 = new JLabel(" ");	//first set it to just a space character
-					label_2.setHorizontalAlignment(SwingConstants.CENTER);
-					label_2.setFont(FestivalObject.getFont());
-					panel.add(label_2, "cell 4 " + rowCounter + ",aligny center");
+					panel.add(theseTeams.get(0).getTimeFlag(o + 1), "cell 4 " + rowCounter + ",aligny center");		//add the time change flag
 					
-					panel.add(theseTeams.get(0).getTimeInputField(o + 1), "cell 5 " + rowCounter + ",growx,aligny center");
+					panel.add(theseTeams.get(0).getTimeInputField(o + 1), "cell 5 " + rowCounter + ",growx,aligny center");		//add the time input field
 					
-					panel.add(theseTeams.get(0).getLockButton(o + 1), "cell 6 " + rowCounter);
+					panel.add(theseTeams.get(0).getLockButton(o + 1), "cell 6 " + rowCounter);		//add the lock button
 					
 					//add the print button on the second loop
 					if(k == 0) {

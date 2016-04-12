@@ -2,7 +2,6 @@ package DBRF;
 
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -10,11 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import javax.swing.ScrollPaneConstants;
@@ -31,7 +28,6 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.event.ChangeEvent;
 import java.lang.Integer;
 import java.text.ParseException;
-
 import javax.swing.JTextField;
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
@@ -51,6 +47,20 @@ public class Schedule extends JFrame {
 	static boolean semiFinalRacesEh = false;
 	static boolean finalRacesEh = false;
 	static boolean firstPassEh = true;		//used to generate the time trial races on startup of this frame
+	
+	static public JPanel panel1 = new JPanel();
+	static public JPanel panel2 = new JPanel();
+	static public JPanel panel3 = new JPanel();
+	
+	private JLabel lblSchedule = new JLabel("Schedule");
+	private JScrollPane scrollPane = new JScrollPane();
+	
+	//initialize them first so they can be referenced in the mouseClicked method
+	static JRadioButton timeTrialsRadioButton = new JRadioButton("Time-Trials");
+	static JRadioButton semiFinalsRadioButton = new JRadioButton("Semi-Finals");
+	static JRadioButton finalsRadioButton = new JRadioButton("Finals");
+	static JButton btnGenerate = new JButton("Regenerate");
+	
 	
 	/**
 	 * Launch the application.
@@ -134,39 +144,28 @@ public class Schedule extends JFrame {
 		FestivalObject.categoriesArray.add("Mens");
 		
 		
-		JLabel lblSchedule = new JLabel("Schedule");
 		lblSchedule.setFont(FestivalObject.getFont());
 		lblSchedule.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSchedule.setBounds(10, 26, 934, 14);
 		contentPane.add(lblSchedule);
 		
-		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(10, 75, 924, 388);
 		contentPane.add(scrollPane);
 		
-		//add the 3 different panels
-		JPanel panel1 = new JPanel();
+		//set the 3 different panels
 		panel1.setVisible(true);
 		scrollPane.setViewportView(panel1);
 		panel1.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 		
-		JPanel panel2 = new JPanel();
 		panel2.setVisible(false);
 		scrollPane.setViewportView(panel2);
 		panel2.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 		
-		JPanel panel3 = new JPanel();
 		panel3.setVisible(false);
 		scrollPane.setViewportView(panel3);
 		panel3.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
-		
-		//initialize them first so they can be referenced in the mouseClicked method
-		JRadioButton timeTrialsRadioButton = new JRadioButton("Time-Trials");
-		JRadioButton semiFinalsRadioButton = new JRadioButton("Semi-Finals");
-		JRadioButton finalsRadioButton = new JRadioButton("Finals");
-		JButton btnGenerate = new JButton("Regenerate");
 		
 		timeTrialsRadioButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -203,7 +202,7 @@ public class Schedule extends JFrame {
 			}
 		});
 		semiFinalsRadioButton.setFont(FestivalObject.getFont());
-		semiFinalsRadioButton.setEnabled(true);
+		semiFinalsRadioButton.setEnabled(false);
 		semiFinalsRadioButton.setSelected(false);
 		semiFinalsRadioButton.setBounds(180, 50, 134, 23);
 		semiFinalsRadioButton.setFocusable(false);
@@ -223,7 +222,7 @@ public class Schedule extends JFrame {
 			}
 		});
 		finalsRadioButton.setFont(FestivalObject.getFont());
-		finalsRadioButton.setEnabled(true);
+		finalsRadioButton.setEnabled(false);
 		finalsRadioButton.setSelected(false);
 		finalsRadioButton.setBounds(316, 50, 134, 23);
 		finalsRadioButton.setFocusable(false);
@@ -284,27 +283,6 @@ public class Schedule extends JFrame {
 		btnGenerate.setFocusable(false);
 		btnGenerate.setBounds(814, 51, 120, 20);
 		contentPane.add(btnGenerate);
-		
-		JButton btnTest = new JButton("test");
-		btnTest.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-//				for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
-//					System.out.println(FestivalObject.teamsArray.get(i).getFirstRaceTime() 
-//							+ " - " + FestivalObject.teamsArray.get(i).getSecondRaceTime()
-//							+ " - " + FestivalObject.teamsArray.get(i).getSemiFinalRaceTime()
-//							+ " - " + FestivalObject.teamsArray.get(i).getFinalRaceTime());
-//				}
-				for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
-					System.out.println(FestivalObject.racesArray.get(i).getRaceNumber());
-				}
-			}
-		});
-		btnTest.setFont(FestivalObject.getFont());
-		btnTest.setFocusable(false);
-		btnTest.setBounds(650, 51, 100, 20);
-		contentPane.add(btnTest);
 		
 		//main menu stuff is first set here since it is always where you start
 		JMenuBar menuBar = new JMenuBar();
