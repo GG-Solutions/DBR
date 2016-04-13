@@ -16,14 +16,23 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.awt.event.ActionEvent;
+import javax.swing.ButtonGroup;
 
 public class Results extends JFrame {
 
 	public JPanel contentPane;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -54,15 +63,24 @@ public class Results extends JFrame {
 		contentPane.setLayout(null);
 		
 		JRadioButton rdbtnTimeTrials = new JRadioButton("Time Trials");
-		rdbtnTimeTrials.setBounds(77, 74, 109, 23);
+		buttonGroup.add(rdbtnTimeTrials);
+		rdbtnTimeTrials.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+			}
+		});
+		rdbtnTimeTrials.setBounds(86, 74, 109, 23);
 		contentPane.add(rdbtnTimeTrials);
 		
 		JRadioButton rdbtnSemiFinals = new JRadioButton("Semi Finals");
+		buttonGroup.add(rdbtnSemiFinals);
 		rdbtnSemiFinals.setBounds(229, 74, 109, 23);
 		contentPane.add(rdbtnSemiFinals);
 		
 		JRadioButton rdbtnFinals = new JRadioButton("Finals");
-		rdbtnFinals.setBounds(357, 74, 109, 23);
+		buttonGroup.add(rdbtnFinals);
+		rdbtnFinals.setBounds(358, 74, 109, 23);
 		contentPane.add(rdbtnFinals);
 		
 		JTextArea textArea = new JTextArea();
@@ -72,6 +90,8 @@ public class Results extends JFrame {
 		JButton btnDisplay = new JButton("Display");
 		btnDisplay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(rdbtnTimeTrials.isSelected())
+				{
 				for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
 					textArea.append(FestivalObject.getTeamsArray().get(i).getTeamName());
 					textArea.append(FestivalObject.getTeamsArray().get(i).getCategory());
@@ -82,11 +102,83 @@ public class Results extends JFrame {
 					textArea.append(temp3);
 					textArea.append("\n");
 				}
+				}
+				else if(rdbtnSemiFinals.isSelected())
+				{
+				for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
+					textArea.append(FestivalObject.getTeamsArray().get(i).getTeamName());
+					textArea.append(FestivalObject.getTeamsArray().get(i).getCategory());
+					textArea.append(FestivalObject.getTeamsArray().get(i).getPlace());
+					int temp1 = FestivalObject.getTeamsArray().get(i).getFirstRaceTime();
+					String temp = Integer.toString(temp1);
+					String temp3 = java.util.Arrays.toString(temp.split("(?<=\\G..)"));
+					textArea.append(temp3);
+					textArea.append("\n");
+				}
+				}
+				else if(rdbtnFinals.isSelected())
+				{
+				for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
+					textArea.append(FestivalObject.getTeamsArray().get(i).getTeamName());
+					textArea.append(FestivalObject.getTeamsArray().get(i).getCategory());
+					textArea.append(FestivalObject.getTeamsArray().get(i).getPlace());
+					int temp1 = FestivalObject.getTeamsArray().get(i).getFirstRaceTime();
+					String temp = Integer.toString(temp1);
+					String temp3 = java.util.Arrays.toString(temp.split("(?<=\\G..)"));
+					textArea.append(temp3);
+					textArea.append("\n");
+				}
+				}
+				
 				
 			}
 		});
 		btnDisplay.setBounds(473, 74, 89, 23);
 		contentPane.add(btnDisplay);
+		
+		JButton btnPrint = new JButton("Print");
+		btnPrint.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+					JFrame parentFrame = new JFrame();
+					 
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.setDialogTitle("Specify a file to save");   
+					 
+					int userSelection = fileChooser.showSaveDialog(parentFrame);
+					 
+					if (userSelection != JFileChooser.APPROVE_OPTION) {
+					    return;
+					}
+
+					File fileName = new File(fileChooser.getSelectedFile() + ".txt");
+				      BufferedWriter outFile = null;
+				      try {
+				         outFile = new BufferedWriter(new FileWriter(fileName));
+
+				         textArea.write(outFile);   // *** here: ***
+
+				      } catch (IOException ex) {
+				         ex.printStackTrace();
+				      } finally {
+				         if (outFile != null) {
+				            try {
+				               outFile.close();
+				            } catch (IOException e1) {
+				               // one of the few times that I think that it's OK
+				               // to leave this blank
+				            }
+				         }
+				      }
+				   }
+			
+				  
+				  
+				
+		});
+		btnPrint.setBounds(839, 425, 89, 23);
+		contentPane.add(btnPrint);
 		
 		//main menu stuff is first set here since it is always where you start
 		JMenuBar menuBar = new JMenuBar();
