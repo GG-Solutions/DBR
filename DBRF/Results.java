@@ -102,6 +102,7 @@ public class Results extends JFrame {
 		JButton btnDisplay = new JButton("Display");
 		btnDisplay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textArea.setText(null);
 				if(rdbtnTimeTrials.isSelected())
 				{
 				for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
