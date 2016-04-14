@@ -33,6 +33,7 @@ public class Results extends JFrame {
 
 	public JPanel contentPane;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -70,37 +71,57 @@ public class Results extends JFrame {
 
 			}
 		});
-		rdbtnTimeTrials.setBounds(86, 74, 109, 23);
+		rdbtnTimeTrials.setBounds(87, 51, 109, 23);
 		contentPane.add(rdbtnTimeTrials);
 		
 		JRadioButton rdbtnSemiFinals = new JRadioButton("Semi Finals");
 		buttonGroup.add(rdbtnSemiFinals);
-		rdbtnSemiFinals.setBounds(229, 74, 109, 23);
+		rdbtnSemiFinals.setBounds(230, 51, 109, 23);
 		contentPane.add(rdbtnSemiFinals);
 		
 		JRadioButton rdbtnFinals = new JRadioButton("Finals");
 		buttonGroup.add(rdbtnFinals);
-		rdbtnFinals.setBounds(358, 74, 109, 23);
+		rdbtnFinals.setBounds(359, 51, 109, 23);
 		contentPane.add(rdbtnFinals);
+		
+		JRadioButton rdbtnFirstRace = new JRadioButton("First Race");
+		buttonGroup_1.add(rdbtnFirstRace);
+		rdbtnFirstRace.setBounds(87, 80, 109, 23);
+		contentPane.add(rdbtnFirstRace);
+		
+		JRadioButton rdbtnSecondRace = new JRadioButton("Second Race");
+		buttonGroup_1.add(rdbtnSecondRace);
+		rdbtnSecondRace.setBounds(230, 77, 109, 23);
+		contentPane.add(rdbtnSecondRace);
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setBounds(87, 110, 742, 338);
 		contentPane.add(textArea);
 		
+		
 		JButton btnDisplay = new JButton("Display");
 		btnDisplay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				textArea.setText(null);
 				if(rdbtnTimeTrials.isSelected())
 				{
 				for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
 					textArea.append(FestivalObject.getTeamsArray().get(i).getTeamName());
 					textArea.append(FestivalObject.getTeamsArray().get(i).getCategory());
-					textArea.append(FestivalObject.getTeamsArray().get(i).getPlace());
+					if(rdbtnFirstRace.isSelected()){
 					int temp1 = FestivalObject.getTeamsArray().get(i).getFirstRaceTime();
 					String temp = Integer.toString(temp1);
 					String temp3 = java.util.Arrays.toString(temp.split("(?<=\\G..)"));
 					textArea.append(temp3);
 					textArea.append("\n");
+					}
+					else if(rdbtnSecondRace.isSelected()){
+						int temp1 = FestivalObject.getTeamsArray().get(i).getSecondRaceTime();
+						String temp = Integer.toString(temp1);
+						String temp3 = java.util.Arrays.toString(temp.split("(?<=\\G..)"));
+						textArea.append(temp3);
+						textArea.append("\n");
+					}
 				}
 				}
 				else if(rdbtnSemiFinals.isSelected())
@@ -166,8 +187,7 @@ public class Results extends JFrame {
 				            try {
 				               outFile.close();
 				            } catch (IOException e1) {
-				               // one of the few times that I think that it's OK
-				               // to leave this blank
+
 				            }
 				         }
 				      }
@@ -179,6 +199,7 @@ public class Results extends JFrame {
 		});
 		btnPrint.setBounds(839, 425, 89, 23);
 		contentPane.add(btnPrint);
+		
 		
 		//main menu stuff is first set here since it is always where you start
 		JMenuBar menuBar = new JMenuBar();
