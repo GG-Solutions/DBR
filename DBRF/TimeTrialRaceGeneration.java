@@ -43,7 +43,9 @@ public class TimeTrialRaceGeneration {
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		RaceObject race = new RaceObject();		//create a new race to populate and later send to the racesArray
 		
-		rowCounter = 0;		//reset the counter
+		startTime = 900;	//reset the start time TODO - add an input in festival setup for start time
+		
+		rowCounter = 0;		//reset the counter for adding components in the proper row
 		
 		//main loop ------------------------------------------------------------------------------------------------------------------------
 		//go through everything twice so each team races twice
@@ -51,6 +53,11 @@ public class TimeTrialRaceGeneration {
 			
 			teams = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//reset the teams1 arraylist
 			Collections.shuffle(teams);	//shuffle the arraylist
+			
+			//reset variable to true for correct time processing when regenerating the time trial races
+			if(o == 0) {
+				firstRoundEh = true;
+			}
 			
 			//round the number up cause you will always need that 
 			for(int i = 0; i < Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes); i++) {

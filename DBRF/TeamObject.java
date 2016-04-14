@@ -139,7 +139,6 @@ public class TeamObject {
 		firstRaceLockButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if(firstRaceLockButton.getText() == "Lock") {
-					firstRaceTimeTracker = Integer.parseInt((String)timeFirstRaceInputField.getValue());	//set the varible to keep track if the time changed
 					firstRaceTime = Integer.parseInt((String)timeFirstRaceInputField.getValue());	//set the firstRaceTime variable
 					timeFirstRaceInputField.setEditable(false);
 					firstRaceLockButton.setText("Unlock");
@@ -149,16 +148,12 @@ public class TeamObject {
 						flagFirstRaceTime.setText("*");		//set the time change flag
 					}
 					
+					firstRaceTimeTracker = Integer.parseInt((String)timeFirstRaceInputField.getValue());	//set the varible to keep track if the time changed
+					
 					//check if the button was clicked enough times to change the time change flag
 //					if(firstLockButtonPressCount > 1) {
 //						flagFirstRaceTime.setText("*");		//set the time change flag
 //					}
-//					firstLockButtonPressCount++;	//add one to the button click count
-				}
-				else if(firstRaceLockButton.getText() == "Unlock") {
-					timeFirstRaceInputField.setEditable(true);
-					firstRaceLockButton.setText("Lock");
-					
 //					firstLockButtonPressCount++;	//add one to the button click count
 					
 					//loop through all the teams array and check if all their first race and second race times are not -1 to open the semi final race radio button
@@ -174,8 +169,16 @@ public class TeamObject {
 						//if the last index is equal to the teamsArray size +1 and the time != -1
 						else if(i + 1 == FestivalObject.teamsArray.size() && FestivalObject.teamsArray.get(i).getSecondRaceTime() != -1) {
 							Schedule.semiFinalsRadioButton.setEnabled(true);
+							SemiFinalRaceGeneration.generateSemiFinalRaces(Schedule.panel2);	//auto generate the semi finals when all is locked
 						}
 					}
+				}
+				else if(firstRaceLockButton.getText() == "Unlock") {
+					timeFirstRaceInputField.setEditable(true);
+					firstRaceLockButton.setText("Lock");
+					
+//					firstLockButtonPressCount++;	//add one to the button click count
+					
 				}
 			}
 		});
@@ -198,12 +201,6 @@ public class TeamObject {
 //						flagSecondRaceTime.setText("*");		//set the time change flag
 //					}
 //					secondLockButtonPressCount++;	//add one to the button click count
-				}
-				else if(secondRaceLockButton.getText() == "Unlock") {
-					timeSecondRaceInputField.setEditable(true);
-					secondRaceLockButton.setText("Lock");
-					
-//					secondLockButtonPressCount++;	//add one to the button click count
 					
 					//loop through all the teams array and check if all their first race and second race times are not -1 to open the semi final race radio button
 					for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
@@ -218,8 +215,16 @@ public class TeamObject {
 						//if the last index is equal to the teamsArray size +1 and the time != -1
 						else if(i + 1 == FestivalObject.teamsArray.size() && FestivalObject.teamsArray.get(i).getSecondRaceTime() != -1) {
 							Schedule.semiFinalsRadioButton.setEnabled(true);
+							SemiFinalRaceGeneration.generateSemiFinalRaces(Schedule.panel2);	//auto generate the semi finals when all is locked
 						}
 					}
+				}
+				else if(secondRaceLockButton.getText() == "Unlock") {
+					timeSecondRaceInputField.setEditable(true);
+					secondRaceLockButton.setText("Lock");
+					
+//					secondLockButtonPressCount++;	//add one to the button click count
+					
 				}
 			}
 		});
@@ -242,13 +247,6 @@ public class TeamObject {
 //						flagSemiFinalRaceTime.setText("*");		//set the time change flag
 //					}
 //					semiFinalLockButtonPressCount++;	//add one to the button click count
-				}
-				else if(semiFinalRaceLockButton.getText() == "Unlock") {
-					timeSemiFinalRaceInputField.setEditable(true);
-					semiFinalRaceLockButton.setText("Lock");
-					flagSemiFinalRaceTime.setText("*");
-					
-//					semiFinalLockButtonPressCount++;	//add one to the button click count
 					
 					//loop through all the teams array and check if all their semi final race times are not -1 to open the finals race radio button
 					for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
@@ -258,8 +256,17 @@ public class TeamObject {
 						//if the last index is equal to the teamsArray size +1 and the time != -1
 						else if(i + 1 == FestivalObject.teamsArray.size() && FestivalObject.teamsArray.get(i).getSemiFinalRaceTime() != -1) {
 							Schedule.finalsRadioButton.setEnabled(true);
+							FinalRaceGeneration.generateFinalRaces(Schedule.panel3);	//generate the final races when all the semi finals are locked
 						}
 					}
+				}
+				else if(semiFinalRaceLockButton.getText() == "Unlock") {
+					timeSemiFinalRaceInputField.setEditable(true);
+					semiFinalRaceLockButton.setText("Lock");
+					flagSemiFinalRaceTime.setText("*");
+					
+//					semiFinalLockButtonPressCount++;	//add one to the button click count
+					
 				}
 			}
 		});

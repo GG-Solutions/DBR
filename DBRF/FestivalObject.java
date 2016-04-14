@@ -18,7 +18,7 @@ public class FestivalObject {
 	public static final long serialVersionUID = 1L;
 	public static String festivalName = "";
 	public static int timeBetweenRaces = 20;
-	public static int numOfLanes = 3;
+	public static int numOfLanes = 4;
 	public static ArrayList<ArrayList<Integer>> breaksArray = new ArrayList<ArrayList<Integer>>();
 	public static ArrayList<String> categoriesArray = new ArrayList<String>();
 	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();

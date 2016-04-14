@@ -106,7 +106,7 @@ public class SemiFinalRaceGeneration {
 //		for(int i = 0; i < Math.ceil(teams.size() / numOfLanes); i++) {
 		while(doneGenEh == false) {
 			
-			RaceObject race = new RaceObject();	//create a new raceCard to change
+			RaceObject race = new RaceObject();		//create a new raceCard to change
 			
 			//figure out the raceTime
 			if(i == 0) {
@@ -132,7 +132,7 @@ public class SemiFinalRaceGeneration {
 			currentTime /= 100;		//abruptly cut off the last 2 digits
 			currentTime *= 100;		//add two 0's back on to the currentTime
 			//mod 60 if the last two digits are above or equal to 60
-			if(time >= 60 ) {
+			if(time >= 60) {
 				currentTime += 100;
 				time %= 60;
 			}
@@ -217,12 +217,14 @@ public class SemiFinalRaceGeneration {
 						for(int j = 0; j < FestivalObject.numOfLanes - 1; j++) {
 							theseTeams.add(tmCat.get(0).get(0));
 							tmCat.get(0).remove(0);
+							
+							//if all the teams from the one category have been taken out
+							if(tmCat.get(0).size() == 0) {
+								tmCat.remove(0);
+								break;	//break adding teams if 2 or less teams are left so that there is always 2 teams racing, never 1
+							}
 						}
 						
-						if(tmCat.get(0).size() == 0) {
-							tmCat.remove(0);
-						}
-						break;	//break generation if 2 or less teams are left so that there is always 2 teams racing, never 1
 					}
 					//do this if no checking needs to be done
 					else {
@@ -231,7 +233,7 @@ public class SemiFinalRaceGeneration {
 					}
 				}
 				//delete the index 0
-				else {		//idk if you need this here - kinda a safety
+				else {		//idk if you need this here - kinda a safety?
 					tmCat.remove(0);	//remove the first dimension
 					break;	//no more objects left to take out
 				}
