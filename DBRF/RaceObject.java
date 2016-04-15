@@ -1,7 +1,6 @@
 package DBRF;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -10,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.text.MaskFormatter;
 
 public class RaceObject {
@@ -31,15 +29,15 @@ public class RaceObject {
 		MaskFormatter timeMask = null;
 		
 		try {
-			timeMask = new MaskFormatter("##h:##m");
+			timeMask = new MaskFormatter("##:##");
 			timeMask.setValueContainsLiteralCharacters(false);
 			
 			timeEditField = new JFormattedTextField(timeMask);
-			timeEditField.setValue(String.format("%04d", time));	//format output to four 0's
+			timeEditField.setEditable(true);
+			timeEditField.setText(String.format("%04d", time));	//format output to four 0's
 			timeEditField.setEditable(false);
 			timeEditField.setColumns(8);
 			timeEditField.setFont(FestivalObject.getFont());
-			setRaceTime(time);		//set the raceTime variable
 		} 
 		catch (ParseException e) {
 			e.printStackTrace();
@@ -103,10 +101,10 @@ public class RaceObject {
 					}
 					
 					System.out.println(breaks.size());
-					System.out.println("changing race # " + getRaceNumber());
+					System.out.println("changing race # " + getRaceNumber() + " to " + tempTime);
 					
 					//loop to change all the next race times depending on this object's raceID
-					for(int j = getRaceNumber() + 1; j < FestivalObject.racesArray.size(); j++) {
+					for(int j = getRaceNumber(); j < FestivalObject.racesArray.size(); j++) {
 						
 						//change the race time
 						if((tempTime + FestivalObject.timeBetweenRaces) >= breaks.get(0).get(0)) {
@@ -120,6 +118,8 @@ public class RaceObject {
 							tempTime += FestivalObject.timeBetweenRaces;
 						}
 						
+						System.out.println("time changed to " + tempTime + " for # " + FestivalObject.racesArray.get(j).getRaceNumber());
+						
 						//format to the correct time by doing mod 60
 						String t = Integer.toString(tempTime);
 						int tempTime2 = Integer.parseInt(Integer.toString(tempTime).substring(t.length() - 2));	//get the last 2 digits of currentTime
@@ -132,8 +132,10 @@ public class RaceObject {
 						}
 						tempTime += tempTime2;	//add the formatted minutes back to the currentTime
 						
-						FestivalObject.racesArray.get(j).setTimeInputField(tempTime);
-						FestivalObject.racesArray.get(j).setRaceTime(tempTime);
+						FestivalObject.racesArray.get(j).timeEditField.setEditable(true);	//set to editable to change the time
+						FestivalObject.racesArray.get(j).timeEditField.setText(String.format("%04d", tempTime));	//change the text to the new time
+						FestivalObject.racesArray.get(j).timeEditField.setEditable(false);	//set to not editable again
+						FestivalObject.racesArray.get(j).setRaceTime(tempTime);		//chnage the race time in the object
 					}
 					
 					editTimeButton.setText("edit");
@@ -226,6 +228,11 @@ public class RaceObject {
 	 */
 	public String setCategory() {
 		return category;
+	}
+	
+	//return the teams racing
+	public ArrayList<TeamObject> getTeamsRacing() {
+		return teamsRacing;
 	}
 	
 	/**

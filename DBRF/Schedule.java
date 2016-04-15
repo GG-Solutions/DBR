@@ -1,8 +1,6 @@
 package DBRF;
 
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -10,36 +8,19 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.event.ChangeListener;
-import javax.swing.text.MaskFormatter;
-import javax.swing.event.ChangeEvent;
 import java.lang.Integer;
-import java.text.ParseException;
-
-import javax.swing.JTextField;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import javax.swing.event.CaretListener;
-import javax.swing.event.CaretEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import javax.swing.JFormattedTextField;
 
 public class Schedule extends JFrame {
 
@@ -50,6 +31,21 @@ public class Schedule extends JFrame {
 	static boolean timeTrialRacesEh = false;
 	static boolean semiFinalRacesEh = false;
 	static boolean finalRacesEh = false;
+	static boolean firstPassEh = true;		//used to generate the time trial races on startup of this frame
+	
+	static public JPanel panel1 = new JPanel();
+	static public JPanel panel2 = new JPanel();
+	static public JPanel panel3 = new JPanel();
+	
+	private JLabel lblSchedule = new JLabel("Schedule");
+	private JScrollPane scrollPane = new JScrollPane();
+	
+	//initialize them first so they can be referenced in the mouseClicked method
+	static JRadioButton timeTrialsRadioButton = new JRadioButton("Time-Trials");
+	static JRadioButton semiFinalsRadioButton = new JRadioButton("Semi-Finals");
+	static JRadioButton finalsRadioButton = new JRadioButton("Finals");
+	static JButton btnGenerate = new JButton("Regenerate");
+	
 	
 	/**
 	 * Launch the application.
@@ -93,15 +89,15 @@ public class Schedule extends JFrame {
 		contentPane.setLayout(null);
 		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
-		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
@@ -133,38 +129,28 @@ public class Schedule extends JFrame {
 		FestivalObject.categoriesArray.add("Mens");
 		
 		
-		JLabel lblSchedule = new JLabel("Schedule");
 		lblSchedule.setFont(FestivalObject.getFont());
 		lblSchedule.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSchedule.setBounds(10, 26, 924, 14);
+		lblSchedule.setBounds(10, 26, 934, 14);
 		contentPane.add(lblSchedule);
 		
-		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(10, 75, 924, 388);
 		contentPane.add(scrollPane);
 		
-		//add the 3 different panels
-		JPanel panel1 = new JPanel();
+		//set the 3 different panels
 		panel1.setVisible(true);
 		scrollPane.setViewportView(panel1);
 		panel1.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 		
-		JPanel panel2 = new JPanel();
 		panel2.setVisible(false);
 		scrollPane.setViewportView(panel2);
 		panel2.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 		
-		JPanel panel3 = new JPanel();
 		panel3.setVisible(false);
 		scrollPane.setViewportView(panel3);
 		panel3.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
-		
-		//initialize them first so they can be referenced in the mouseClicked method
-		JRadioButton timeTrialsRadioButton = new JRadioButton("Time-Trials");
-		JRadioButton semiFinalsRadioButton = new JRadioButton("Semi-Finals");
-		JRadioButton finalsRadioButton = new JRadioButton("Finals");
 		
 		timeTrialsRadioButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -175,8 +161,9 @@ public class Schedule extends JFrame {
 				panel2.setVisible(false);
 				panel3.setVisible(false);
 				timeTrialsRadioButton.setSelected(true);
-				semiFinalsRadioButton.setSelected(false);	//cant initialize it before it is declared :/
+				semiFinalsRadioButton.setSelected(false);
 				finalsRadioButton.setSelected(false);
+				btnGenerate.setEnabled(true);
 			}
 		});
 		timeTrialsRadioButton.setFont(FestivalObject.getFont());
@@ -188,18 +175,21 @@ public class Schedule extends JFrame {
 		
 		semiFinalsRadioButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				//need to set the other panels to invisible and then 
-				scrollPane.setViewportView(panel2);		//set the view of the scrollPane
-				panel1.setVisible(false);
-				panel2.setVisible(true);
-				panel3.setVisible(false);
-				timeTrialsRadioButton.setSelected(false);
-				semiFinalsRadioButton.setSelected(true);
-				finalsRadioButton.setSelected(false);
+				if(semiFinalsRadioButton.isEnabled() == true) {
+					//need to set the other panels to invisible and then 
+					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
+					panel1.setVisible(false);
+					panel2.setVisible(true);
+					panel3.setVisible(false);
+					timeTrialsRadioButton.setSelected(false);
+					semiFinalsRadioButton.setSelected(true);
+					finalsRadioButton.setSelected(false);
+					btnGenerate.setEnabled(false);
+				}
 			}
 		});
 		semiFinalsRadioButton.setFont(FestivalObject.getFont());
-		semiFinalsRadioButton.setEnabled(true);
+		semiFinalsRadioButton.setEnabled(false);
 		semiFinalsRadioButton.setSelected(false);
 		semiFinalsRadioButton.setBounds(180, 50, 134, 23);
 		semiFinalsRadioButton.setFocusable(false);
@@ -207,73 +197,53 @@ public class Schedule extends JFrame {
 		
 		finalsRadioButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				//need to set the other panels to invisible and then 
-				scrollPane.setViewportView(panel3);		//set the view of the scrollPane
-				panel1.setVisible(false);
-				panel2.setVisible(false);
-				panel3.setVisible(true);
-				timeTrialsRadioButton.setSelected(false);
-				semiFinalsRadioButton.setSelected(false);
-				finalsRadioButton.setSelected(true);
+				if(finalsRadioButton.isEnabled() == true) {
+					//need to set the other panels to invisible and then 
+					scrollPane.setViewportView(panel3);		//set the view of the scrollPane
+					panel1.setVisible(false);
+					panel2.setVisible(false);
+					panel3.setVisible(true);
+					timeTrialsRadioButton.setSelected(false);
+					semiFinalsRadioButton.setSelected(false);
+					finalsRadioButton.setSelected(true);
+					btnGenerate.setEnabled(false);
+				}
 			}
 		});
 		finalsRadioButton.setFont(FestivalObject.getFont());
-		finalsRadioButton.setEnabled(true);
+		finalsRadioButton.setEnabled(false);
 		finalsRadioButton.setSelected(false);
 		finalsRadioButton.setBounds(316, 50, 134, 23);
 		finalsRadioButton.setFocusable(false);
 		contentPane.add(finalsRadioButton);
 		
-		JButton btnGenerate = new JButton("Regenerate");
 		btnGenerate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(timeTrialsRadioButton.isSelected()) {
-					scrollPane.setViewportView(panel1);		//set the view of the scrollPane
-					//protection from generating twice
-					if(timeTrialRacesEh == false) {
-						TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);	//call generateTimeTrialRaces
-						timeTrialRacesEh = true;
-					}
-				}
-				if(semiFinalsRadioButton.isSelected()) {
-					//generate the semi-final races
-					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
-					//protection from generating twice
-					if(semiFinalRacesEh == false) {
-						SemiFinalRaceGeneration.generateSemiFinalRaces(panel2);
-						semiFinalRacesEh = true;
-					}
-				}
-				if(finalsRadioButton.isSelected()) {
-					//generate the final races
-					scrollPane.setViewportView(panel3);		//set the view of the scrollPane
-					//protection from generating twice
-					if(finalRacesEh == false) {
-						FinalRaceGeneration.generateFinalRaces(panel3);
-						finalRacesEh = true;
-					}
-				}
-//				System.out.println(teamsArray.size()+"\n");
-				
-				//TODO - add a pop up window with a are you sure message, all input information will be lost. have yes and no buttons.
-				//then loop to call TimeTrialRaces.generateTimeTrailRaces(panel1);
-				//refernce how Kevin did it in the UserLogin class.
+				//pop up that tells the user if they like to regenerate the time trial races. all input info will be lost.
 				int dialogButton = JOptionPane.YES_NO_OPTION;
 				int dialogResult = JOptionPane.showConfirmDialog(null, 
-						"Are you sure you like to regenerate the time trial races? \nAll race times entered will be lost", "Festival Load", dialogButton);
+						"Are you sure you like to regenerate the time trial races? \nAll race times entered will be lost.", "Regenerate", dialogButton);
+				//set things to regenerate the time trial races is yes was selected
 				if(dialogResult == 0) {
-					//regenerate the time trial races
 					FestivalObject.racesArray = new ArrayList<RaceObject>();	//reset the ArrayList of races
-					panel1.removeAll();		//remove all compenents from the time trial panel
+					
+					//remove all compenents from the panels
+					panel1.removeAll();
+					panel2.removeAll();
+					panel3.removeAll();
 					panel1.setVisible(true);
 					scrollPane.setViewportView(panel1);
 					panel1.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
+					
+					semiFinalsRadioButton.setEnabled(false);	//disable semi finals radio button
+					finalsRadioButton.setEnabled(false);		//disable finals radio button
+					
 					TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);
 				} 
 				else {
-					//close the popup
-				} 
+					//do nothing if no was selected
+				}
 			}
 		});
 		btnGenerate.setFont(FestivalObject.getFont());
@@ -281,25 +251,18 @@ public class Schedule extends JFrame {
 		btnGenerate.setBounds(814, 51, 120, 20);
 		contentPane.add(btnGenerate);
 		
+		scrollPane.setViewportView(panel1);
+		TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);		//auto generate the time trial races when building this page
+		
 		JButton btnTest = new JButton("test");
 		btnTest.addMouseListener(new MouseAdapter() {
-			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
-//				for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
-//					System.out.println(FestivalObject.teamsArray.get(i).getFirstRaceTime() 
-//							+ " - " + FestivalObject.teamsArray.get(i).getSecondRaceTime()
-//							+ " - " + FestivalObject.teamsArray.get(i).getSemiFinalRaceTime()
-//							+ " - " + FestivalObject.teamsArray.get(i).getFinalRaceTime());
-//				}
-//				for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
-//					System.out.println(FestivalObject.racesArray.get(i).getRaceNumber());
-//				}
+				for(int i =0; i < FestivalObject.teamsArray.size(); i++) {
+					System.out.println(FestivalObject.teamsArray.get(i).getFirstRaceTime());
+				}
 			}
 		});
-		btnTest.setFont(FestivalObject.getFont());
-		btnTest.setFocusable(false);
-		btnTest.setBounds(650, 51, 100, 20);
+		btnTest.setBounds(687, 55, 89, 14);
 		contentPane.add(btnTest);
 		
 		//main menu stuff is first set here since it is always where you start
@@ -326,7 +289,11 @@ public class Schedule extends JFrame {
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				SaveAndLoad.saveXML();
+				int dialogButton = JOptionPane.YES_NO_OPTION;
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Save the festival?", "Festival Save", dialogButton);
+				if(dialogResult == 0) { 
+					SaveAndLoad.saveXML();
+				}
 			}
 		});
 		mntmSave.setFont(FestivalObject.getFont());

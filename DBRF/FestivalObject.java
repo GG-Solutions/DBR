@@ -4,10 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
-
-import org.w3c.dom.events.EventException;
-
 public class FestivalObject {
 
 	
@@ -30,9 +26,9 @@ public class FestivalObject {
 	public static int width = 960;
 	public static int height = 540;
 	
-	public static String bounds = "";
+//	public static String bounds = "";	//need this??
 	
-	private static Font thisFont = null;	//TODO - build this varible
+	private static Font thisFont = null;	//TODO - build this variable
 	
 //	public static JPanel userLoginPane;
 //	public static JPanel mainMenuPane;

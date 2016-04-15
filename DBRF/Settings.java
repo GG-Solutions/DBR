@@ -1,26 +1,15 @@
 package DBRF;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -61,6 +50,12 @@ public class Settings extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JLabel label = new JLabel("Settings");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(FestivalObject.getFont());
+		label.setBounds(10, 27, 934, 14);
+		contentPane.add(label);
+		
 		JButton deleteUser = new JButton("Delete User");
 		deleteUser.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -69,7 +64,7 @@ public class Settings extends JFrame {
 		});
 		deleteUser.setFont(FestivalObject.getFont());
 		deleteUser.setEnabled(true);
-		deleteUser.setBounds(428, 284, 156, 31);
+		deleteUser.setBounds(401, 285, 156, 31);
 		deleteUser.setFocusable(false);
 		contentPane.add(deleteUser);
 		
@@ -81,7 +76,7 @@ public class Settings extends JFrame {
 		});
 		signUpNewUser.setFont(FestivalObject.getFont());
 		signUpNewUser.setEnabled(true);
-		signUpNewUser.setBounds(428, 158, 156, 31);
+		signUpNewUser.setBounds(401, 159, 156, 31);
 		signUpNewUser.setFocusable(false);
 		contentPane.add(signUpNewUser);
 		
@@ -96,7 +91,7 @@ public class Settings extends JFrame {
 		});
 		fontButton.setFont(FestivalObject.getFont());
 		fontButton.setEnabled(true);
-		fontButton.setBounds(428, 116, 156, 31);
+		fontButton.setBounds(401, 117, 156, 31);
 		fontButton.setFocusable(false);
 		contentPane.add(fontButton);
 		
@@ -108,7 +103,7 @@ public class Settings extends JFrame {
 		});
 		changeUserName.setFont(FestivalObject.getFont());
 		changeUserName.setEnabled(true);
-		changeUserName.setBounds(428, 200, 156, 31);
+		changeUserName.setBounds(401, 201, 156, 31);
 		changeUserName.setFocusable(false);
 		contentPane.add(changeUserName);
 		
@@ -120,7 +115,7 @@ public class Settings extends JFrame {
 		});
 		changePassword.setFont(FestivalObject.getFont());
 		changePassword.setEnabled(true);
-		changePassword.setBounds(428, 242, 156, 31);
+		changePassword.setBounds(401, 243, 156, 31);
 		changePassword.setFocusable(false);
 		contentPane.add(changePassword);
 		

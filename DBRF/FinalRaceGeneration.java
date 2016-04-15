@@ -1,25 +1,16 @@
 package DBRF;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.text.MaskFormatter;
 
 public class FinalRaceGeneration {
 	
 	private static int currentTime;	//stores the current time to generate the schedule times
-	private static int startTime = 900;	//day starting time	
+	private static int startTime = 900;	//day starting time TODO - add this to the event setup page UI
 	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
 	
 	/**
@@ -213,7 +204,7 @@ public class FinalRaceGeneration {
 				//delete the index 0
 				else {		//idk if you need this here - kinda a safety
 					tmCat.remove(0);	//remove the first dimension
-					break;	//no more objects left to take out
+					break;	//no more teams left to take out
 				}
 			}
 			//if there are no more teams to add to races
@@ -284,11 +275,7 @@ public class FinalRaceGeneration {
 				lblMixed.setFont(FestivalObject.getFont());
 				panel.add(lblMixed, "cell 3 " + rowCounter + ",growx,aligny center");
 				
-				//adding the space character label under the * heading for the time change flag
-				JLabel label_2 = new JLabel(" ");	//first set it to just a space character
-				label_2.setHorizontalAlignment(SwingConstants.CENTER);
-				label_2.setFont(FestivalObject.getFont());
-				panel.add(label_2, "cell 4 " + rowCounter + ",aligny center");
+				panel.add(theseTeams.get(0).getTimeFlag(4), "cell 4 " + rowCounter + ",aligny center");		//add the time change flag
 				
 				panel.add(theseTeams.get(0).getTimeInputField(4), "cell 5 " + rowCounter + ",growx,aligny center");
 				

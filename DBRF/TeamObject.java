@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.text.MaskFormatter;
 
@@ -16,13 +17,13 @@ public class TeamObject {
 	private int place = -1;		//set to -1 as default? global place that the team is in
 	
 	//move the flags to the race object instead?
-	private char firstRaceTimeFlag = '*';
+//	private char firstRaceTimeFlag = '*';
 	private int firstRaceTime = -1; 
-	private char secondRaceTimeFlag = '*';
+//	private char secondRaceTimeFlag = '*';
 	private int secondRaceTime = -1; 
-	private char semiFinalRaceTimeFlag = '*';
+//	private char semiFinalRaceTimeFlag = '*';
 	private int semiFinalRaceTime = -1;
-	private char finalRaceTimeFlag = '*';
+//	private char finalRaceTimeFlag = '*';
 	private int finalRaceTime = -1; 		//not every team will have a final race time?
 	private int averagedRaceTime = -1; 
 	
@@ -30,6 +31,17 @@ public class TeamObject {
 	private JFormattedTextField timeSecondRaceInputField = null;
 	private JFormattedTextField timeSemiFinalRaceInputField = null;
 	private JFormattedTextField timeFinalRaceInputField = null;
+	
+	private JLabel flagFirstRaceTime = new JLabel("");
+	private JLabel flagSecondRaceTime = new JLabel("");
+	private JLabel flagSemiFinalRaceTime = new JLabel("");
+	private JLabel flagFinalRaceTime = new JLabel("");
+	
+	//use these variables to keep track of the input time to see if they changed to set the flag
+	private int firstRaceTimeTracker = 0;
+	private int secondLockButtonPressCount = 0;
+	private int semiFinalLockButtonPressCount = 0;
+	private int finalLockButtonPressCount = 0;
 	
 	private JButton firstRaceLockButton = new JButton("Lock");
 	private JButton secondRaceLockButton = new JButton("Lock");
@@ -43,7 +55,7 @@ public class TeamObject {
 		MaskFormatter timeMask = null;
 		
 		try {
-			timeMask = new MaskFormatter("##m:##s.##ms");
+			timeMask = new MaskFormatter("##:##.##");
 			timeMask.setValueContainsLiteralCharacters(false);
 			
 			tempField = new JFormattedTextField(timeMask);
@@ -68,6 +80,27 @@ public class TeamObject {
 		}
 		
 		return tempField;
+	}
+	
+	//get the time flag
+	public JLabel getTimeFlag(int round) {
+		
+		JLabel tempLabel = new JLabel("");
+		
+		if(round == 1) {
+			flagFirstRaceTime = tempLabel;
+		}
+		if(round == 2) {
+			flagSecondRaceTime = tempLabel;
+		}
+		if(round == 3) {
+			flagSemiFinalRaceTime = tempLabel;
+		}
+		if(round == 4) {
+			flagFinalRaceTime = tempLabel;
+		}
+		
+		return tempLabel;
 	}
 	
 	//returns the correct lock back to the pane depending on what round is passed to this function
@@ -105,14 +138,48 @@ public class TeamObject {
 		//build the firstRaceLockButton variable
 		firstRaceLockButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if(firstRaceLockButton.getText() == "Lock" && timeFirstRaceInputField.getValue() != null) {
+				//get the mouse cursor out of the time input field so that it works properly
+				if(firstRaceLockButton.getText() == "Lock") {
 					firstRaceTime = Integer.parseInt((String)timeFirstRaceInputField.getValue());	//set the firstRaceTime variable
 					timeFirstRaceInputField.setEditable(false);
 					firstRaceLockButton.setText("Unlock");
+					
+					//if the time changes set the flag
+					if(firstRaceTimeTracker != firstRaceTime) {
+						flagFirstRaceTime.setText("*");		//set the time change flag
+					}
+					
+					firstRaceTimeTracker = Integer.parseInt((String)timeFirstRaceInputField.getValue());	//set the varible to keep track if the time changed
+					
+					//check if the button was clicked enough times to change the time change flag
+//					if(firstLockButtonPressCount > 1) {
+//						flagFirstRaceTime.setText("*");		//set the time change flag
+//					}
+//					firstLockButtonPressCount++;	//add one to the button click count
+					
+					//loop through all the teams array and check if all their first race and second race times are not -1 to open the semi final race radio button
+					for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
+						//check the teams first race time
+						if(FestivalObject.teamsArray.get(i).getFirstRaceTime() == -1) {
+							break;
+						}
+						//check the teams second race time
+						else if(FestivalObject.teamsArray.get(i).getSecondRaceTime() == -1) {
+							break;	//not all times are set so dont open the semi finals radio button
+						}
+						//if the last index is equal to the teamsArray size +1 and the time != -1
+						else if(i + 1 == FestivalObject.teamsArray.size() && FestivalObject.teamsArray.get(i).getSecondRaceTime() != -1) {
+							Schedule.semiFinalsRadioButton.setEnabled(true);
+							SemiFinalRaceGeneration.generateSemiFinalRaces(Schedule.panel2);	//auto generate the semi finals when all is locked
+						}
+					}
 				}
 				else if(firstRaceLockButton.getText() == "Unlock") {
 					timeFirstRaceInputField.setEditable(true);
 					firstRaceLockButton.setText("Lock");
+					
+//					firstLockButtonPressCount++;	//add one to the button click count
+					
 				}
 			}
 		});
@@ -125,14 +192,40 @@ public class TeamObject {
 		secondRaceLockButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//for the second race lock button click
-				if(secondRaceLockButton.getText() == "Lock" && timeSecondRaceInputField.getValue() != null) {
+				if(secondRaceLockButton.getText() == "Lock") {
 					secondRaceTime = Integer.parseInt((String)timeSecondRaceInputField.getValue());	//set the secondRaceTime variable
 					timeSecondRaceInputField.setEditable(false);
 					secondRaceLockButton.setText("Unlock");
+					
+					//check if the button was clicked enough times to change the time change flag
+//					if(secondLockButtonPressCount > 1) {
+//						flagSecondRaceTime.setText("*");		//set the time change flag
+//					}
+//					secondLockButtonPressCount++;	//add one to the button click count
+					
+					//loop through all the teams array and check if all their first race and second race times are not -1 to open the semi final race radio button
+					for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
+						//check the teams first race time
+						if(FestivalObject.teamsArray.get(i).getFirstRaceTime() == -1) {
+							break;
+						}
+						//check the teams second race time
+						else if(FestivalObject.teamsArray.get(i).getSecondRaceTime() == -1) {
+							break;	//not all times are set so dont open the semi finals radio button
+						}
+						//if the last index is equal to the teamsArray size +1 and the time != -1
+						else if(i + 1 == FestivalObject.teamsArray.size() && FestivalObject.teamsArray.get(i).getSecondRaceTime() != -1) {
+							Schedule.semiFinalsRadioButton.setEnabled(true);
+							SemiFinalRaceGeneration.generateSemiFinalRaces(Schedule.panel2);	//auto generate the semi finals when all is locked
+						}
+					}
 				}
 				else if(secondRaceLockButton.getText() == "Unlock") {
 					timeSecondRaceInputField.setEditable(true);
 					secondRaceLockButton.setText("Lock");
+					
+//					secondLockButtonPressCount++;	//add one to the button click count
+					
 				}
 			}
 		});
@@ -145,14 +238,36 @@ public class TeamObject {
 		semiFinalRaceLockButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//for the semi final race button click
-				if(semiFinalRaceLockButton.getText() == "Lock" && timeSemiFinalRaceInputField.getValue() != null) {
+				if(semiFinalRaceLockButton.getText() == "Lock") {
 					semiFinalRaceTime = Integer.parseInt((String)timeSemiFinalRaceInputField.getValue());	//set the semiFinalRaceTime variable
 					timeSemiFinalRaceInputField.setEditable(false);
 					semiFinalRaceLockButton.setText("Unlock");
+					
+					//check if the button was clicked enough times to change the time change flag
+//					if(semiFinalLockButtonPressCount > 1) {
+//						flagSemiFinalRaceTime.setText("*");		//set the time change flag
+//					}
+//					semiFinalLockButtonPressCount++;	//add one to the button click count
+					
+					//loop through all the teams array and check if all their semi final race times are not -1 to open the finals race radio button
+					for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
+						if(FestivalObject.teamsArray.get(i).getSemiFinalRaceTime() == -1) {
+							break;	//not all times are set so dont open the finals radio button
+						}
+						//if the last index is equal to the teamsArray size +1 and the time != -1
+						else if(i + 1 == FestivalObject.teamsArray.size() && FestivalObject.teamsArray.get(i).getSemiFinalRaceTime() != -1) {
+							Schedule.finalsRadioButton.setEnabled(true);
+							FinalRaceGeneration.generateFinalRaces(Schedule.panel3);	//generate the final races when all the semi finals are locked
+						}
+					}
 				}
 				else if(semiFinalRaceLockButton.getText() == "Unlock") {
 					timeSemiFinalRaceInputField.setEditable(true);
 					semiFinalRaceLockButton.setText("Lock");
+					flagSemiFinalRaceTime.setText("*");
+					
+//					semiFinalLockButtonPressCount++;	//add one to the button click count
+					
 				}
 			}
 		});
@@ -165,14 +280,22 @@ public class TeamObject {
 		finalRaceLockButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				//for the final race button click
-				if(finalRaceLockButton.getText() == "Lock" && timeFinalRaceInputField.getValue() != null) {
+				if(finalRaceLockButton.getText() == "Lock") {
 					finalRaceTime = Integer.parseInt((String)timeFinalRaceInputField.getValue());	//set the finalRaceTime variable
 					timeFinalRaceInputField.setEditable(false);
 					finalRaceLockButton.setText("Unlock");
+					
+					//check if the button was clicked enough times to change the time change flag
+//					if(finalLockButtonPressCount > 1) {
+//						flagFinalRaceTime.setText("*");		//set the time change flag
+//					}
+//					finalLockButtonPressCount++;	//add one to the button click count
 				}
 				else if(finalRaceLockButton.getText() == "Unlock") {
 					timeFinalRaceInputField.setEditable(true);
 					finalRaceLockButton.setText("Lock");
+					
+//					finalLockButtonPressCount++;	//add one to the button click count
 				}
 			}
 		});
@@ -180,6 +303,19 @@ public class TeamObject {
 		finalRaceLockButton.setHorizontalAlignment(SwingConstants.CENTER);
 		finalRaceLockButton.setBounds(0, 0, 100, 20);
 		finalRaceLockButton.setFocusable(false);
+		
+		//build the time change flag labels
+		flagFirstRaceTime.setHorizontalAlignment(SwingConstants.CENTER);
+		flagFirstRaceTime.setFont(FestivalObject.getFont());
+		
+		flagSecondRaceTime.setHorizontalAlignment(SwingConstants.CENTER);
+		flagSecondRaceTime.setFont(FestivalObject.getFont());
+		
+		flagSemiFinalRaceTime.setHorizontalAlignment(SwingConstants.CENTER);
+		flagSemiFinalRaceTime.setFont(FestivalObject.getFont());
+		
+		flagFinalRaceTime.setHorizontalAlignment(SwingConstants.CENTER);
+		flagFinalRaceTime.setFont(FestivalObject.getFont());
 	}
 	
 	/**

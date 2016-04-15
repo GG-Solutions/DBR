@@ -1,29 +1,15 @@
 package DBRF;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.ParseException;
-import javax.management.timer.TimerMBean;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.text.MaskFormatter;
-import java.util.ArrayList;		//allows resizable arrays
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class TimeTrialRaceGeneration {
 	
 	private static int currentTime;	//stores the current time to generate the schedule times
-	private static int startTime = 900;	//hard coded day starting time
+	private static int startTime = 900;	//hard coded day starting time TODO - add this to the event setup page UI
 	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in mig layout
 	private static boolean firstRoundEh = true;	//used to set proper time for the races
 	
@@ -43,7 +29,9 @@ public class TimeTrialRaceGeneration {
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		RaceObject race = new RaceObject();		//create a new race to populate and later send to the racesArray
 		
-		rowCounter = 0;		//reset the counter
+		startTime = 900;	//reset the start time TODO - add an input in festival setup for start time
+		
+		rowCounter = 0;		//reset the counter for adding components in the proper row
 		
 		//main loop ------------------------------------------------------------------------------------------------------------------------
 		//go through everything twice so each team races twice
@@ -51,6 +39,11 @@ public class TimeTrialRaceGeneration {
 			
 			teams = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//reset the teams1 arraylist
 			Collections.shuffle(teams);	//shuffle the arraylist
+			
+			//reset variable to true for correct time processing when regenerating the time trial races
+			if(o == 0) {
+				firstRoundEh = true;
+			}
 			
 			//round the number up cause you will always need that 
 			for(int i = 0; i < Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes); i++) {
@@ -147,11 +140,12 @@ public class TimeTrialRaceGeneration {
 					//if there are still team objects left in the arraylist
 					if(teams.size() > 0) {
 						//only check this if k == 0
-						if(((teams.size() - FestivalObject.numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
+						if(((teams.size() - FestivalObject.numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less to add?
 							
 							//add all of the teams to the current race except the last one
 								//pair the last one with the last reamaining team in the arraylist
-							//if same amount of teams as lanes just add them all to the race
+							
+							//if same amount of teams as lanes just add them all to the race and break
 							if((teams.size() - FestivalObject.numOfLanes) == 0) {
 								for(int j = 0; j < FestivalObject.numOfLanes;) {
 									theseTeams.add(teams.get(0));
@@ -162,8 +156,14 @@ public class TimeTrialRaceGeneration {
 							
 							//ex. if there is 4 teams left and 3 lanes, get 2 teams(numOfLanes - 1)
 							for(int j = 0; j < FestivalObject.numOfLanes - 1; j++) {
+//								System.out.println(teams.get(0).getTeamName());
 								theseTeams.add(teams.get(0));
 								teams.remove(0);
+								
+								//break if there are no teams left to add for the category
+								if(teams.size() == 0) {
+									break;
+								}
 							}
 							break;	//break generation if 2 or less teams are left so that there is always 2 teams racing, never 1
 						}
@@ -175,7 +175,7 @@ public class TimeTrialRaceGeneration {
 					//do this if no checking needs to be done
 					else {		//idk if you need this here - kinda a safety
 						teams.remove(0);	//remove the first dimension
-						break;	//no more objects left to take out
+						break;	//no more teams left to take out
 					}
 				}
 				
@@ -186,8 +186,6 @@ public class TimeTrialRaceGeneration {
 				//and all the conditions were met
 					//every team raced twice, etc.
 				for(int k = 0; k < tempSize; k++) {		//need algorithm to figure out how many races there will be? - wont know how many races there are supposed to be
-					
-					race = new RaceObject();	//does this refresh the last RaceObject?
 					
 					if(k == 0) {
 						rowCounter += 0;
@@ -221,15 +219,11 @@ public class TimeTrialRaceGeneration {
 					lblMixed.setFont(FestivalObject.getFont());
 					panel.add(lblMixed, "cell 3 " + rowCounter + ",growx,aligny center");
 					
-					//adding the space character label under the * heading for the time change flag
-					JLabel label_2 = new JLabel(" ");	//first set it to just a space character
-					label_2.setHorizontalAlignment(SwingConstants.CENTER);
-					label_2.setFont(FestivalObject.getFont());
-					panel.add(label_2, "cell 4 " + rowCounter + ",aligny center");
+					panel.add(theseTeams.get(0).getTimeFlag(o + 1), "cell 4 " + rowCounter + ",aligny center");		//add the time change flag
 					
-					panel.add(theseTeams.get(0).getTimeInputField(o + 1), "cell 5 " + rowCounter + ",growx,aligny center");
+					panel.add(theseTeams.get(0).getTimeInputField(o + 1), "cell 5 " + rowCounter + ",growx,aligny center");		//add the time input field
 					
-					panel.add(theseTeams.get(0).getLockButton(o + 1), "cell 6 " + rowCounter);
+					panel.add(theseTeams.get(0).getLockButton(o + 1), "cell 6 " + rowCounter);		//add the lock button
 					
 					//add the print button on the second loop
 					if(k == 0) {
