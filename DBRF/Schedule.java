@@ -1,7 +1,6 @@
 package DBRF;
 
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -10,34 +9,18 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
-import javax.swing.event.ChangeListener;
-import javax.swing.text.MaskFormatter;
-import javax.swing.event.ChangeEvent;
 import java.lang.Integer;
-import java.text.ParseException;
-import javax.swing.JTextField;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-import javax.swing.event.CaretListener;
-import javax.swing.event.CaretEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import javax.swing.JFormattedTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Schedule extends JFrame {
 
@@ -106,15 +89,15 @@ public class Schedule extends JFrame {
 		contentPane.setLayout(null);
 		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
-		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
@@ -237,39 +220,12 @@ public class Schedule extends JFrame {
 		btnGenerate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-//				if(timeTrialsRadioButton.isSelected()) {
-//					scrollPane.setViewportView(panel1);		//set the view of the scrollPane
-//					//protection from generating twice
-//					if(timeTrialRacesEh == false) {
-//						TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);	//call generateTimeTrialRaces
-//						timeTrialRacesEh = true;
-//					}
-//				}
-//				if(semiFinalsRadioButton.isSelected()) {
-//					//generate the semi-final races
-//					scrollPane.setViewportView(panel2);		//set the view of the scrollPane
-//					//protection from generating twice
-//					if(semiFinalRacesEh == false) {
-//						SemiFinalRaceGeneration.generateSemiFinalRaces(panel2);
-//						semiFinalRacesEh = true;
-//					}
-//				}
-//				if(finalsRadioButton.isSelected()) {
-//					//generate the final races
-//					scrollPane.setViewportView(panel3);		//set the view of the scrollPane
-//					//protection from generating twice
-//					if(finalRacesEh == false) {
-//						FinalRaceGeneration.generateFinalRaces(panel3);
-//						finalRacesEh = true;
-//					}
-//				}
-				
 				//pop up that tells the user if they like to regenerate the time trial races. all input info will be lost.
 				int dialogButton = JOptionPane.YES_NO_OPTION;
 				int dialogResult = JOptionPane.showConfirmDialog(null, 
 						"Are you sure you like to regenerate the time trial races? \nAll race times entered will be lost.", "Regenerate", dialogButton);
+				//set things to regenerate the time trial races is yes was selected
 				if(dialogResult == 0) {
-					//regenerate the time trial races
 					FestivalObject.racesArray = new ArrayList<RaceObject>();	//reset the ArrayList of races
 					
 					//remove all compenents from the panels
@@ -280,14 +236,14 @@ public class Schedule extends JFrame {
 					scrollPane.setViewportView(panel1);
 					panel1.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
 					
-					semiFinalsRadioButton.setEnabled(false);
-					finalsRadioButton.setEnabled(false);
+					semiFinalsRadioButton.setEnabled(false);	//disable semi finals radio button
+					finalsRadioButton.setEnabled(false);		//disable finals radio button
 					
 					TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);
 				} 
 				else {
-					//close the popup
-				} 
+					//do nothing if no was selected
+				}
 			}
 		});
 		btnGenerate.setFont(FestivalObject.getFont());

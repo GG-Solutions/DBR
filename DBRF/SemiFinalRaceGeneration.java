@@ -1,25 +1,16 @@
 package DBRF;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.text.MaskFormatter;
 
 public class SemiFinalRaceGeneration {
 	
 	private static int currentTime = -1;	//stores the current time to generate the schedule times
-	private static int startTime = 900;	//day starting time	
+	private static int startTime = 900;		//day starting time	TODO - add this to the event setup page UI
 	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
 	
 	/**
@@ -37,11 +28,36 @@ public class SemiFinalRaceGeneration {
 		//process all the time trial races to figure out the averaged race time for each team.
 		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 			//get both races times
-			float tempTime1 = FestivalObject.teamsArray.get(i).getFirstRaceTime();
-			float tempTime2 = FestivalObject.teamsArray.get(i).getSecondRaceTime();
+			int tempTime1 = FestivalObject.teamsArray.get(i).getFirstRaceTime();
+			int tempTime2 = FestivalObject.teamsArray.get(i).getSecondRaceTime();
 			
-			FestivalObject.teamsArray.get(i).setAveragedRaceTime((int)(tempTime1 + tempTime2) / 2);		//TODO - deal with rounding
-//			System.out.println(teams.get(i).getAveragedRaceTime());
+			//if the race time is over 5999 change it so it is not over 10000 instead do 6000 for averaging properly
+			//ex. 1:14.57 == 11457, 11457/1000=11, 11/10=1, 1*4=4, 11-4=6, 6000+457=6457.
+			if(tempTime1 > 5999) {
+				int temp1 = tempTime1 / 1000;	//trim the number to get the digits minus last 3
+				int tmp1 = temp1 / 10;	//then get the digit in the 1's column assuming the time is never greater than 59 minutes
+				tmp1 *= 4;		//multiply that by 4
+				temp1 -= tmp1;		//subtract the result by the digits minus last 3
+				temp1 *= 1000;		//multiply by 1000 to get the right digit placement
+				String tempS1 = String.format("%06d", tempTime1);		//format a string for the correct about of "digits" - length of 6
+				temp1 += Integer.parseInt(tempS1.substring(tempS1.length() - 3, tempS1.length()));		//add to the original race times last 3 digits
+			}
+			if(tempTime2 > 5999) {
+				int temp2 = tempTime2 / 1000;	//trim the number to get the digits minus last 3
+				int tmp2 = temp2 / 10;	//then get the digit in the 1's column assuming the time is never greater than 59 minutes
+				tmp2 *= 4;		//multiply that by 4
+				temp2 -= tmp2;		//subtract the result by the digits minus last 3
+				temp2 *= 1000;		//multiply by 1000 to get the right digit placement
+				String tempS2 = String.format("%06d", tempTime2);		//format a string for the correct about of "digits" - length of 6
+				temp2 += Integer.parseInt(tempS2.substring(tempS2.length() - 3, tempS2.length()));		//add to the original race times last 3 digits
+			}
+			
+			FestivalObject.teamsArray.get(i).setAveragedRaceTime(Math.round((float)(tempTime1 + tempTime2) / 2));	//calculate the average time and round it to closest whole number
+			
+			//TODO - reverse the average time in time format to have correct time displayed to the user
+				//sorting should work fine still since its only the value like 0:59.46 is always less than 1:00:00
+			
+			System.out.println(FestivalObject.teamsArray.get(i).getTeamName() + " - " + FestivalObject.teamsArray.get(i).getAveragedRaceTime());
 		}
 		
 		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate teamsArray
@@ -57,6 +73,8 @@ public class SemiFinalRaceGeneration {
 				return String.format("%06d", o1.getAveragedRaceTime()).compareTo(String.format("%06d", o2.getAveragedRaceTime()));
 			}
 		});
+		
+		//TODO - reverse the order of the teams here to have the best team race in the last race?
 		
 //		System.out.println();
 //		System.out.println();
@@ -98,12 +116,10 @@ public class SemiFinalRaceGeneration {
 		
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		
-		boolean doneGenEh = false;		//set to true when do generating races
+		boolean doneGenEh = false;		//set to true when done generating races
 		int i = 0;	//do i need this? - changed from next for loop to while loop
 		
-		//main loop ------------------------------------------------------------------------------------------------------------------------
-		//each team races once
-//		for(int i = 0; i < Math.ceil(teams.size() / numOfLanes); i++) {
+		//main loop to generate the complete race
 		while(doneGenEh == false) {
 			
 			RaceObject race = new RaceObject();		//create a new raceCard to change
@@ -195,36 +211,52 @@ public class SemiFinalRaceGeneration {
 ////				}
 //			}
 			
-			//get the numOfLanes amount of teams from then multi-dimensional arraylist for this race
 			ArrayList<TeamObject> theseTeams = new ArrayList<TeamObject>();		//new array list to populate - temporarily stores the teams in each race
 			
 			//populate the theseTeams arraylist for each race
 			for(int k = 0; k < FestivalObject.numOfLanes; k++) {
 				//if there are still team objects left in the arraylist
 				if(tmCat.get(0).size() > 0) {	// && tmCat.get(0).size() <= numOfLanes
-					//only check this if k == 0
-					if(((tmCat.get(0).size() - FestivalObject.numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
+					//if the amount of teams left minus the amount of lanes is less than or equal to 1 and only if this is the first loop, k == 0
+					if(((tmCat.get(0).size() - FestivalObject.numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or more?
+						
+//						if(tmCat.get(0).size() == 0) {
+//							tmCat.remove(0);	//remove if there is none left at the index
+//						}
 						
 						//add all of the teams to the current race except the last one
 							//pair the last one with the last reamaining team in the arraylist
 						
+						//if ther are the smae amount of teams left in the arrylist than the number of lanes
 						if((tmCat.get(0).size() - FestivalObject.numOfLanes) == 0) {
 							theseTeams.addAll(tmCat.get(0));
 							tmCat.remove(0);
 							break;
 						}
 						
+						//if same amount of teams as lanes just add them all to the race
+//						if((teams.size() - FestivalObject.numOfLanes) == 0) {
+//							for(int j = 0; j < FestivalObject.numOfLanes;) {
+//								theseTeams.add(teams.get(0));
+//								teams.remove(0);	//remove itself?
+//								break;
+//							}
+//						}
+						
+						//loop to add teams 
 						for(int j = 0; j < FestivalObject.numOfLanes - 1; j++) {
-							theseTeams.add(tmCat.get(0).get(0));
-							tmCat.get(0).remove(0);
+//							System.out.println(tmCat.get(0).get(0).getTeamName());
+							theseTeams.add(tmCat.get(0).get(0));	//get the next team
+							tmCat.get(0).remove(0);		//remove that team
 							
-							//if all the teams from the one category have been taken out
+							//break if there are no teams left to add for the category
 							if(tmCat.get(0).size() == 0) {
-								tmCat.remove(0);
-								break;	//break adding teams if 2 or less teams are left so that there is always 2 teams racing, never 1
+								tmCat.remove(0);	//remove if there is none left at the index
+								break;
 							}
 						}
 						
+						break;	//break adding teams
 					}
 					//do this if no checking needs to be done
 					else {
@@ -235,10 +267,10 @@ public class SemiFinalRaceGeneration {
 				//delete the index 0
 				else {		//idk if you need this here - kinda a safety?
 					tmCat.remove(0);	//remove the first dimension
-					break;	//no more objects left to take out
+					break;	//no more teams left to take out
 				}
 			}
-			//if there are no more teams to add to races
+			//if there are no more teams to add to races then finish the race generation after this round
 			if(tmCat.isEmpty()) {
 				doneGenEh = true;
 			}
@@ -251,7 +283,7 @@ public class SemiFinalRaceGeneration {
 			
 			//put the teams into the correct lanes
 			//loop through the team size - 2
-			for(int k = 0; k < (size - 2); k++) {		//is this good even though removing an idex and adding again?
+			for(int k = 0; k < (size - 2); k++) {		//TODO - is this good even though removing an index and adding again?
 				
 				if(invertKEh == true) {
 					tempK = size - (k + 1);
@@ -269,16 +301,17 @@ public class SemiFinalRaceGeneration {
 			
 			int tempSize = theseTeams.size();	//not sure why i need this to make it work yet
 			
-			//START OF THE LOOP ------------------------------------------------------------------------------------------------------- 
+			//start of the loop to add teams to the race 
 			for(int k = 0; k < tempSize; k++) {
 				
-				race = new RaceObject();	//does this refresh the last RaceObject?
+				race = new RaceObject();	//reset the race object to a new one
 				
+				//check if the loop just started for proper row placment
 				if(k == 0) {
-					rowCounter += 0;
+					rowCounter += 0;	//dont add anything to the row count
 				}
 				else {
-					rowCounter++;
+					rowCounter++;	//add one to the row count
 				}
 				
 				//adding the place label under the Place heading
@@ -308,11 +341,11 @@ public class SemiFinalRaceGeneration {
 				
 				panel.add(theseTeams.get(0).getTimeFlag(3), "cell 4 " + rowCounter + ",aligny center");		//add the time change flag
 				
-				panel.add(theseTeams.get(0).getTimeInputField(3), "cell 5 " + rowCounter + ",growx,aligny center");
+				panel.add(theseTeams.get(0).getTimeInputField(3), "cell 5 " + rowCounter + ",growx,aligny center");	//add the time inoput field
 				
-				panel.add(theseTeams.get(0).getLockButton(3), "cell 6 " + rowCounter);
+				panel.add(theseTeams.get(0).getLockButton(3), "cell 6 " + rowCounter);		//add the lock button
 				
-				//add the print button on the second loop
+				//add the print button on the first loop only TODO - add to second and get locks on first again
 				if(k == 0) {
 					panel.add(race.getPrintButton(), "cell 6 " + rowCounter);
 				}
@@ -322,19 +355,16 @@ public class SemiFinalRaceGeneration {
 				
 				race.addTeamToRace(theseTeams.get(0));	//store the team to the ArrayList in the race object
 				
-//				System.out.println(label_3.getName());
-				
 				theseTeams.remove(0);	//remove the team from the duplicated array list so the index will always be 0 to get information
 			}
-			//END OF FOR LOOP FOR THE TEAMS --------------------------------------------------------------------------------------------------------
+			//end of loop for adding the teams to the race
 			
 			race.setRaceNumber(FestivalObject.racesArray.size() + 1);		//set the race number
 			race.setRaceTime(currentTime);		//set the race time
 			FestivalObject.racesArray.add(race);		//lastly, add the created RaceObject to the global ArrayList
 			
-			rowCounter++;
-			i++;
+			rowCounter++;	//add one to the row count
+			i++;	//add one because this is a while loop
 		}
-		//END OF FOR LOOP FOR THE RACES ----------------------------------------------
 	}
 }

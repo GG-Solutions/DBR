@@ -1,29 +1,15 @@
 package DBRF;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.text.ParseException;
-import javax.management.timer.TimerMBean;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.text.MaskFormatter;
-import java.util.ArrayList;		//allows resizable arrays
+import java.util.ArrayList;
 import java.util.Collections;
 
 public class TimeTrialRaceGeneration {
 	
 	private static int currentTime;	//stores the current time to generate the schedule times
-	private static int startTime = 900;	//hard coded day starting time
+	private static int startTime = 900;	//hard coded day starting time TODO - add this to the event setup page UI
 	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in mig layout
 	private static boolean firstRoundEh = true;	//used to set proper time for the races
 	
@@ -154,11 +140,12 @@ public class TimeTrialRaceGeneration {
 					//if there are still team objects left in the arraylist
 					if(teams.size() > 0) {
 						//only check this if k == 0
-						if(((teams.size() - FestivalObject.numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less?
+						if(((teams.size() - FestivalObject.numOfLanes) <= 1) && (k == 0)) {		//always results in 2 or less to add?
 							
 							//add all of the teams to the current race except the last one
 								//pair the last one with the last reamaining team in the arraylist
-							//if same amount of teams as lanes just add them all to the race
+							
+							//if same amount of teams as lanes just add them all to the race and break
 							if((teams.size() - FestivalObject.numOfLanes) == 0) {
 								for(int j = 0; j < FestivalObject.numOfLanes;) {
 									theseTeams.add(teams.get(0));
@@ -169,8 +156,14 @@ public class TimeTrialRaceGeneration {
 							
 							//ex. if there is 4 teams left and 3 lanes, get 2 teams(numOfLanes - 1)
 							for(int j = 0; j < FestivalObject.numOfLanes - 1; j++) {
+//								System.out.println(teams.get(0).getTeamName());
 								theseTeams.add(teams.get(0));
 								teams.remove(0);
+								
+								//break if there are no teams left to add for the category
+								if(teams.size() == 0) {
+									break;
+								}
 							}
 							break;	//break generation if 2 or less teams are left so that there is always 2 teams racing, never 1
 						}
@@ -182,7 +175,7 @@ public class TimeTrialRaceGeneration {
 					//do this if no checking needs to be done
 					else {		//idk if you need this here - kinda a safety
 						teams.remove(0);	//remove the first dimension
-						break;	//no more objects left to take out
+						break;	//no more teams left to take out
 					}
 				}
 				

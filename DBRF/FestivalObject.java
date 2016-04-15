@@ -4,10 +4,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
-
-import org.w3c.dom.events.EventException;
-
 public class FestivalObject {
 
 	
@@ -18,7 +14,7 @@ public class FestivalObject {
 	public static final long serialVersionUID = 1L;
 	public static String festivalName = "";
 	public static int timeBetweenRaces = 20;
-	public static int numOfLanes = 4;
+	public static int numOfLanes = 3;
 	public static ArrayList<ArrayList<Integer>> breaksArray = new ArrayList<ArrayList<Integer>>();
 	public static ArrayList<String> categoriesArray = new ArrayList<String>();
 	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
@@ -31,7 +27,7 @@ public class FestivalObject {
 	
 	public static String bounds = "";
 	
-	private static Font thisFont = null;	//TODO - build this varible
+	private static Font thisFont = null;	//TODO - build this variable
 	
 //	public static JPanel userLoginPane;
 //	public static JPanel mainMenuPane;
