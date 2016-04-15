@@ -19,6 +19,7 @@ public class FestivalObject {
 	public static String festivalName = "";
 	public static int timeBetweenRaces = 20;
 	public static int numOfLanes = 3;
+	public static int eventStartTime;
 	public static ArrayList<ArrayList<Integer>> breaksArray = new ArrayList<ArrayList<Integer>>();
 	public static ArrayList<String> categoriesArray = new ArrayList<String>();
 	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
@@ -178,6 +179,14 @@ public class FestivalObject {
 	public static void setWindowPosition(int x, int y) {
 		xPos = x;
 		yPos = y;
+	}
+	
+	public static void setEventStartTime(int time){
+		FestivalObject.eventStartTime = time;
+	}
+	
+	public static int getEventStartTime(){
+		return eventStartTime;
 	}
 }
 
