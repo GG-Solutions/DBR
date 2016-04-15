@@ -138,6 +138,7 @@ public class TeamObject {
 		//build the firstRaceLockButton variable
 		firstRaceLockButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				//get the mouse cursor out of the time input field so that it works properly
 				if(firstRaceLockButton.getText() == "Lock") {
 					firstRaceTime = Integer.parseInt((String)timeFirstRaceInputField.getValue());	//set the firstRaceTime variable
 					timeFirstRaceInputField.setEditable(false);

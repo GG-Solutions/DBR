@@ -37,54 +37,74 @@ public class SaveAndLoad {
 		
 		Document doc = dB.newDocument();
 		
-		//build the teamsArray information
-		Element el = doc.createElement("teamsArray");
-		doc.appendChild(el);
+		//start with outputting the festival name
+		Element festivalName = doc.createElement("festivalName");
+		festivalName.appendChild(doc.createTextNode(FestivalObject.getFestivalName()));
+		doc.appendChild(festivalName);
 		
-		//output the festival name
-		//output the timeBetweenRaces
-		//output the lanes
-		//output the breaksArray
-		//output the categoriesArray
-		//output the bounds
+		//output the time between races
+		Element timeBetweenRaces = doc.createElement("timeBetweenRaces");
+		timeBetweenRaces.appendChild(doc.createTextNode(Integer.toString(FestivalObject.timeBetweenRaces)));
+		doc.appendChild(timeBetweenRaces);
+		
+		//output the number of lanes
+		Element numOfLanes = doc.createElement("numOfLanes");
+		numOfLanes.appendChild(doc.createTextNode(Integer.toString(FestivalObject.numOfLanes)));
+		doc.appendChild(numOfLanes);
+		
+		//output the breaks array
+		Element breaksArray = doc.createElement("breaksArray");
+		
+		for(int i = 0; i < FestivalObject.breaksArray.size(); i++) {
+			breaksArray.appendChild(doc.createTextNode(Integer.toString(FestivalObject.getBreakList().get(0).get(0))));
+			doc.appendChild(breaksArray);
+		}
+		
+		
+		//what else do i have to output?????
+		//the file path? - no, it should always be the same
+		
+		//build the teamsArray information
+		Element teamsArray = doc.createElement("teamsArray");
+		doc.appendChild(teamsArray);
 		
 		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 			
-			Attr attr = doc.createAttribute("teamID");
-			attr.setValue(Integer.toString(FestivalObject.teamsArray.get(i).getTeamID()));
-			el.setAttributeNode(attr);
+			Element teamID = doc.createElement("teamID");
+			teamID.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getTeamID())));
+			teamsArray.appendChild(teamID);
 			
 			Element teamName = doc.createElement("teamName");
 			teamName.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getTeamName()));
-			el.appendChild(teamName);
+			teamID.appendChild(teamName);
 			
 			Element category = doc.createElement("category");
 			category.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getCategory()));
-			teamName.appendChild(category);
+			teamID.appendChild(category);
 			
 			Element place = doc.createElement("place");
 			place.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getPlace()));
-			teamName.appendChild(place);
+			teamID.appendChild(place);
 			
 			Element firstRaceTime = doc.createElement("firstRaceTime");
 			firstRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getFirstRaceTime())));
-			teamName.appendChild(firstRaceTime);
+			teamID.appendChild(firstRaceTime);
 			
 			Element secondRaceTime = doc.createElement("secondRaceTime");
 			secondRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getSecondRaceTime())));
-			teamName.appendChild(secondRaceTime);
+			teamID.appendChild(secondRaceTime);
 			
 			Element semiFinalRaceTime = doc.createElement("semiFinalRaceTime");
 			semiFinalRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getSemiFinalRaceTime())));
-			teamName.appendChild(semiFinalRaceTime);
+			teamID.appendChild(semiFinalRaceTime);
 			
 			Element finalRaceTime = doc.createElement("finalRaceTime");
 			finalRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getFinalRaceTime())));
-			teamName.appendChild(finalRaceTime);
+			teamID.appendChild(finalRaceTime);
 			
 			Element averagedRaceTime = doc.createElement("averagedRaceTime");
 			averagedRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getAveragedRaceTime())));
-			teamName.appendChild(averagedRaceTime);
+			teamID.appendChild(averagedRaceTime);
 		
 		}
 		
@@ -102,7 +122,7 @@ public class SaveAndLoad {
 		tran.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");	//adds 4 spaces to each indexed xml line
 		DOMSource src = new DOMSource(doc);
 		
-		StreamResult sR = new StreamResult(new File("C:\\Users\\David van de Kamp\\Desktop\\festival.xml"));	//TODO - change to the festivalName
+		StreamResult sR = new StreamResult(new File("C:\\Users\\David van de Kamp\\Desktop\\festival.xml"));	//TODO - change to the festivalName?
 		
 		//output the file
 		try {
