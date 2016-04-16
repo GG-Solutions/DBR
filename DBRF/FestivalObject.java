@@ -178,7 +178,7 @@ public class FestivalObject {
 	}
 	
 	public static void setEventStartTime(int time){
-		FestivalObject.eventStartTime = time;
+		eventStartTime = time;
 	}
 	
 	public static int getEventStartTime(){
