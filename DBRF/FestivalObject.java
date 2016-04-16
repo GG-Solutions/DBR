@@ -12,9 +12,10 @@ public class FestivalObject {
 	 */
 	//festival object that will contain needed information about the festival
 	public static final long serialVersionUID = 1L;
-	public static String festivalName = "";
-	public static int timeBetweenRaces = 20;
-	public static int numOfLanes = 3;
+	public static String festivalName = "";		//default
+	public static int startDayTime = 900;		//default to 9 AM
+	public static int timeBetweenRaces = 20;	//default to 20 - also is set in the festival setup
+	public static int numOfLanes = 3;		//default
 	public static ArrayList<ArrayList<Integer>> breaksArray = new ArrayList<ArrayList<Integer>>();
 	public static ArrayList<String> categoriesArray = new ArrayList<String>();
 	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
@@ -51,6 +52,8 @@ public class FestivalObject {
 				catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+				categoriesArray.add("Special");		//always add the special category into the array list on start up
 				
 				//initializing the JPanels on start of program
 //				userLoginPane = new UserLogin().contentPane;

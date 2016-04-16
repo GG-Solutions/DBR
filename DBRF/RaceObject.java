@@ -23,7 +23,6 @@ public class RaceObject {
 	private JButton editTimeButton = new JButton("edit");
 	private JButton printButton = new JButton("Print");
 	
-	
 	public JFormattedTextField setTimeInputField(int time) {
 		
 		MaskFormatter timeMask = null;
@@ -156,14 +155,13 @@ public class RaceObject {
 		});
 		editTimeButton.setFont(FestivalObject.getFont());
 		editTimeButton.setForeground(Color.BLUE);
-//		editTimeButton.setBounds(0, 0, 40, 15);
 		editTimeButton.setFocusable(false);
 		
 		//set up the print button
 		printButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				
-				System.out.println("clicked print button with race number of: " + getRaceNumber());
+//				System.out.println("clicked print button with race number of: " + getRaceNumber());
 				
 				//TODO - export a pdf to print out
 				JFileChooser saving = new JFileChooser();
@@ -226,7 +224,7 @@ public class RaceObject {
 	 * Inputs - None.
 	 * Outputs - Returns the category variable.
 	 */
-	public String setCategory() {
+	public String getCategory() {
 		return category;
 	}
 	

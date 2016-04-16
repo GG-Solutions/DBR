@@ -10,7 +10,6 @@ import javax.swing.SwingConstants;
 public class SemiFinalRaceGeneration {
 	
 	private static int currentTime = -1;	//stores the current time to generate the schedule times
-	private static int startTime = 900;		//day starting time	TODO - add this to the event setup page UI
 	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
 	
 	/**
@@ -116,7 +115,7 @@ public class SemiFinalRaceGeneration {
 		
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		
-		boolean doneGenEh = false;		//set to true when done generating races
+		boolean doneGenEh = false;		//set to true when done generating enough races
 		int i = 0;	//do i need this? - changed from next for loop to while loop
 		
 		//main loop to generate the complete race
@@ -126,7 +125,7 @@ public class SemiFinalRaceGeneration {
 			
 			//figure out the raceTime
 			if(i == 0) {
-				currentTime = startTime;
+				currentTime = FestivalObject.startDayTime;
 			}
 			else {
 				//race time generation

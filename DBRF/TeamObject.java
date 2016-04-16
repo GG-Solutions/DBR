@@ -1,5 +1,6 @@
 package DBRF;
 
+import java.awt.KeyboardFocusManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -140,9 +141,11 @@ public class TeamObject {
 			public void mouseClicked(MouseEvent e) {
 				//get the mouse cursor out of the time input field so that it works properly
 				if(firstRaceLockButton.getText() == "Lock") {
+					timeFirstRaceInputField.setFocusable(false);	//remove the mouse from the text box to .getValue properly - TODO - doesnt work right
 					firstRaceTime = Integer.parseInt((String)timeFirstRaceInputField.getValue());	//set the firstRaceTime variable
 					timeFirstRaceInputField.setEditable(false);
 					firstRaceLockButton.setText("Unlock");
+					timeFirstRaceInputField.setFocusable(true);		//set to focusable again
 					
 					//if the time changes set the flag
 					if(firstRaceTimeTracker != firstRaceTime) {

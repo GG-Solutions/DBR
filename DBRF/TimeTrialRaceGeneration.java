@@ -9,7 +9,6 @@ import java.util.Collections;
 public class TimeTrialRaceGeneration {
 	
 	private static int currentTime;	//stores the current time to generate the schedule times
-	private static int startTime = 900;	//hard coded day starting time TODO - add this to the event setup page UI
 	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in mig layout
 	private static boolean firstRoundEh = true;	//used to set proper time for the races
 	
@@ -52,7 +51,7 @@ public class TimeTrialRaceGeneration {
 				
 				//figure out the raceTime
 				if(firstRoundEh == true) {
-					currentTime = startTime;
+					currentTime = FestivalObject.startDayTime;
 					firstRoundEh = false;
 				}
 				else {

@@ -251,9 +251,10 @@ public class Schedule extends JFrame {
 		btnGenerate.setBounds(814, 51, 120, 20);
 		contentPane.add(btnGenerate);
 		
-		scrollPane.setViewportView(panel1);
-		TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);		//auto generate the time trial races when building this page
+		scrollPane.setViewportView(panel1);		//set the view to the panel1 inside the scroll box
+		TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);		//auto generate the time trial races right away when building this page
 		
+		//TODO - take this out after testing
 		JButton btnTest = new JButton("test");
 		btnTest.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
