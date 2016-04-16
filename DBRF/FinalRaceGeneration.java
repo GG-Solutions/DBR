@@ -10,7 +10,6 @@ import javax.swing.SwingConstants;
 public class FinalRaceGeneration {
 	
 	private static int currentTime;	//stores the current time to generate the schedule times
-	private static int startTime = 900;	//day starting time TODO - add this to the event setup page UI
 	private static int rowCounter = 0;		//counting the rows for proper placement while generating UI in the mig layout
 	
 	/**
@@ -80,7 +79,7 @@ public class FinalRaceGeneration {
 			
 			//figure out the raceTime
 			if(i == 0) {
-				currentTime = startTime;
+				currentTime = FestivalObject.startDayTime;
 			}
 			else {
 				//race time generation
