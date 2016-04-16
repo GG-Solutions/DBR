@@ -89,15 +89,15 @@ public class Schedule extends JFrame {
 		contentPane.setLayout(null);
 		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
-//		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
-//		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
-//		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
-//		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
-//		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
-//		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
-//		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
-//		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
-//		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
+		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
+		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));

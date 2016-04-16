@@ -28,8 +28,6 @@ public class TimeTrialRaceGeneration {
 		ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
 		RaceObject race = new RaceObject();		//create a new race to populate and later send to the racesArray
 		
-		startTime = 900;	//reset the start time TODO - add an input in festival setup for start time
-		
 		rowCounter = 0;		//reset the counter for adding components in the proper row
 		
 		//main loop ------------------------------------------------------------------------------------------------------------------------

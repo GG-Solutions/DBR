@@ -47,7 +47,9 @@ public class FinalRaceGeneration {
 			//loop through the categories to find a match
 			for(int j = 0; j < FestivalObject.categoriesArray.size(); j++) {
 				//check if the teams category matches the one at the index of the categoriesArray and is not the Special category
-				if(tm.get(0).getCategory() == FestivalObject.categoriesArray.get(j) && (tmCat.get(j).size() < FestivalObject.numOfLanes * 2) && !(tm.get(j).getCategory() == "Special")) {	//only get enough teams from each category for 2 races?
+				if(tm.get(0).getCategory() == FestivalObject.categoriesArray.get(j) && 
+//						(tmCat.get(j).size() < FestivalObject.numOfLanes * 2) && 
+						!(tm.get(j).getCategory() == "Special")) {	//only get enough teams from each category for 2 races?
 					//do some stuff and add to the tmCat arraylist
 					TeamObject temp1 = new TeamObject();
 					temp1 = tm.get(0);
@@ -57,6 +59,15 @@ public class FinalRaceGeneration {
 				}
 			}
 		}
+		
+		//remove if too many TeamObject ArrayLists were added so there is no extra generated races
+		for(int i = 0; i < tmCat.size(); i++) {
+			if(tmCat.get(i).isEmpty()) {
+				tmCat.remove(i);
+				i--; 	//subtract one because the array list got shorter
+			}
+		}
+		
 //		System.out.println(thisOne);
 		//print out everything in tmCat for TESTING
 //		for(int i = 0; i < tmCat.size(); i++) {
@@ -69,6 +80,7 @@ public class FinalRaceGeneration {
 		
 		boolean doneGenEh = false;		//set to true when do generating races
 		int i = 0;	//do i need this? - changed from next for loop to while loop
+		rowCounter = 0;		//reset the row counter
 		
 		//main loop ------------------------------------------------------------------------------------------------------------------------
 		//each team races once

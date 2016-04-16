@@ -141,11 +141,18 @@ public class TeamObject {
 			public void mouseClicked(MouseEvent e) {
 				//get the mouse cursor out of the time input field so that it works properly
 				if(firstRaceLockButton.getText() == "Lock") {
-					timeFirstRaceInputField.setFocusable(false);	//remove the mouse from the text box to .getValue properly - TODO - doesnt work right
+					KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();		//remove focus from the text box
+					
+					//first commit the new text to get the corect value from the text field
+					try {
+						timeFirstRaceInputField.commitEdit();
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					
 					firstRaceTime = Integer.parseInt((String)timeFirstRaceInputField.getValue());	//set the firstRaceTime variable
 					timeFirstRaceInputField.setEditable(false);
 					firstRaceLockButton.setText("Unlock");
-					timeFirstRaceInputField.setFocusable(true);		//set to focusable again
 					
 					//if the time changes set the flag
 					if(firstRaceTimeTracker != firstRaceTime) {
@@ -196,6 +203,15 @@ public class TeamObject {
 			public void mouseClicked(MouseEvent e) {
 				//for the second race lock button click
 				if(secondRaceLockButton.getText() == "Lock") {
+					KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();		//remove focus from the text box
+					
+					//first commit the new text to get the corect value from the text field
+					try {
+						timeSecondRaceInputField.commitEdit();
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					
 					secondRaceTime = Integer.parseInt((String)timeSecondRaceInputField.getValue());	//set the secondRaceTime variable
 					timeSecondRaceInputField.setEditable(false);
 					secondRaceLockButton.setText("Unlock");
@@ -242,6 +258,14 @@ public class TeamObject {
 			public void mouseClicked(MouseEvent e) {
 				//for the semi final race button click
 				if(semiFinalRaceLockButton.getText() == "Lock") {
+					KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();		//remove focus from the text box
+					
+					//first commit the new text to get the corect value from the text field
+					try {
+						timeSemiFinalRaceInputField.commitEdit();
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
 					semiFinalRaceTime = Integer.parseInt((String)timeSemiFinalRaceInputField.getValue());	//set the semiFinalRaceTime variable
 					timeSemiFinalRaceInputField.setEditable(false);
 					semiFinalRaceLockButton.setText("Unlock");
@@ -284,6 +308,15 @@ public class TeamObject {
 			public void mouseClicked(MouseEvent e) {
 				//for the final race button click
 				if(finalRaceLockButton.getText() == "Lock") {
+					KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();		//remove focus from the text box
+					
+					//first commit the new text to get the corect value from the text field
+					try {
+						timeFinalRaceInputField.commitEdit();
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					
 					finalRaceTime = Integer.parseInt((String)timeFinalRaceInputField.getValue());	//set the finalRaceTime variable
 					timeFinalRaceInputField.setEditable(false);
 					finalRaceLockButton.setText("Unlock");
