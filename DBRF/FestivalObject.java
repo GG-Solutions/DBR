@@ -30,7 +30,7 @@ public class FestivalObject {
 	
 //	public static String bounds = "";	//need this??
 	
-	private static Font thisFont = null;	//TODO - build this variable
+	private static Font thisFont = new Font("Dialog", Font.BOLD, 12);		//default the font to this
 	
 //	public static JPanel userLoginPane;
 //	public static JPanel mainMenuPane;
@@ -55,7 +55,14 @@ public class FestivalObject {
 					e.printStackTrace();
 				}
 				
-				categoriesArray.add("Special");		//always add the special category into the array list on start up
+				//add the special category if it is not there already
+				//TODO - do this here?????
+				for(int i= 0; i < categoriesArray.size(); i++) {
+					//if the special category is not in the categories array list yet
+					if(!(categoriesArray.get(i).matches("Special")) && i == categoriesArray.size()) {
+						categoriesArray.add("Special");		//always add the special category into the array list on start up
+					}
+				}
 				
 				//initializing the JPanels on start of program
 //				userLoginPane = new UserLogin().contentPane;
@@ -131,9 +138,7 @@ public class FestivalObject {
 	}
 	
 	public static Font getFont() {
-		Font font = new Font("Dialog", Font.BOLD, 12);	//TODO
-		
-		return font;
+		return thisFont;
 	}
 	
 	public static ArrayList<TeamObject> getTeamsArray() {
@@ -181,6 +186,7 @@ public class FestivalObject {
 		yPos = y;
 	}
 	
+<<<<<<< HEAD
 	public static void setStartDayTime(int time){
 		startDayTime = time;
 	}
@@ -188,6 +194,31 @@ public class FestivalObject {
 	public static int getStartDayTime(){
 		return startDayTime;
 	}
+=======
+	public static void setStartDayTime(int num) {
+		startDayTime = num;
+	}
+	
+	public static int getStartDayTime() {
+		return startDayTime;
+	}
+	
+	public static void setTimeBetweenRaces(int num) {
+		timeBetweenRaces = num;
+	}
+	
+	public static int getTimeBetweenRaces() {
+		return timeBetweenRaces;
+	}
+	
+	public static void setNumOfLanes(int num) {
+		numOfLanes = num;
+	}
+	
+	public static int getNumOfLanes() {
+		return numOfLanes;
+	}
+>>>>>>> 24ff58d9248e8729c50120849d613516b9cba8d6
 }
 
 

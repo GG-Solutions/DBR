@@ -53,10 +53,7 @@ public class SemiFinalRaceGeneration {
 			
 			FestivalObject.teamsArray.get(i).setAveragedRaceTime(Math.round((float)(tempTime1 + tempTime2) / 2));	//calculate the average time and round it to closest whole number
 			
-			//TODO - reverse the average time in time format to have correct time displayed to the user
-				//sorting should work fine still since its only the value like 0:59.46 is always less than 1:00:00
-			
-			System.out.println(FestivalObject.teamsArray.get(i).getTeamName() + " - " + FestivalObject.teamsArray.get(i).getAveragedRaceTime());
+//			System.out.println(FestivalObject.teamsArray.get(i).getTeamName() + " - " + FestivalObject.teamsArray.get(i).getAveragedRaceTime());
 		}
 		
 		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate teamsArray
@@ -73,7 +70,11 @@ public class SemiFinalRaceGeneration {
 			}
 		});
 		
-		//TODO - reverse the order of the teams here to have the best team race in the last race?
+		//loop to set th eplace that the team is in
+		//teams are sorted in order by best time right above this already
+		for(int i = 0; i< FestivalObject.teamsArray.size(); i++) {
+			FestivalObject.teamsArray.get(i).setPlace(i + 1);		//set the teams place
+		}
 		
 //		System.out.println();
 //		System.out.println();
@@ -86,9 +87,12 @@ public class SemiFinalRaceGeneration {
 		ArrayList<ArrayList<TeamObject>> tmCat	= new ArrayList<ArrayList<TeamObject>>();	//do i need the whole teamobject stored? - prob easiest
 		
 		//loop through the teams and pre-add the correct amount of spots based on the category name
+		//TODO - creating a race for all categories even if only one is used which isnt good. its making extra races
 		for(int i = 0; i < FestivalObject.categoriesArray.size() - 1; i++) {
 			tmCat.add(new ArrayList<TeamObject>());
 		}
+		
+		//if the teams category is not in in the tmCat arraylist yet, add it
 		
 		//loop through all the teams and separate them by categories
 		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
@@ -106,6 +110,14 @@ public class SemiFinalRaceGeneration {
 			}
 		}
 		
+		//remove if too many TeamObject ArrayLists were added so there is no extra generated races
+		for(int i = 0; i < tmCat.size(); i++) {
+			if(tmCat.get(i).isEmpty()) {
+				tmCat.remove(i);
+				i--; 	//subtract one because the array list got shorter
+			}
+		}
+		
 		//print out everything in tmCat for TESTING
 //		for(int i = 0; i < tmCat.size(); i++) {
 //			for(int j = 0; j < tmCat.get(i).size(); j++) {
@@ -117,6 +129,7 @@ public class SemiFinalRaceGeneration {
 		
 		boolean doneGenEh = false;		//set to true when done generating enough races
 		int i = 0;	//do i need this? - changed from next for loop to while loop
+		rowCounter = 0;		//reset the row counter
 		
 		//main loop to generate the complete race
 		while(doneGenEh == false) {
@@ -125,7 +138,7 @@ public class SemiFinalRaceGeneration {
 			
 			//figure out the raceTime
 			if(i == 0) {
-				currentTime = FestivalObject.startDayTime;
+				currentTime = FestivalObject.getStartDayTime();
 			}
 			else {
 				//race time generation
@@ -269,9 +282,10 @@ public class SemiFinalRaceGeneration {
 					break;	//no more teams left to take out
 				}
 			}
+			
 			//if there are no more teams to add to races then finish the race generation after this round
 			if(tmCat.isEmpty()) {
-				doneGenEh = true;
+				doneGenEh = true;	//finished generating races after this loop
 			}
 			
 			//other variables needed for placing the teams in the correct spots

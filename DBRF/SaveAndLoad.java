@@ -1,6 +1,8 @@
 package DBRF;
 
+import java.awt.Font;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -37,155 +39,180 @@ public class SaveAndLoad {
 		
 		Document doc = dB.newDocument();
 		
-		//start with outputting the festival name
+		//start with a general festival tag and add childs to this
+		Element festival = doc.createElement("festival");
+		doc.appendChild(festival);
+		
+		//output the festival name
 		Element festivalName = doc.createElement("festivalName");
 		festivalName.appendChild(doc.createTextNode(FestivalObject.getFestivalName()));
-		doc.appendChild(festivalName);
+		festival.appendChild(festivalName);
 		
 		//output the start time day
 		Element startTimeDay = doc.createElement("startTimeDay");
 		startTimeDay.appendChild(doc.createTextNode(Integer.toString(FestivalObject.startDayTime)));
-		festivalName.appendChild(startTimeDay);
+		festival.appendChild(startTimeDay);
 		
 		//output the time between races
 		Element timeBetweenRaces = doc.createElement("timeBetweenRaces");
 		timeBetweenRaces.appendChild(doc.createTextNode(Integer.toString(FestivalObject.timeBetweenRaces)));
-		festivalName.appendChild(timeBetweenRaces);
+		festival.appendChild(timeBetweenRaces);
 		
 		//output the number of lanes
 		Element numOfLanes = doc.createElement("numOfLanes");
 		numOfLanes.appendChild(doc.createTextNode(Integer.toString(FestivalObject.numOfLanes)));
-		festivalName.appendChild(numOfLanes);
+		festival.appendChild(numOfLanes);
+		
+		//output the font
+		Element font = doc.createElement("font");
+		Element fontName = doc.createElement("fontName");
+		Element fontStyle = doc.createElement("fontStyle");
+		Element fontSize = doc.createElement("fontSize");
+		fontName.appendChild(doc.createTextNode(FestivalObject.getFont().getFontName()));
+		fontStyle.appendChild(doc.createTextNode(Integer.toString(FestivalObject.getFont().getStyle())));
+		fontSize.appendChild(doc.createTextNode(Integer.toString(FestivalObject.getFont().getSize())));
+		font.appendChild(fontName);
+		font.appendChild(fontStyle);
+		font.appendChild(fontSize);
+		festival.appendChild(font);		//add the font to the document
 		
 		//output the breaks array
 		Element breaksArray = doc.createElement("breaksArray");
 		
-		
 		for(int i = 0; i < FestivalObject.breaksArray.size(); i++) {
-			breaksArray.appendChild(doc.createTextNode(Integer.toString(FestivalObject.getBreakList().get(i).get(0))));		//break start time
-//					.appendChild(doc.createTextNode(Integer.toString(FestivalObject.getBreakList().get(i).get(1)))));		//break end time
+			Element breakTime = doc.createElement("breakTime");		//create a break element to add the start and end times to
+			Element start = doc.createElement("start");		//element for the start time
+			Element end = doc.createElement("end");		//element for the end time
+			start.appendChild(doc.createTextNode(Integer.toString(FestivalObject.getBreakList().get(i).get(0))));		//break start time
+			end.appendChild(doc.createTextNode(Integer.toString(FestivalObject.getBreakList().get(i).get(1))));		//break end time
+			
+			breakTime.appendChild(start);
+			breakTime.appendChild(end);
+			breaksArray.appendChild(breakTime);
 		}
 		
-		festivalName.appendChild(breaksArray);
+		festival.appendChild(breaksArray);	//add the breaks array to the document
 		
 		//output the categories array
 		Element categoriesArray = doc.createElement("categoriesArray");
 		
 		for(int i = 0; i < FestivalObject.categoriesArray.size(); i ++) {
-			categoriesArray.appendChild(doc.createTextNode(FestivalObject.categoriesArray.get(i)));
+			Element category = doc.createElement("category");
+			category.appendChild(doc.createTextNode(FestivalObject.categoriesArray.get(i)));
+			categoriesArray.appendChild(category);
 		}
 		
-		festivalName.appendChild(categoriesArray);
-		
-		//what else do i have to output?????
-		//the file path? - no, it should always be the same
+		festival.appendChild(categoriesArray);
 		
 		//build the teamsArray information
 		Element teamsArray = doc.createElement("teamsArray");
 		
-		
 		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
-			Element teamID = doc.createElement("teamID");
-			teamID.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getTeamID())));
-			teamsArray.appendChild(teamID);
+			
+			Element team = doc.createElement("team");	//create a team element to build
+			team.setAttribute("teamID", Integer.toString(FestivalObject.teamsArray.get(i).getTeamID()));	//set the attribute to the teamID
 			
 			Element teamName = doc.createElement("teamName");
 			teamName.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getTeamName()));
-			teamID.appendChild(teamName);
+			team.appendChild(teamName);
 			
 			Element category = doc.createElement("category");
 			category.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getCategory()));
-			teamID.appendChild(category);
+			team.appendChild(category);
 			
 			Element place = doc.createElement("place");
-			place.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getPlace()));
-			teamID.appendChild(place);
+			place.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getPlace())));
+			team.appendChild(place);
 			
 			Element firstRaceTime = doc.createElement("firstRaceTime");
 			firstRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getFirstRaceTime())));
-			teamID.appendChild(firstRaceTime);
+			team.appendChild(firstRaceTime);
 			
 			Element secondRaceTime = doc.createElement("secondRaceTime");
 			secondRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getSecondRaceTime())));
-			teamID.appendChild(secondRaceTime);
+			team.appendChild(secondRaceTime);
 			
 			Element semiFinalRaceTime = doc.createElement("semiFinalRaceTime");
 			semiFinalRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getSemiFinalRaceTime())));
-			teamID.appendChild(semiFinalRaceTime);
+			team.appendChild(semiFinalRaceTime);
 			
 			Element finalRaceTime = doc.createElement("finalRaceTime");
 			finalRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getFinalRaceTime())));
-			teamID.appendChild(finalRaceTime);
+			team.appendChild(finalRaceTime);
 			
 			Element averagedRaceTime = doc.createElement("averagedRaceTime");
 			averagedRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getAveragedRaceTime())));
-			teamID.appendChild(averagedRaceTime);
+			team.appendChild(averagedRaceTime);
+			
+			teamsArray.appendChild(team);	//add the team to the array
 		}
 		
-		festivalName.appendChild(teamsArray);
+		festival.appendChild(teamsArray);	//add the whole teams array
 		
 		//output the races array
 		Element racesArray = doc.createElement("racesArray");
 		
-		
 		for(int i =0; i < FestivalObject.racesArray.size(); i ++) {
-			Element raceNumber = doc.createElement("raceNumber");
-			raceNumber.appendChild(doc.createTextNode(Integer.toString(FestivalObject.racesArray.get(i).getRaceNumber())));
-			racesArray.appendChild(raceNumber);
+			
+			Element race = doc.createElement("race");	//create a race to add the race information to
+			race.setAttribute("raceNumber", Integer.toString(FestivalObject.racesArray.get(i).getRaceNumber()));	//set attribute of current race to the race number
 			
 			Element raceTime = doc.createElement("raceTime");
 			raceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.racesArray.get(i).getRaceTime())));
-			raceNumber.appendChild(raceTime);
+			race.appendChild(raceTime);
 			
 			Element category = doc.createElement("category");
 			category.appendChild(doc.createTextNode(FestivalObject.racesArray.get(i).getCategory()));
-			raceNumber.appendChild(category);
+			race.appendChild(category);
 			
 			Element teamsRacing = doc.createElement("teamsRacing");
 			
+			//output all the teams that raced in this race
 			for(int j = 0; j < FestivalObject.racesArray.get(i).getTeamsRacing().size() ; j++) {
 				//all the same as outputing a regular team's information
-				Element teamID = doc.createElement("teamID");
-				teamID.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getTeamID())));
-				teamsRacing.appendChild(teamID);
+				Element team = doc.createElement("team");	//create a team element to build
+				team.setAttribute("teamID", Integer.toString(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getTeamID()));	//set the attribute to the teamID
 				
 				Element teamName = doc.createElement("teamName");
-				teamName.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getTeamName()));
-				teamID.appendChild(teamName);
+				teamName.appendChild(doc.createTextNode(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getTeamName()));
+				team.appendChild(teamName);
 				
 				Element category2 = doc.createElement("category");
-				category.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getCategory()));
-				teamID.appendChild(category);
+				category2.appendChild(doc.createTextNode(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getCategory()));
+				team.appendChild(category2);
 				
 				Element place = doc.createElement("place");
-				place.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getPlace()));
-				teamID.appendChild(place);
+				place.appendChild(doc.createTextNode(Integer.toString(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getPlace())));
+				team.appendChild(place);
 				
 				Element firstRaceTime = doc.createElement("firstRaceTime");
-				firstRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getFirstRaceTime())));
-				teamID.appendChild(firstRaceTime);
+				firstRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getFirstRaceTime())));
+				team.appendChild(firstRaceTime);
 				
 				Element secondRaceTime = doc.createElement("secondRaceTime");
-				secondRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getSecondRaceTime())));
-				teamID.appendChild(secondRaceTime);
+				secondRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getSecondRaceTime())));
+				team.appendChild(secondRaceTime);
 				
 				Element semiFinalRaceTime = doc.createElement("semiFinalRaceTime");
-				semiFinalRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getSemiFinalRaceTime())));
-				teamID.appendChild(semiFinalRaceTime);
+				semiFinalRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getSemiFinalRaceTime())));
+				team.appendChild(semiFinalRaceTime);
 				
 				Element finalRaceTime = doc.createElement("finalRaceTime");
-				finalRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getFinalRaceTime())));
-				teamID.appendChild(finalRaceTime);
+				finalRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getFinalRaceTime())));
+				team.appendChild(finalRaceTime);
 				
 				Element averagedRaceTime = doc.createElement("averagedRaceTime");
-				averagedRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getAveragedRaceTime())));
-				teamID.appendChild(averagedRaceTime);
+				averagedRaceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getAveragedRaceTime())));
+				team.appendChild(averagedRaceTime);
+				
+				teamsRacing.appendChild(team);	//add the created team to the teamsRacing
 			}
 			
-			racesArray.appendChild(teamsRacing);
+			race.appendChild(teamsRacing);	//add the teams in that race to the race element
+			racesArray.appendChild(race);	//add the race to the racesArray
 		}
 		
-		festivalName.appendChild(racesArray);
+		festival.appendChild(racesArray);
 		
 		//transform the built information into a formatted xml file
 		TransformerFactory tF = TransformerFactory.newInstance();
@@ -199,7 +226,7 @@ public class SaveAndLoad {
 		tran.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");	//adds 4 spaces to each indexed xml line
 		DOMSource src = new DOMSource(doc);
 		
-		StreamResult sR = new StreamResult(new File("C:\\Users\\David van de Kamp\\Desktop\\festival.xml"));	//TODO - change to the festivalName?
+		StreamResult sR = new StreamResult(new File(System.getProperty("user.home") + "\\Desktop\\festival.xml"));	//TODO - change to the festivalName?
 		
 		//output the file
 		try {
@@ -215,25 +242,132 @@ public class SaveAndLoad {
 	 * Outputs - Builds the variables in the FestivalObject class.
 	 */
 	public static void loadXML() throws Exception {
-		File xmlFile = new File("C:\\Users\\David van de Kamp\\Desktop\\festival.xml");
+		File xmlFile = new File(System.getProperty("user.home") + "\\Desktop\\festival.xml");	//TODO - change the path
 		
 		DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dB = dBF.newDocumentBuilder();
 		Document doc = dB.parse(xmlFile);
+		doc.getDocumentElement().normalize();
 		
-//		NodeList list = doc.getElementsByTagName("Dev");
+		//get all the information in node lists from the document
+		NodeList listFestivalName = doc.getElementsByTagName("festivalName");
+		NodeList listStartTimeDay = doc.getElementsByTagName("startTimeDay");
+		NodeList listTimeBetweenRaces = doc.getElementsByTagName("timeBetweenRaces");
+		NodeList listNumOflanes = doc.getElementsByTagName("numOfLanes");
+		NodeList listFont = doc.getElementsByTagName("font");
+		NodeList listBreaksArray = doc.getElementsByTagName("breaksArray");
+		NodeList listCategoriesArray = doc.getElementsByTagName("categoriesArray");
+		NodeList listTeamsArray = doc.getElementsByTagName("teamsArray");
+		NodeList listRacesArray = doc.getElementsByTagName("racesArray");
 		
-//		for(int i =0; i < list.getLength(); i++) {
-//			Node node = list.item(i);
-//			
-//			if(node.getNodeType() == Node.ELEMENT_NODE) {
-//				Element el = (Element) node;
-//				System.out.println("ID: " + el.getAttribute("ID"));
-//				System.out.println("Name: " + el.getElementsByTagName("Name").item(0).getTextContent());
-//				System.out.println("SurName: " + el.getElementsByTagName("SurName").item(0).getTextContent());
-//				System.out.println("Age: " + el.getElementsByTagName("Age").item(0).getTextContent());
-//			}
-//		}
+		Node node = null;	//create a node to store current information in
+		Element el = null; 	//create an element to store current data in
+		
+		//get the festival name
+		node = listFestivalName.item(0);
+		if(node.getNodeType() == Node.ELEMENT_NODE) {
+			el = (Element) node;
+			FestivalObject.setFestName(el.getTextContent());
+		}
+		
+//		System.out.println(FestivalObject.getFestivalName());
+		
+		node = listStartTimeDay.item(0);
+		if(node.getNodeType() == Node.ELEMENT_NODE) {
+			el = (Element) node;
+			FestivalObject.setStartDayTime(Integer.parseInt(el.getTextContent()));
+		}
+		
+		//get the time between races
+		node = listTimeBetweenRaces.item(0);
+		if(node.getNodeType() == Node.ELEMENT_NODE) {
+			el = (Element) node;
+			FestivalObject.setTimeBetweenRaces(Integer.parseInt(el.getTextContent()));
+		}
+		
+		//get the number of lanes
+		node = listNumOflanes.item(0);
+		if(node.getNodeType() == Node.ELEMENT_NODE) {
+			el = (Element) node;
+			FestivalObject.setNumOfLanes(Integer.parseInt(el.getTextContent()));
+		}
+		
+		//get the font
+		node = listFont.item(0);
+		if(node.getNodeType() == Node.ELEMENT_NODE) {
+			el = (Element) node;
+			//build the font
+			String fName = el.getElementsByTagName("fontName").item(0).getTextContent();
+			int fStyle = Integer.parseInt(el.getElementsByTagName("fontStyle").item(0).getTextContent());
+			int fSize = Integer.parseInt(el.getElementsByTagName("fontSize").item(0).getTextContent());
+			Font f = new Font(fName, fStyle, fSize);
+			FestivalObject.setFont(f);		//set the font in FestivalObject
+		}
+		
+		//get the breaks
+		for(int i = 0; i < listBreaksArray.getLength(); i++) {
+			node = listBreaksArray.item(i);
+			if(node.getNodeType() == Node.ELEMENT_NODE) {
+				el = (Element) node;
+				ArrayList<Integer> breakTime = new ArrayList<Integer>();	//create an arry list to populate
+				breakTime.add(Integer.parseInt(el.getElementsByTagName("start").item(0).getTextContent()));		//get the start time
+				breakTime.add(Integer.parseInt(el.getElementsByTagName("end").item(0).getTextContent()));		//get the end time
+				FestivalObject.breaksArray.add(breakTime);		//add the break to the FestivalObject
+			}
+		}
+		
+		//get the categories
+		for(int i = 0; i < listCategoriesArray.getLength(); i++) {
+			node = listCategoriesArray.item(i);
+			if(node.getNodeType() == Node.ELEMENT_NODE) {
+				el = (Element) node;
+				FestivalObject.categoriesArray.add(el.getTextContent());	//add the break to the FestivalObject
+			}
+		}
+		
+		//get the teams and add them to the FestivalObject.teamsArray
+		for(int i = 0; i < listTeamsArray.getLength(); i++) {
+			node = listTeamsArray.item(i);
+			if(node.getNodeType() == Node.ELEMENT_NODE) {
+				el = (Element) node;
+				TeamObject team = new TeamObject();		//create a new TeamObject to build
+				team.setTeamID(Integer.parseInt(el.getAttribute("teamID")));
+				team.setTeamName(el.getElementsByTagName("teamName").item(0).getTextContent());
+				team.setCategory(el.getElementsByTagName("category").item(0).getTextContent());
+				team.setPlace(Integer.parseInt(el.getElementsByTagName("place").item(0).getTextContent()));
+				team.setFirstRaceTime(Integer.parseInt(el.getElementsByTagName("firstRaceTime").item(0).getTextContent()));
+				team.setSecondRaceTime(Integer.parseInt(el.getElementsByTagName("secondRaceTime").item(0).getTextContent()));
+				team.setSemiFinalRaceTime(Integer.parseInt(el.getElementsByTagName("semiFinalRaceTime").item(0).getTextContent()));
+				team.setFinalRaceTime(Integer.parseInt(el.getElementsByTagName("finalRaceTime").item(0).getTextContent()));
+				team.setAveragedRaceTime(Integer.parseInt(el.getElementsByTagName("averagedRaceTime").item(0).getTextContent()));
+				FestivalObject.teamsArray.add(team);	//add the created team to the array list in FestivalObject
+			}
+		}
+		
+		//get the races
+		for(int i = 0; i < listRacesArray.getLength(); i++) {
+			node = listRacesArray.item(i);
+			if(node.getNodeType() == Node.ELEMENT_NODE) {
+				el = (Element) node;
+				RaceObject race = new RaceObject();
+				race.setRaceNumber(Integer.parseInt(el.getAttribute("raceNumber")));
+				race.setRaceTime(Integer.parseInt(el.getElementsByTagName("raceTime").item(0).getTextContent()));	//set the race time
+				race.setCategory(el.getElementsByTagName("category").item(0).getTextContent());		//set the category
+				
+				//build the team
+				TeamObject team = new TeamObject();
+				team.setTeamID(Integer.parseInt(el.getAttribute("teamID")));
+				team.setTeamName(el.getElementsByTagName("teamName").item(0).getTextContent());
+				team.setCategory(el.getElementsByTagName("category").item(0).getTextContent());
+				team.setPlace(Integer.parseInt(el.getElementsByTagName("place").item(0).getTextContent()));
+				team.setFirstRaceTime(Integer.parseInt(el.getElementsByTagName("firstRaceTime").item(0).getTextContent()));
+				team.setSecondRaceTime(Integer.parseInt(el.getElementsByTagName("secondRaceTime").item(0).getTextContent()));
+				team.setSemiFinalRaceTime(Integer.parseInt(el.getElementsByTagName("semiFinalRaceTime").item(0).getTextContent()));
+				team.setFinalRaceTime(Integer.parseInt(el.getElementsByTagName("finalRaceTime").item(0).getTextContent()));
+				team.setAveragedRaceTime(Integer.parseInt(el.getElementsByTagName("averagedRaceTime").item(0).getTextContent()));
+				FestivalObject.racesArray.get(i).getTeamsRacing().add(team);	//add the created team to the race teams
+			}
+		}
 	}
 	
 }

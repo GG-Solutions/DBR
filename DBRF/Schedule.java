@@ -88,16 +88,18 @@ public class Schedule extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		FestivalObject.setFestName("Lethbridge DBR Festival 2016");	//TODO - just for testing
+		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
-//		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
-//		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
-//		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
-//		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
-//		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
-//		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
-//		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
-//		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
-//		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
+		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
+		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
+		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
 		FestivalObject.teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
@@ -252,19 +254,7 @@ public class Schedule extends JFrame {
 		contentPane.add(btnGenerate);
 		
 		scrollPane.setViewportView(panel1);		//set the view to the panel1 inside the scroll box
-		TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);		//auto generate the time trial races right away when building this page
-		
-		//TODO - take this out after testing
-		JButton btnTest = new JButton("test");
-		btnTest.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				for(int i =0; i < FestivalObject.teamsArray.size(); i++) {
-					System.out.println(FestivalObject.teamsArray.get(i).getFirstRaceTime());
-				}
-			}
-		});
-		btnTest.setBounds(687, 55, 89, 14);
-		contentPane.add(btnTest);
+		TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);
 		
 		//main menu stuff is first set here since it is always where you start
 		JMenuBar menuBar = new JMenuBar();

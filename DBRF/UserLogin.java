@@ -117,6 +117,12 @@ public class UserLogin extends JFrame {
 		int dialogResult = JOptionPane.showConfirmDialog(this, "Load a Festival?", "Festival Load", dialogButton);
 		if(dialogResult == 0) {
 			FestivalObject.setWindowPosition(getX(), getY());	//store the window position in FestivalObject
+			//load the festival from the xml document
+			try {
+				SaveAndLoad.loadXML();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			new MainMenu().setVisible(true);
 			this.dispose();
 		} 

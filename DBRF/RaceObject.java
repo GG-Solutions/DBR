@@ -1,6 +1,7 @@
 package DBRF;
 
 import java.awt.Color;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -73,6 +74,15 @@ public class RaceObject {
 					//get the race number
 					//loop through the remaining races and change the times
 						//also change the text boxes
+					
+					KeyboardFocusManager.getCurrentKeyboardFocusManager().clearGlobalFocusOwner();		//remove focus from the text box
+					
+					//commit the changes to the new text entered into the feild
+					try {
+						timeEditField.commitEdit();
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
 					
 					setRaceTime(Integer.parseInt((String)timeEditField.getValue()));
 					
