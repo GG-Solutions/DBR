@@ -1,5 +1,6 @@
 package DBRF;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -104,6 +105,7 @@ public class Results extends JFrame {
 		JTextArea textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 
+		// This will Display all the results
 		JButton btnDisplay = new JButton("Display");
 		btnDisplay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
