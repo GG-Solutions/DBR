@@ -5,11 +5,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 public class FestivalObject {
-
 	
-	/**
-	 * 
-	 */
 	//festival object that will contain needed information about the festival
 	public static final long serialVersionUID = 1L;
 
@@ -28,9 +24,12 @@ public class FestivalObject {
 	public static int width = 960;
 	public static int height = 540;
 	
-//	public static String bounds = "";	//need this??
-	
 	private static Font thisFont = new Font("Dialog", Font.BOLD, 12);		//default the font to this
+	
+	//TODO - output these into the xml file
+	public static boolean generatedTimeTrialRacesEh = false;
+	public static boolean generatedSemiFinalRacesEh = false;
+	public static boolean generatedFinalRacesEh = false;
 	
 //	public static JPanel userLoginPane;
 //	public static JPanel mainMenuPane;

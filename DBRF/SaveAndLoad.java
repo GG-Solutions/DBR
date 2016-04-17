@@ -258,6 +258,8 @@ public class SaveAndLoad {
 		Document doc = dB.parse(xmlFile);
 		doc.getDocumentElement().normalize();
 		
+//		NodeList festival = doc.getElementsByTagName("festival");
+		
 		//get all the information in node lists from the document
 		NodeList listFestivalName = doc.getElementsByTagName("festivalName");
 		NodeList listStartTimeDay = doc.getElementsByTagName("startTimeDay");
@@ -270,7 +272,7 @@ public class SaveAndLoad {
 		NodeList listRacesArray = doc.getElementsByTagName("racesArray");
 		
 		Node node = null;	//create a node to store current information in
-		Element el = null; 	//create an element to store current data in
+		Element el = null; 	//create an element to store current information in
 		
 		//get the festival name
 		node = listFestivalName.item(0);
