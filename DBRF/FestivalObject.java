@@ -12,17 +12,12 @@ public class FestivalObject {
 	 */
 	//festival object that will contain needed information about the festival
 	public static final long serialVersionUID = 1L;
-<<<<<<< HEAD
-	public static String festivalName = "";
-	public static int timeBetweenRaces = 20;
-	public static int numOfLanes = 3;
-	public static int eventStartTime;
-=======
+
 	public static String festivalName = "";		//default
 	public static int startDayTime = 900;		//default to 9 AM
 	public static int timeBetweenRaces = 20;	//default to 20 - also is set in the festival setup
 	public static int numOfLanes = 3;		//default
->>>>>>> ad3317bbc33fa7dc10fca0f3f2813eefe3eea717
+
 	public static ArrayList<ArrayList<Integer>> breaksArray = new ArrayList<ArrayList<Integer>>();
 	public static ArrayList<String> categoriesArray = new ArrayList<String>();
 	public static ArrayList<TeamObject> teamsArray = new ArrayList<TeamObject>();
@@ -186,12 +181,12 @@ public class FestivalObject {
 		yPos = y;
 	}
 	
-	public static void setEventStartTime(int time){
-		eventStartTime = time;
+	public static void setStartDayTime(int time){
+		startDayTime = time;
 	}
 	
-	public static int getEventStartTime(){
-		return eventStartTime;
+	public static int getStartDayTime(){
+		return startDayTime;
 	}
 }
 

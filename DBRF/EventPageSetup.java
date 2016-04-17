@@ -75,7 +75,7 @@ public class EventPageSetup extends JFrame {
 	
 	private static ArrayList<String> categoryUse = new ArrayList<String>();
 	private JTextField timeEventStarts;
-		
+	
 	
 	/**
 	 * Launch the application.
@@ -183,9 +183,10 @@ public class EventPageSetup extends JFrame {
 		CategoryPane.setBounds(499, 354, 375, 97);
 		confirmation.add(CategoryPane);
 		
-		JLabel conTimeEventStarts = new JLabel("Time Event Starts:");
+		conTimeEventStarts = new JLabel("Time Event Starts:");
 		conTimeEventStarts.setBounds(217, 23, 319, 16);
 		confirmation.add(conTimeEventStarts);
+		
 		teamSetup.setLayout(null);
 		teamSetup.setBorder(new EmptyBorder(5, 5, 5, 5));
 		teamSetup.setBackground(Color.LIGHT_GRAY);
@@ -446,7 +447,7 @@ public class EventPageSetup extends JFrame {
 		btnNext.setBounds(703, 414, 117, 29);
 		contentPane.add(btnNext);
 		
-		BreakEndTime = new JFormattedTextField();//broken);
+		BreakEndTime = new JFormattedTextField();
 		BreakEndTime.setBounds(723, 83, 51, 26);
 		BreakEndTime.setText("");
 		contentPane.add(BreakEndTime);
@@ -466,7 +467,7 @@ public class EventPageSetup extends JFrame {
 		timeEventStarts = new JTextField();
 		timeEventStarts.setBounds(305, 188, 61, 26);
 		contentPane.add(timeEventStarts);
-		timeEventStarts.setColumns(4);
+		timeEventStarts.setColumns(10);
 	}
 	
 	//breaks for event setup
@@ -590,8 +591,7 @@ public class EventPageSetup extends JFrame {
 		FestivalObject.categoriesArray.remove(useCat);}
 		
 		CatlistMod.remove(catIndex);
-		CatlistMod2.addElement(useCat);
-		
+		CatlistMod2.addElement(useCat);		
 		//CatList.setText(String.valueOf(FestivalObject.getCategory()));
 		//CatList2.setText(String.valueOf(categoryUse));
 		try{
@@ -637,7 +637,8 @@ public class EventPageSetup extends JFrame {
 		FestivalObject.festivalName = FestName.getText();
 		FestivalObject.timeBetweenRaces = Integer.parseInt(TBR.getText());
 		FestivalObject.numOfLanes = Integer.parseInt(LaneInput.getText());
-		FestivalObject.eventStartTime = Integer.parseInt(timeEventStarts.getText());
+		FestivalObject.setCategorys(categoryUse);
+		FestivalObject.setStartDayTime(Integer.parseInt(timeEventStarts.getText()));
 		//add option of none so that requirement is either 1 or 2 categories
 		CatBox2.addItem("none");
 		teamSetup.setVisible(true);
@@ -687,11 +688,11 @@ public class EventPageSetup extends JFrame {
 		conFestName.setText("Festival Name: " + FestivalObject.getFestivalName());
 		conTimeBetweenRaces.setText("Time Between Races: " + FestivalObject.getTBR() + " mins");
 		conLanes.setText("Lanes per race: " + FestivalObject.getLanes());
-		conTimeEventStarts.setText("Time Event Starts: " + FestivalObject.getEventStartTime());
+		conTimeEventStarts.setText("Time Event Starts: " + FestivalObject.getStartDayTime());
 		conBreaks.setText("Breaks at: ");
 		BreakPane.setText(String.valueOf(FestivalObject.getBreakList()));
 		conTeams.setText("Teams Entered: ");
-		TeamPane.setText(FestivalObject.getTeamsArray().toString());
+		TeamPane.setText(FestivalObject.teamsArray.toArray().toString());
 		conCategories.setText("Categories that will be used: ");
 		CategoryPane.setText(categoryUse.toString());
 
@@ -716,10 +717,10 @@ public class EventPageSetup extends JFrame {
 	 */
 	public void createFestival(){
 		//passes festival information and tags the teams
-		for(int i=1;i< FestivalObject.teamsArray.size(); i++){
+		for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
 			FestivalObject.teamsArray.get(i).setTeamID(i);
+			//System.out.println(FestivalObject.teamsArray.get(i).getTeamID());
 		}
-		System.out.println(FestivalObject.teamsArray.toString());
 	}
 	
 	//if team name exists and the names match up(as in it's not a new team) add the category to the team
@@ -737,10 +738,10 @@ public class EventPageSetup extends JFrame {
 			//FestivalObject.teamsArray.add(Cat);
 			ArrayList<String> t = new ArrayList<String>();
 			tempName = name;
-			if(FestivalObject.teamsArray.contains(tempName)) {
-				System.out.println("Team already in category.");
-			}
-			else {
+			//if(FestivalObject.teamsArray.contains(tempName)) {
+			//	System.out.println("Team already in category.");
+			//}
+			//else {
 				t.add(Cat);
 				t.add(Cat2);
 				//FestivalObject.teamsArray.addAll(t);}
@@ -751,18 +752,18 @@ public class EventPageSetup extends JFrame {
 				//}
 				
 				TeamObject tea = new TeamObject();
-				tea.setTeamName(tempName);
+				tea.setTeamName(name);
 				tea.setCategory(t.toString());
 				
-				ArrayList<TeamObject> one = new ArrayList<TeamObject>();
-				one.add(tea);
-				//FestivalObject.setTeamsArray(one);
+				//ArrayList<TeamObject> one = new ArrayList<TeamObject>();
+				//one.add(tea);
+					//FestivalObject.setTeamsArray(one);
 				
 				//FestivalObject.teamsArray.add(tempName + t.toString());
 				//teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
 				
-				teamListMod.addElement(one);
-			}
+				teamListMod.addElement(tea.getTeamName() + tea.getCategory());
+			//}
 	}
 	
 	/**
