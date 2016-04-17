@@ -185,16 +185,7 @@ public class FestivalObject {
 		xPos = x;
 		yPos = y;
 	}
-	
-<<<<<<< HEAD
-	public static void setStartDayTime(int time){
-		startDayTime = time;
-	}
-	
-	public static int getStartDayTime(){
-		return startDayTime;
-	}
-=======
+
 	public static void setStartDayTime(int num) {
 		startDayTime = num;
 	}
@@ -215,10 +206,6 @@ public class FestivalObject {
 		numOfLanes = num;
 	}
 	
-	public static int getNumOfLanes() {
-		return numOfLanes;
-	}
->>>>>>> 24ff58d9248e8729c50120849d613516b9cba8d6
 }
 
 

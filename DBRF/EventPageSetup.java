@@ -101,6 +101,11 @@ public class EventPageSetup extends JFrame {
 	 */
 	public EventPageSetup() {
 		//page getting setup!
+		CatlistMod.addElement("Special");
+		ArrayList<String> spec = new ArrayList<String>();
+		spec.add("Special");
+		FestivalObject.categoriesArray.addAll(spec);
+		
 		setResizable(false);
 		setTitle("Setup");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -637,6 +642,7 @@ public class EventPageSetup extends JFrame {
 		FestivalObject.festivalName = FestName.getText();
 		FestivalObject.timeBetweenRaces = Integer.parseInt(TBR.getText());
 		FestivalObject.numOfLanes = Integer.parseInt(LaneInput.getText());
+		FestivalObject.setNumOfLanes(Integer.parseInt(LaneInput.getText()));
 		FestivalObject.setCategorys(categoryUse);
 		FestivalObject.setStartDayTime(Integer.parseInt(timeEventStarts.getText()));
 		//add option of none so that requirement is either 1 or 2 categories
