@@ -129,7 +129,7 @@ public class Results extends JFrame {
 				for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
 					textArea.append(FestivalObject.getTeamsArray().get(i).getTeamName());
 					textArea.append(FestivalObject.getTeamsArray().get(i).getCategory());
-					textArea.append(FestivalObject.getTeamsArray().get(i).getPlace());
+					textArea.append(Integer.toString(FestivalObject.getTeamsArray().get(i).getPlace()));
 					int temp1 = FestivalObject.getTeamsArray().get(i).getFirstRaceTime();
 					String temp = Integer.toString(temp1);
 					String temp3 = java.util.Arrays.toString(temp.split("(?<=\\G..)"));
@@ -142,7 +142,7 @@ public class Results extends JFrame {
 				for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
 					textArea.append(FestivalObject.getTeamsArray().get(i).getTeamName());
 					textArea.append(FestivalObject.getTeamsArray().get(i).getCategory());
-					textArea.append(FestivalObject.getTeamsArray().get(i).getPlace());
+					textArea.append(Integer.toString(FestivalObject.getTeamsArray().get(i).getPlace()));
 					int temp1 = FestivalObject.getTeamsArray().get(i).getFirstRaceTime();
 					String temp = Integer.toString(temp1);
 					String temp3 = java.util.Arrays.toString(temp.split("(?<=\\G..)"));

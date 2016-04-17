@@ -49,7 +49,7 @@ public class TimeTrialRaceGeneration {
 				
 				//figure out the raceTime
 				if(firstRoundEh == true) {
-					currentTime = FestivalObject.startDayTime;
+					currentTime = FestivalObject.getStartDayTime();
 					firstRoundEh = false;
 				}
 				else {
@@ -230,7 +230,7 @@ public class TimeTrialRaceGeneration {
 					//set everything in the race object
 					
 					race.addTeamToRace(theseTeams.get(0));	//store the team to the ArrayList in the race object
-					race.setCategory(theseTeams.get(0).getCategory());	//get the category from the team
+					race.setCategory(theseTeams.get(0).getCategory());	//get the category from the team and set that to the race's category
 					
 					theseTeams.remove(0);	//remove the team from the duplicated array list so the index will always be 0 to get information
 				}
@@ -239,8 +239,6 @@ public class TimeTrialRaceGeneration {
 				race.setRaceNumber(FestivalObject.racesArray.size() + 1);		//set the race number
 				race.setRaceTime(currentTime);		//set the race time
 				FestivalObject.racesArray.add(race);		//lastly, add the created RaceObject to the global ArrayList
-				
-//				theseTeams.remove(0);	//remove the team from the duplicated array list so the index will always be 0 to get information
 				
 				rowCounter += 1;
 				//END OF FOR LOOP FOR ONE RACE ----------------------------------------------

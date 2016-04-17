@@ -34,6 +34,12 @@ public class FinalRaceGeneration {
 			}
 		});
 		
+		//loop to set th eplace that the team is in
+		//teams are sorted in order by best time right above this already
+		for(int i = 0; i< FestivalObject.teamsArray.size(); i++) {
+			FestivalObject.teamsArray.get(i).setPlace(i + 1);		//set the teams place
+		}
+		
 		//empty multidimensional arraylist to separate the teams by category
 		ArrayList<ArrayList<TeamObject>> tmCat	= new ArrayList<ArrayList<TeamObject>>();	//do I need the whole teamobject stored? - prob easiest
 		
@@ -91,7 +97,7 @@ public class FinalRaceGeneration {
 			
 			//figure out the raceTime
 			if(i == 0) {
-				currentTime = FestivalObject.startDayTime;
+				currentTime = FestivalObject.getStartDayTime();
 			}
 			else {
 				//race time generation

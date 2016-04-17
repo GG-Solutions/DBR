@@ -4,6 +4,10 @@ import java.awt.KeyboardFocusManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -326,6 +330,33 @@ public class TeamObject {
 //						flagFinalRaceTime.setText("*");		//set the time change flag
 //					}
 //					finalLockButtonPressCount++;	//add one to the button click count
+					
+					//loop through all the teams array and check if all their semi final race times are not -1 to open the finals race radio button
+					for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
+						if(FestivalObject.teamsArray.get(i).getFinalRaceTime() == -1) {
+							break;	//not all times are set so dont open the finals radio button
+						}
+						//if the last index is equal to the teamsArray size +1 and the time != -1
+						else if(i + 1 == FestivalObject.teamsArray.size() && FestivalObject.teamsArray.get(i).getFinalRaceTime() != -1) {
+							
+							ArrayList<TeamObject> tm = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate teamsArray
+							
+							//calculate the place each team is in
+							//sort the duplicated tm ArrayList based on the averagedRaceTime in ascending order before separating by category
+							//this makes them stay sorted before separation
+							Collections.sort(tm, new Comparator<TeamObject>() {
+								public int compare(TeamObject o1, TeamObject o2) {
+									return String.format("%06d", o1.getAveragedRaceTime()).compareTo(String.format("%06d", o2.getAveragedRaceTime()));
+								}
+							});
+							
+							//loop to set the place that the team is in
+							//teams are sorted in order by best time right above this already
+							for(int j = 0; i< FestivalObject.teamsArray.size(); j++) {
+								FestivalObject.teamsArray.get(j).setPlace(j + 1);		//set the teams place
+							}
+						}
+					}
 				}
 				else if(finalRaceLockButton.getText() == "Unlock") {
 					timeFinalRaceInputField.setEditable(true);
@@ -395,7 +426,7 @@ public class TeamObject {
 	}
 	
 	/**
-	 * Sets the private int place variable.
+	 * Sets the private int category variable.
 	 * Inputs - String cat - String to set the category variable.
 	 * Outputs - None.
 	 */
@@ -404,7 +435,7 @@ public class TeamObject {
 	}
 	
 	/**
-	 * Sets the private String category variable.
+	 * Sets the private String place variable.
 	 * Inputs - int place - integer to set the place variable.
 	 * Outputs - None.
 	 */
@@ -494,8 +525,8 @@ public class TeamObject {
 	 * Inputs - None.
 	 * Outputs - Returns the place variable.
 	 */
-	public String getPlace() {
-		return category;
+	public int getPlace() {
+		return place;
 	}
 	
 	/**
