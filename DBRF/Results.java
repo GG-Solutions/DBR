@@ -179,55 +179,7 @@ public class Results extends JFrame {
 						textArea.append("\n");
 					}
 				}
-				}
-				else if(rdbtnSemiFinals.isSelected())
-				{
-				for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
-					textArea.append("Team Name: ");
-					textArea.append(FestivalObject.getTeamsArray().get(i).getTeamName());
-					textArea.append(" ");
-					textArea.append("|");
-					textArea.append(" ");			
-					textArea.append("Team Category: ");
-					textArea.append(FestivalObject.getTeamsArray().get(i).getCategory());
-					textArea.append(Integer.toString(FestivalObject.getTeamsArray().get(i).getPlace()));
-					int temp1 = FestivalObject.getTeamsArray().get(i).getFirstRaceTime();
-					textArea.append(" ");
-					textArea.append("|");
-					textArea.append(" ");
-					textArea.append("Race Time: ");
-					int temp1 = FestivalObject.getTeamsArray().get(i).getSemiFinalRaceTime();
-					String temp = Integer.toString(temp1);
-					String temp3 = java.util.Arrays.toString(temp.split("(?<=\\G..)"));
-					textArea.append(temp3);
-					textArea.append("\n");
-				}
-				}
-				else if(rdbtnFinals.isSelected())
-				{
-				for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
-					textArea.append("Team Name: ");
-					textArea.append(FestivalObject.getTeamsArray().get(i).getTeamName());
-					textArea.append(" ");
-					textArea.append("|");
-					textArea.append(" ");			
-					textArea.append("Team Category: ");
-					textArea.append(FestivalObject.getTeamsArray().get(i).getCategory());
-					textArea.append(Integer.toString(FestivalObject.getTeamsArray().get(i).getPlace()));
-					int temp1 = FestivalObject.getTeamsArray().get(i).getFirstRaceTime();
-					textArea.append(" ");
-					textArea.append("|");
-					textArea.append(" ");
-					textArea.append("Race Time: ");
-					int temp1 = FestivalObject.getTeamsArray().get(i).getFinalRaceTime();
-					String temp = Integer.toString(temp1);
-					String temp3 = java.util.Arrays.toString(temp.split("(?<=\\G..)"));
-					textArea.append(temp3);
-					textArea.append("\n");
-				}
-				}
-				
-				
+
 			}
 		});
 		btnDisplay.setBounds(473, 74, 89, 23);
