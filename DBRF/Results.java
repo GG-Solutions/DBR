@@ -72,7 +72,7 @@ public class Results extends JFrame {
 		rdbtnTimeTrials.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-
+				
 			}
 		});
 		rdbtnTimeTrials.setBounds(87, 51, 109, 23);

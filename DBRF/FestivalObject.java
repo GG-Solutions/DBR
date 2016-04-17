@@ -55,12 +55,12 @@ public class FestivalObject {
 				
 				//add the special category if it is not there already
 				//TODO - do this here?????
-				for(int i= 0; i < categoriesArray.size(); i++) {
-					//if the special category is not in the categories array list yet
-					if(!(categoriesArray.get(i).matches("Special")) && i == categoriesArray.size()) {
-						categoriesArray.add("Special");		//always add the special category into the array list on start up
-					}
-				}
+//				for(int i= 0; i < categoriesArray.size(); i++) {
+//					//if the special category is not in the categories array list yet
+//					if(!(categoriesArray.get(i).matches("Special")) && i == categoriesArray.size()) {
+//						categoriesArray.add("Special");		//always add the special category into the array list on start up
+//					}
+//				}
 				
 				//initializing the JPanels on start of program
 //				userLoginPane = new UserLogin().contentPane;

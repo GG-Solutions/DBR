@@ -110,7 +110,10 @@ public class SaveAndLoad {
 		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 			
 			Element team = doc.createElement("team");	//create a team element to build
-			team.setAttribute("teamID", Integer.toString(FestivalObject.teamsArray.get(i).getTeamID()));	//set the attribute to the teamID
+			
+			Element teamID = doc.createElement("teamID");
+			teamID.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getTeamID())));
+			team.appendChild(teamID);
 			
 			Element teamName = doc.createElement("teamName");
 			teamName.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getTeamName()));
@@ -155,7 +158,10 @@ public class SaveAndLoad {
 		for(int i =0; i < FestivalObject.racesArray.size(); i ++) {
 			
 			Element race = doc.createElement("race");	//create a race to add the race information to
-			race.setAttribute("raceNumber", Integer.toString(FestivalObject.racesArray.get(i).getRaceNumber()));	//set attribute of current race to the race number
+			
+			Element raceNumber = doc.createElement("raceNumber");
+			raceNumber.appendChild(doc.createTextNode(Integer.toString(FestivalObject.racesArray.get(i).getRaceNumber())));
+			race.appendChild(raceNumber);
 			
 			Element raceTime = doc.createElement("raceTime");
 			raceTime.appendChild(doc.createTextNode(Integer.toString(FestivalObject.racesArray.get(i).getRaceTime())));
@@ -171,7 +177,10 @@ public class SaveAndLoad {
 			for(int j = 0; j < FestivalObject.racesArray.get(i).getTeamsRacing().size() ; j++) {
 				//all the same as outputing a regular team's information
 				Element team = doc.createElement("team");	//create a team element to build
-				team.setAttribute("teamID", Integer.toString(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getTeamID()));	//set the attribute to the teamID
+				
+				Element teamID = doc.createElement("teamID");
+				teamID.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getTeamID())));
+				team.appendChild(teamID);
 				
 				Element teamName = doc.createElement("teamName");
 				teamName.appendChild(doc.createTextNode(FestivalObject.racesArray.get(i).getTeamsRacing().get(j).getTeamName()));
@@ -331,7 +340,7 @@ public class SaveAndLoad {
 			if(node.getNodeType() == Node.ELEMENT_NODE) {
 				el = (Element) node;
 				TeamObject team = new TeamObject();		//create a new TeamObject to build
-				team.setTeamID(Integer.parseInt(el.getAttribute("teamID")));
+				team.setTeamID(Integer.parseInt(el.getElementsByTagName("teamID").item(0).getTextContent()));
 				team.setTeamName(el.getElementsByTagName("teamName").item(0).getTextContent());
 				team.setCategory(el.getElementsByTagName("category").item(0).getTextContent());
 				team.setPlace(Integer.parseInt(el.getElementsByTagName("place").item(0).getTextContent()));
@@ -350,22 +359,30 @@ public class SaveAndLoad {
 			if(node.getNodeType() == Node.ELEMENT_NODE) {
 				el = (Element) node;
 				RaceObject race = new RaceObject();
-				race.setRaceNumber(Integer.parseInt(el.getAttribute("raceNumber")));
+				race.setRaceNumber(Integer.parseInt(el.getElementsByTagName("raceNumber").item(0).getTextContent()));
 				race.setRaceTime(Integer.parseInt(el.getElementsByTagName("raceTime").item(0).getTextContent()));	//set the race time
 				race.setCategory(el.getElementsByTagName("category").item(0).getTextContent());		//set the category
 				
-				//build the team
-				TeamObject team = new TeamObject();
-				team.setTeamID(Integer.parseInt(el.getAttribute("teamID")));
-				team.setTeamName(el.getElementsByTagName("teamName").item(0).getTextContent());
-				team.setCategory(el.getElementsByTagName("category").item(0).getTextContent());
-				team.setPlace(Integer.parseInt(el.getElementsByTagName("place").item(0).getTextContent()));
-				team.setFirstRaceTime(Integer.parseInt(el.getElementsByTagName("firstRaceTime").item(0).getTextContent()));
-				team.setSecondRaceTime(Integer.parseInt(el.getElementsByTagName("secondRaceTime").item(0).getTextContent()));
-				team.setSemiFinalRaceTime(Integer.parseInt(el.getElementsByTagName("semiFinalRaceTime").item(0).getTextContent()));
-				team.setFinalRaceTime(Integer.parseInt(el.getElementsByTagName("finalRaceTime").item(0).getTextContent()));
-				team.setAveragedRaceTime(Integer.parseInt(el.getElementsByTagName("averagedRaceTime").item(0).getTextContent()));
-				FestivalObject.racesArray.get(i).getTeamsRacing().add(team);	//add the created team to the race teams
+				FestivalObject.racesArray.add(race);		//add the race
+				
+				NodeList nL = doc.getElementsByTagName("teamsRacing"); 
+				
+				//build the teams that raced in the race
+				for(int j = 0; j < nL.getLength(); j++) {
+					Node n = nL.item(j);
+					Element elem = (Element) n;
+					TeamObject team = new TeamObject();
+					team.setTeamID(Integer.parseInt(elem.getElementsByTagName("teamID").item(0).getTextContent()));
+					team.setTeamName(elem.getElementsByTagName("teamName").item(0).getTextContent());
+					team.setCategory(elem.getElementsByTagName("category").item(0).getTextContent());
+					team.setPlace(Integer.parseInt(elem.getElementsByTagName("place").item(0).getTextContent()));
+					team.setFirstRaceTime(Integer.parseInt(elem.getElementsByTagName("firstRaceTime").item(0).getTextContent()));
+					team.setSecondRaceTime(Integer.parseInt(elem.getElementsByTagName("secondRaceTime").item(0).getTextContent()));
+					team.setSemiFinalRaceTime(Integer.parseInt(elem.getElementsByTagName("semiFinalRaceTime").item(0).getTextContent()));
+					team.setFinalRaceTime(Integer.parseInt(elem.getElementsByTagName("finalRaceTime").item(0).getTextContent()));
+					team.setAveragedRaceTime(Integer.parseInt(elem.getElementsByTagName("averagedRaceTime").item(0).getTextContent()));
+					FestivalObject.racesArray.get(i).getTeamsRacing().add(team);	//add the created team to the race teams
+				}
 			}
 		}
 	}
