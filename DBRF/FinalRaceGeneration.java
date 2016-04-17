@@ -23,7 +23,7 @@ public class FinalRaceGeneration {
 	 * 			- Adds the generated races to the RaceCards ArrayList.
 	 */
 	public static void generateFinalRaces(JPanel panel) {
-		
+		if(FestivalObject.generatedFinalRacesEh == true) {
 		ArrayList<TeamObject> tm = new ArrayList<TeamObject>(FestivalObject.teamsArray);		//duplicate the teams array
 		
 		//sort the duplicated tm ArrayList based on the semiFinalRaceTime in ascending order before separating by category
@@ -322,5 +322,117 @@ public class FinalRaceGeneration {
 			i++;
 		}
 		//END OF FOR LOOP FOR THE RACES ----------------------------------------------
+		}
+		//if the final races have already been generated before, just add the UI components again
+		else if(FestivalObject.generatedFinalRacesEh == false) {
+			
+			int temp = (int)Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes) * 2 + 1;	//get the race number that is the start of the semi finals
+			int temp2 = temp + (int)Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes) + 1;	//get the race number that is the end of the semi finals
+			
+			//loop through the rest of the races in the array
+			for(int i = temp2; i < FestivalObject.racesArray.size(); i++) {
+				
+				rowCounter = 0;		//reset the counter for row placement
+				
+				//add the race label "Race # _ at"
+				JLabel raceNumberLabel = new JLabel("Race # " + FestivalObject.racesArray.get(i).getRaceNumber() + " at");
+				raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
+				raceNumberLabel.setFont(FestivalObject.getFont());
+				panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
+				
+				panel.add(FestivalObject.racesArray.get(i).getTimeInputField(), "cell 1 " + rowCounter);
+				
+				panel.add(FestivalObject.racesArray.get(i).getEditTimeButton(), "cell 1 " + rowCounter);
+				
+				rowCounter += 1;
+				
+				//create place label
+				JLabel lblPlace = new JLabel("Place");
+				lblPlace.setHorizontalAlignment(SwingConstants.CENTER);
+				lblPlace.setFont(FestivalObject.getFont());
+				panel.add(lblPlace, "flowx,cell 0 " + rowCounter + ",growx,aligny center");
+				
+				//create team name label
+				JLabel lblTeamName = new JLabel("Team Name");
+				lblTeamName.setHorizontalAlignment(SwingConstants.LEADING);
+				lblTeamName.setFont(FestivalObject.getFont());
+				panel.add(lblTeamName, "cell 1 " + rowCounter + ",growx,aligny center");
+				
+				//create lane label
+				JLabel lblLane = new JLabel("Lane");
+				lblLane.setHorizontalAlignment(SwingConstants.LEADING);
+				lblLane.setFont(FestivalObject.getFont());
+				panel.add(lblLane, "cell 2 " + rowCounter + ",growx,aligny center");
+				
+				//create category label
+				JLabel lblCategory = new JLabel("Category");
+				lblCategory.setHorizontalAlignment(SwingConstants.LEADING);
+				lblCategory.setFont(FestivalObject.getFont());
+				panel.add(lblCategory, "cell 3 " + rowCounter + ",growx,aligny center");
+				
+				//create flag label
+				JLabel lblFlag = new JLabel("*");
+				lblFlag.setHorizontalAlignment(SwingConstants.CENTER);
+				lblFlag.setFont(FestivalObject.getFont());
+				panel.add(lblFlag, "cell 4 " + rowCounter + ",aligny center");
+				
+				//create time label
+				JLabel lblTime = new JLabel("Time");
+				lblTime.setHorizontalAlignment(SwingConstants.LEADING);
+				lblTime.setFont(FestivalObject.getFont());
+				panel.add(lblTime, "cell 5 " + rowCounter + ",growx,aligny center");
+				
+				rowCounter += 1;
+				
+				//START OF THE LOOP ------------------------------------------------------------------------------------------------------- generate the teams
+				//use a while loop instead? then i can have the condition set to false to break from the loop once all the races have been generated
+				//and all the conditions were met
+					//every team raced twice, etc.
+				for(int k = 0; k < FestivalObject.racesArray.get(i).getTeamsRacing().size(); k++) {
+					
+					if(k == 0) {
+						rowCounter += 0;
+					}
+					else {
+						rowCounter += 1;
+					}
+					
+					panel.add(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getPlaceLabel(3), "flowx,cell 0 " + rowCounter + ",growx,aligny center");	//add the place label
+					
+					//adding the team name label under the Team Name heading
+					JLabel lblMyTeamName = new JLabel(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getTeamName());
+					lblMyTeamName.setHorizontalAlignment(SwingConstants.LEADING);
+					lblMyTeamName.setFont(FestivalObject.getFont());
+					panel.add(lblMyTeamName, "cell 1 " + rowCounter + ",growx,aligny center");
+					
+					//adding the lane number label under the Lane heading
+					JLabel label_1 = new JLabel(Integer.toString(k + 1));
+					label_1.setHorizontalAlignment(SwingConstants.LEADING);
+					label_1.setFont(FestivalObject.getFont());
+					panel.add(label_1, "cell 2 " + rowCounter + ",growx,aligny center");
+					
+					//adding the teams category label under the Category heading
+					JLabel lblMixed = new JLabel(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getCategory());
+					lblMixed.setHorizontalAlignment(SwingConstants.LEADING);
+					lblMixed.setFont(FestivalObject.getFont());
+					panel.add(lblMixed, "cell 3 " + rowCounter + ",growx,aligny center");
+					
+					panel.add(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getTimeFlag(3), "cell 4 " + rowCounter + ",aligny center");		//add the time change flag
+					
+					panel.add(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getTimeInputField(3), "cell 5 " + rowCounter + ",growx,aligny center");	//add the time input field
+					
+					panel.add(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getLockButton(3), "cell 6 " + rowCounter);		//add the lock button
+					
+					//add the print button on the second loop
+					if(k == 0) {
+						panel.add(FestivalObject.racesArray.get(i).getPrintButton(), "cell 6 " + rowCounter);
+					}
+				}
+				//END OF FOR LOOP FOR THE TEAMS --------------------------------------------------------------------------------------------------------
+				
+				rowCounter += 1;
+				//END OF FOR LOOP FOR ONE RACE ----------------------------------------------
+			}
+		}
 	}
 }

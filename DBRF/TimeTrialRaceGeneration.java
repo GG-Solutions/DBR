@@ -252,17 +252,19 @@ public class TimeTrialRaceGeneration {
 			Schedule.panel2.removeAll();
 			Schedule.panel3.removeAll();
 			
-			//if the semi finals were also generated, set the radio buton to enabled
+			//if the semi finals were also generated, set the radio buton to enabled and add the races
 			if(FestivalObject.generatedSemiFinalRacesEh == true) {
 				Schedule.semiFinalsRadioButton.setEnabled(true);
+				SemiFinalRaceGeneration.generateSemiFinalRaces(Schedule.panel2);
 			}
-			//if the finals were also generated, set the radio buton to enabled
+			//if the finals were also generated, set the radio buton to enabled and add the races
 			if(FestivalObject.generatedFinalRacesEh == true) {
 				Schedule.finalsRadioButton.setEnabled(true);
+				FinalRaceGeneration.generateFinalRaces(Schedule.panel3);
 			}
 			
-			boolean firstRoundEh = true;
-			boolean secondRoundEh = false;
+//			boolean firstRoundEh = true;
+//			boolean secondRoundEh = false;
 			
 			int o = 0;	//used to output the correct buttons and stuff depending on what time trial round it is
 			
@@ -273,19 +275,19 @@ public class TimeTrialRaceGeneration {
 				//loop to add all the UI components to the panel - loop for the amount of time trial races there should be
 				for(int i = 0; i < Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes); i++) {
 					
-					if(firstRoundEh = true) {
-						o = 0;
-						secondRoundEh = true;
-						firstRoundEh = false;
-					}
-					else if(secondRoundEh = true) {
-						o = 1;
-					}
+//					if(firstRoundEh = true) {
+//						o = 0;
+//						secondRoundEh = true;
+//						firstRoundEh = false;
+//					}
+//					else if(secondRoundEh = true) {
+//						o = 1;
+//					}
 					
 					System.out.println("got race # " + FestivalObject.racesArray.get(i).getRaceNumber());
 					
 					//add the race label "Race # _ at"
-					JLabel raceNumberLabel = new JLabel("Race # " + FestivalObject.racesArray.get(i).getRaceNumber() + " at");	//auto-increment the race number
+					JLabel raceNumberLabel = new JLabel("Race # " + FestivalObject.racesArray.get(i).getRaceNumber() + " at");
 					raceNumberLabel.setHorizontalAlignment(SwingConstants.LEFT);
 					raceNumberLabel.setFont(FestivalObject.getFont());
 					panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
@@ -347,7 +349,7 @@ public class TimeTrialRaceGeneration {
 							rowCounter += 1;
 						}
 						
-						panel.add(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getPlaceLabel(o + 1), "flowx,cell 0 " + rowCounter + ",growx,aligny center");		//add the place label
+						panel.add(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getPlaceLabel(o + 1), "flowx,cell 0 " + rowCounter + ",growx,aligny center");	//add the place label
 						
 						//adding the team name label under the Team Name heading
 						JLabel lblMyTeamName = new JLabel(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getTeamName());
@@ -369,7 +371,7 @@ public class TimeTrialRaceGeneration {
 						
 						panel.add(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getTimeFlag(o + 1), "cell 4 " + rowCounter + ",aligny center");		//add the time change flag
 						
-						panel.add(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getTimeInputField(o + 1), "cell 5 " + rowCounter + ",growx,aligny center");		//add the time input field
+						panel.add(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getTimeInputField(o + 1), "cell 5 " + rowCounter + ",growx,aligny center");	//add the time input field
 						
 						panel.add(FestivalObject.racesArray.get(i).getTeamsRacing().get(k).getLockButton(o + 1), "cell 6 " + rowCounter);		//add the lock button
 						
