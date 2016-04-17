@@ -131,6 +131,9 @@ public class Results extends JFrame {
 							textArea.append("\n");
 							textArea.append("\n");
 						} else if (rdbtnSecondRace.isSelected()) {
+							textArea.append(" ");
+							textArea.append("|");
+							textArea.append(" ");
 							textArea.append("Race Time: ");
 							int temp1 = FestivalObject.getTeamsArray().get(i).getSecondRaceTime();
 							String temp = Integer.toString(temp1);
@@ -158,8 +161,10 @@ public class Results extends JFrame {
 						String temp3 = java.util.Arrays.toString(temp.split("(?<=\\G..)"));
 						textArea.append(temp3);
 						textArea.append("\n");
+						textArea.append("\n");
 					}
-				} else if (rdbtnFinals.isSelected()) {
+				} 
+				if (rdbtnFinals.isSelected()) {
 					for (int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 						textArea.append("Team Name: ");
 						textArea.append(FestivalObject.getTeamsArray().get(i).getTeamName());
@@ -171,15 +176,23 @@ public class Results extends JFrame {
 						textArea.append(" ");
 						textArea.append("|");
 						textArea.append(" ");
+						textArea.append("Team Place: ");
+						int temp4 = FestivalObject.getTeamsArray().get(i).getPlace();
+						String temp5 = Integer.toString(temp4);
+						textArea.append(temp5);
+						textArea.append(" ");
+						textArea.append("|");
+						textArea.append(" ");
 						textArea.append("Race Time: ");
 						int temp1 = FestivalObject.getTeamsArray().get(i).getFinalRaceTime();
 						String temp = Integer.toString(temp1);
 						String temp3 = java.util.Arrays.toString(temp.split("(?<=\\G..)"));
 						textArea.append(temp3);
 						textArea.append("\n");
+						textArea.append("\n");
 					}
 				}
-
+		
 			}
 		});
 		btnDisplay.setBounds(473, 74, 89, 23);
@@ -330,5 +343,7 @@ public class Results extends JFrame {
 		mntmLogout.setBackground(Color.WHITE);
 		menuBar.add(mntmLogout);
 
+
 	}
+
 }
