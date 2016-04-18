@@ -46,7 +46,7 @@ public class EventPageSetup extends JFrame {
 	private JList CatList2;
 	private JList teamList;
 	private JTextPane BreakPane;
-	private JTextPane TeamPane;
+	private JList TeamPane;
 	private JTextPane CategoryPane;
 	private JComboBox<String> CatBox;
 	private JComboBox<String> CatBox2;
@@ -72,6 +72,8 @@ public class EventPageSetup extends JFrame {
 	private Object CatTemp2;
 	DefaultListModel teamListMod = new DefaultListModel();
 	private Object teamTemp;
+	DefaultListModel conTeamMod = new DefaultListModel();
+	private Object conTemp;
 	
 	private static ArrayList<String> categoryUse = new ArrayList<String>();
 	private JTextField timeEventStarts;
@@ -178,8 +180,10 @@ public class EventPageSetup extends JFrame {
 		BreakPane.setBounds(116, 354, 375, 97);
 		confirmation.add(BreakPane);
 		
-		TeamPane = new JTextPane();
-		TeamPane.setEditable(false);
+		TeamPane = new JList(conTeamMod);
+		TeamPane.setLayoutOrientation(JList.VERTICAL_WRAP);
+		TeamPane.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		TeamPane.setVisibleRowCount(10);
 		TeamPane.setBounds(217, 107, 567, 207);
 		confirmation.add(TeamPane);
 		
@@ -222,6 +226,7 @@ public class EventPageSetup extends JFrame {
 		teamSetup.add(CatBox);
 		
 		teamList = new JList(teamListMod);
+		teamList.setVisibleRowCount(15);
 		teamList.setLayoutOrientation(JList.VERTICAL_WRAP);
 		teamList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		teamList.setBounds(219, 89, 528, 288);
@@ -237,6 +242,7 @@ public class EventPageSetup extends JFrame {
 		teamSetup.add(teamDelete);
 		
 		JButton undoTeamDelete = new JButton("Undo");
+		undoTeamDelete.setEnabled(false);
 		undoTeamDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				teamUndoDelete();
@@ -359,6 +365,7 @@ public class EventPageSetup extends JFrame {
 		contentPane.add(DeleteBreak);
 		
 		JButton UndoDelBreak = new JButton("Undo");
+		UndoDelBreak.setEnabled(false);
 		UndoDelBreak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deleteBreakUndo();
@@ -402,6 +409,7 @@ public class EventPageSetup extends JFrame {
 		contentPane.add(DelCat);
 		
 		JButton UndoDelCat = new JButton("Undo");
+		UndoDelCat.setEnabled(false);
 		UndoDelCat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deleteCatUndo();
@@ -698,7 +706,9 @@ public class EventPageSetup extends JFrame {
 		conBreaks.setText("Breaks at: ");
 		BreakPane.setText(String.valueOf(FestivalObject.getBreakList()));
 		conTeams.setText("Teams Entered: ");
-		TeamPane.setText(FestivalObject.teamsArray.toArray().toString());
+		for(int i = 0; i < FestivalObject.teamsArray.size(); i++){
+			conTeamMod.addElement(FestivalObject.teamsArray.get(i).getTeamName() + FestivalObject.teamsArray.get(i).getCategory());
+		}
 		conCategories.setText("Categories that will be used: ");
 		CategoryPane.setText(categoryUse.toString());
 
@@ -769,6 +779,7 @@ public class EventPageSetup extends JFrame {
 				//teamList.setText(String.valueOf(FestivalObject.getTeamsArray()));
 				
 				teamListMod.addElement(tea.getTeamName() + tea.getCategory());
+				FestivalObject.teamsArray.add(tea);
 			//}
 	}
 	
@@ -784,6 +795,7 @@ public class EventPageSetup extends JFrame {
 		System.out.println(teamTemp);
 		//FestivalObject.teamsArray.remove(FestivalObject.teamsArray.indexOf(noTeam));
 		teamListMod.remove(index);
+		FestivalObject.teamsArray.remove(noTeam);
 	}
 	
 	/**
