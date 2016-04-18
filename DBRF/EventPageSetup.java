@@ -183,7 +183,7 @@ public class EventPageSetup extends JFrame {
 		TeamPane = new JList(conTeamMod);
 		TeamPane.setLayoutOrientation(JList.VERTICAL_WRAP);
 		TeamPane.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		TeamPane.setVisibleRowCount(10);
+		TeamPane.setVisibleRowCount(12);
 		TeamPane.setBounds(217, 107, 567, 207);
 		confirmation.add(TeamPane);
 		
