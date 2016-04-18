@@ -15,6 +15,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Settings extends JFrame {
 
@@ -57,6 +59,11 @@ public class Settings extends JFrame {
 		contentPane.add(label);
 		
 		JButton deleteUser = new JButton("Delete User");
+		deleteUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new RemoveUser().setVisible(true);
+			}
+		});
 		deleteUser.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				
@@ -64,11 +71,16 @@ public class Settings extends JFrame {
 		});
 		deleteUser.setFont(FestivalObject.getFont());
 		deleteUser.setEnabled(true);
-		deleteUser.setBounds(401, 285, 156, 31);
+		deleteUser.setBounds(401, 201, 156, 31);
 		deleteUser.setFocusable(false);
 		contentPane.add(deleteUser);
 		
 		JButton signUpNewUser = new JButton("Sign Up New User");
+		signUpNewUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new AddUser().setVisible(true);
+			}
+		});
 		signUpNewUser.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				
@@ -94,30 +106,6 @@ public class Settings extends JFrame {
 		fontButton.setBounds(401, 117, 156, 31);
 		fontButton.setFocusable(false);
 		contentPane.add(fontButton);
-		
-		JButton changeUserName = new JButton("Change Username");
-		changeUserName.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				
-			}
-		});
-		changeUserName.setFont(FestivalObject.getFont());
-		changeUserName.setEnabled(true);
-		changeUserName.setBounds(401, 201, 156, 31);
-		changeUserName.setFocusable(false);
-		contentPane.add(changeUserName);
-		
-		JButton changePassword = new JButton("Change Password");
-		changePassword.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				
-			}
-		});
-		changePassword.setFont(FestivalObject.getFont());
-		changePassword.setEnabled(true);
-		changePassword.setBounds(401, 243, 156, 31);
-		changePassword.setFocusable(false);
-		contentPane.add(changePassword);
 		
 		//main menu stuff is first set here since it is alwayse where you start
 		JMenuBar menuBar = new JMenuBar();
