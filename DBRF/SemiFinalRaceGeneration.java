@@ -23,7 +23,7 @@ public class SemiFinalRaceGeneration {
 	 * 			- Adds the generated races to the RaceCards ArrayList.
 	 */
 	public static void generateSemiFinalRaces(JPanel panel) {
-		
+		//if the races have not been generated before
 		if(FestivalObject.generatedSemiFinalRacesEh == false) {
 			//process all the time trial races to figure out the averaged race time for each team.
 			for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
