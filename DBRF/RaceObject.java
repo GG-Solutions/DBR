@@ -58,6 +58,9 @@ public class RaceObject {
 		return printButton;
 	}
 	
+	public JFormattedTextField getTimeinputField() {
+		return timeEditField;
+	}
 	
 	//constructor
 	public RaceObject() {

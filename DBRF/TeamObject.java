@@ -53,6 +53,11 @@ public class TeamObject {
 	private JButton semiFinalRaceLockButton = new JButton("Lock");
 	private JButton finalRaceLockButton = new JButton("Lock");
 	
+	private JLabel firstRacePlaceLabel = new JLabel("-");
+	private JLabel secondRacePlaceLabel = new JLabel("-");
+	private JLabel semiFinalRacePlaceLabel = new JLabel("-");
+	private JLabel finalRacePlaceLabel = new JLabel("-");
+	
 	//build and return the JFormattedTextField?
 	public JFormattedTextField getTimeInputField(int round) {
 		
@@ -132,6 +137,52 @@ public class TeamObject {
 		return tempButton;
 	}
 	
+	//get the correct place label
+	public JLabel getPlaceLabel(int round) {
+		
+		JLabel tempButton = null;	//create a temp variable to return depending on which integer is passed to this function
+		
+		if(round == 1) {
+			tempButton = firstRacePlaceLabel;
+		}
+		
+		if(round == 2) {
+			tempButton = secondRacePlaceLabel;
+		}
+		
+		if(round == 3) {
+			tempButton = semiFinalRacePlaceLabel;
+		}
+		
+		if(round == 4) {
+			tempButton = finalRacePlaceLabel;
+		}
+		
+		return tempButton;
+	}
+	
+	//set the correct place label
+	public void setPlaceLabel(int round, int num) {
+		
+		JLabel tempButton = null;	//create a temp variable to return depending on which integer is passed to this function
+		
+		if(round == 1) {
+			firstRacePlaceLabel.setText(Integer.toString(num));
+		}
+		
+		if(round == 2) {
+			firstRacePlaceLabel.setText(Integer.toString(num));
+		}
+		
+		if(round == 3) {
+			firstRacePlaceLabel.setText(Integer.toString(num));
+		}
+		
+		if(round == 4) {
+			firstRacePlaceLabel.setText(Integer.toString(num));
+		}
+	}
+	
 	//----------------------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
@@ -195,6 +246,14 @@ public class TeamObject {
 //					firstLockButtonPressCount++;	//add one to the button click count
 					
 				}
+				
+				//loop through the teams that raced in the race and set the place
+				//TODO - this changing the label stuff - or just add a text box that is set instead?
+//				for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
+//					for(int j = 0; j < FestivalObject.racesArray.get(i).getTeamsRacing().size(); j++) {
+//						FestivalObject.racesArray.get(i).getTeamsRacing().get(j).setPlaceLabel(1, 9);
+//					}
+//				}
 			}
 		});
 		firstRaceLockButton.setFont(FestivalObject.getFont());
@@ -383,6 +442,19 @@ public class TeamObject {
 		
 		flagFinalRaceTime.setHorizontalAlignment(SwingConstants.CENTER);
 		flagFinalRaceTime.setFont(FestivalObject.getFont());
+		
+		//set up the place labels
+		firstRacePlaceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		firstRacePlaceLabel.setFont(FestivalObject.getFont());
+		
+		secondRacePlaceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		secondRacePlaceLabel.setFont(FestivalObject.getFont());
+		
+		semiFinalRacePlaceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		semiFinalRacePlaceLabel.setFont(FestivalObject.getFont());
+		
+		finalRacePlaceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		finalRacePlaceLabel.setFont(FestivalObject.getFont());
 	}
 	
 	/**

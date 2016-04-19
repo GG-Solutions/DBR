@@ -5,11 +5,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 public class FestivalObject {
-
 	
-	/**
-	 * 
-	 */
 	//festival object that will contain needed information about the festival
 	public static final long serialVersionUID = 1L;
 
@@ -28,9 +24,12 @@ public class FestivalObject {
 	public static int width = 960;
 	public static int height = 540;
 	
-//	public static String bounds = "";	//need this??
-	
 	private static Font thisFont = new Font("Dialog", Font.BOLD, 12);		//default the font to this
+	
+	//TODO - output these into the xml file
+	public static boolean generatedTimeTrialRacesEh = false;
+	public static boolean generatedSemiFinalRacesEh = false;
+	public static boolean generatedFinalRacesEh = false;
 	
 //	public static JPanel userLoginPane;
 //	public static JPanel mainMenuPane;
@@ -57,12 +56,12 @@ public class FestivalObject {
 				
 				//add the special category if it is not there already
 				//TODO - do this here?????
-				for(int i= 0; i < categoriesArray.size(); i++) {
-					//if the special category is not in the categories array list yet
-					if(!(categoriesArray.get(i).matches("Special")) && i == categoriesArray.size()) {
-						categoriesArray.add("Special");		//always add the special category into the array list on start up
-					}
-				}
+//				for(int i= 0; i < categoriesArray.size(); i++) {
+//					//if the special category is not in the categories array list yet
+//					if(!(categoriesArray.get(i).matches("Special")) && i == categoriesArray.size()) {
+//						categoriesArray.add("Special");		//always add the special category into the array list on start up
+//					}
+//				}
 				
 				//initializing the JPanels on start of program
 //				userLoginPane = new UserLogin().contentPane;

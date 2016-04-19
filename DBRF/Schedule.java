@@ -88,7 +88,7 @@ public class Schedule extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		FestivalObject.setFestName("Lethbridge DBR Festival 2016");	//TODO - just for testing
+		FestivalObject.setFestName("Lethbridge DBR Festival 2016");		//TODO - just for testing
 		
 		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
 		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
@@ -234,6 +234,12 @@ public class Schedule extends JFrame {
 					panel1.removeAll();
 					panel2.removeAll();
 					panel3.removeAll();
+					
+					//reset the booleans
+					FestivalObject.generatedTimeTrialRacesEh = false;
+					FestivalObject.generatedSemiFinalRacesEh = false;
+					FestivalObject.generatedFinalRacesEh = false;
+					
 					panel1.setVisible(true);
 					scrollPane.setViewportView(panel1);
 					panel1.setLayout(new MigLayout("", "[70px][300px][50px][150px][10px][120px][140px]", "[25px:25px:25px]"));
@@ -255,6 +261,17 @@ public class Schedule extends JFrame {
 		
 		scrollPane.setViewportView(panel1);		//set the view to the panel1 inside the scroll box
 		TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);
+		
+		JButton btnTest = new JButton("test");
+		btnTest.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				for(int i = 0; i < FestivalObject.breaksArray.size(); i++) {
+					System.out.println(FestivalObject.breaksArray.get(i).get(0) + " - " + FestivalObject.breaksArray.get(i).get(1));
+				}
+			}
+		});
+		btnTest.setBounds(698, 51, 89, 23);
+		contentPane.add(btnTest);
 		
 		//main menu stuff is first set here since it is always where you start
 		JMenuBar menuBar = new JMenuBar();
