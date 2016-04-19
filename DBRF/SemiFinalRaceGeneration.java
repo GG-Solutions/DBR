@@ -85,7 +85,7 @@ public class SemiFinalRaceGeneration {
 	//		}
 			
 			//empty multidimensional arraylist to separate the teams by category
-			ArrayList<ArrayList<TeamObject>> tmCat	= new ArrayList<ArrayList<TeamObject>>();	//do i need the whole teamobject stored? - prob easiest
+			ArrayList<ArrayList<TeamObject>> tmCat	= new ArrayList<ArrayList<TeamObject>>();
 			
 			//loop through the teams and pre-add the correct amount of spots based on the category name
 			//TODO - creating a race for all categories even if only one is used which isnt good. its making extra races
@@ -94,6 +94,11 @@ public class SemiFinalRaceGeneration {
 			}
 			
 			//if the teams category is not in in the tmCat arraylist yet, add it
+			
+			//TODO - testing only
+			for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
+				System.out.println(FestivalObject.teamsArray.get(i).getTeamName() + " - " + FestivalObject.teamsArray.get(i).getCategory());
+			}
 			
 			//loop through all the teams and separate them by categories
 			for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
@@ -120,11 +125,11 @@ public class SemiFinalRaceGeneration {
 			}
 			
 			//print out everything in tmCat for TESTING
-	//		for(int i = 0; i < tmCat.size(); i++) {
-	//			for(int j = 0; j < tmCat.get(i).size(); j++) {
-	//				System.out.println(i + " - " + tmCat.get(i).get(j).getCategory() + " - " + tmCat.get(i).size());
-	//			}
-	//		}
+			for(int i = 0; i < tmCat.size(); i++) {
+				for(int j = 0; j < tmCat.get(i).size(); j++) {
+					System.out.println(i + " - " + tmCat.get(i).get(j).getCategory() + " - " + tmCat.get(i).size());
+				}
+			}
 			
 			ArrayList<ArrayList<Integer>> breaks = new ArrayList<ArrayList<Integer>>(FestivalObject.breaksArray);	//duplicate the breaks array so the duplicate can be modified
 			
@@ -225,6 +230,9 @@ public class SemiFinalRaceGeneration {
 	//			}
 				
 				ArrayList<TeamObject> theseTeams = new ArrayList<TeamObject>();		//new array list to populate - temporarily stores the teams in each race
+				
+				System.out.println(tmCat.size());
+				
 				
 				//populate the theseTeams arraylist for each race
 				for(int k = 0; k < FestivalObject.numOfLanes; k++) {

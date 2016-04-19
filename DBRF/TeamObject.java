@@ -19,6 +19,8 @@ public class TeamObject {
 	private int teamID = -1;
 	private String teamName = "";
 	private String category = "";
+	private ArrayList<String> categories = new ArrayList<String>();
+	
 	private int place = -1;		//set to -1 as default? global place that the team is in
 	
 	//move the flags to the race object instead?
@@ -473,11 +475,11 @@ public class TeamObject {
 	 * 			- String cat - sets the private category string.
 	 * Outputs - Creates a new TeamObject object with set teamName and category.
 	 */
-	public TeamObject(String name, String cat) {
-		this();		//call the first constructor to build the lock buttons
-		teamName = name;
-		category = cat;
-	}
+//	public TeamObject(String name, String cat) {	//TODO
+//		this();		//call the first constructor to build the lock buttons
+//		teamName = name;
+//		category = cat;
+//	}
 	
 	/**
 	 * Sets the private String teamName variable.
@@ -502,8 +504,12 @@ public class TeamObject {
 	 * Inputs - String cat - String to set the category variable.
 	 * Outputs - None.
 	 */
-	public void setCategory(String cat) {
+	public void setCategory(String cat) {	//TODO
 		category = cat;
+	}
+	
+	public void setCategories(ArrayList<String> cat) {
+		categories = cat;
 	}
 	
 	/**
@@ -588,8 +594,12 @@ public class TeamObject {
 	 * Inputs - None.
 	 * Outputs - Returns the category variable.
 	 */
-	public String getCategory() {
+	public String getCategory() {	//TODO - change to array list of categories
 		return category;
+	}
+	
+	public ArrayList<String> getCategories() {
+		return categories;
 	}
 	
 	/**

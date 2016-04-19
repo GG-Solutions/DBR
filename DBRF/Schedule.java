@@ -259,17 +259,17 @@ public class Schedule extends JFrame {
 		scrollPane.setViewportView(panel1);		//set the view to the panel1 inside the scroll box
 		TimeTrialRaceGeneration.generateTimeTrailRaces(panel1);
 		
-		JButton btnTest = new JButton("test");
-		btnTest.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				for(int i = 0; i < FestivalObject.breaksArray.size(); i++) {
-//					System.out.println(FestivalObject.breaksArray.get(i).get(0) + " - " + FestivalObject.breaksArray.get(i).get(1));
-					System.out.println(FestivalObject.teamsArray.size());
-				}
-			}
-		});
-		btnTest.setBounds(698, 51, 89, 23);
-		contentPane.add(btnTest);
+//		JButton btnTest = new JButton("test");
+//		btnTest.addMouseListener(new MouseAdapter() {
+//			public void mouseClicked(MouseEvent arg0) {
+//				for(int i = 0; i < FestivalObject.breaksArray.size(); i++) {
+////					System.out.println(FestivalObject.breaksArray.get(i).get(0) + " - " + FestivalObject.breaksArray.get(i).get(1));
+//					System.out.println(FestivalObject.teamsArray.size());
+//				}
+//			}
+//		});
+//		btnTest.setBounds(698, 51, 89, 23);
+//		contentPane.add(btnTest);
 		
 		//main menu stuff is first set here since it is always where you start
 		JMenuBar menuBar = new JMenuBar();

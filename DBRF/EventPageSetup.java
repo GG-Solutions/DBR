@@ -513,13 +513,13 @@ public class EventPageSetup extends JFrame {
 	public void deleteBreak(int selected){
 		//String sel = String.valueOf(selected);
 		//tempBreak = sel;
-		System.out.println(FestivalObject.getBreakList());
+//		System.out.println(FestivalObject.getBreakList());
 		temp = listmodel.getElementAt(selected);
 		if(selected == -1){}else{
 		FestivalObject.breaksArray.remove(selected);
 		listmodel.remove(selected);}
-		System.out.println(FestivalObject.getBreakList());
-		System.out.println(temp);
+//		System.out.println(FestivalObject.getBreakList());
+//		System.out.println(temp);
 	}
 	
 	/**
@@ -715,13 +715,13 @@ public class EventPageSetup extends JFrame {
 
 		
 		//following prints are to test if the variables are getting information
-		System.out.println(FestivalObject.getFestivalName());
-		System.out.println(FestivalObject.getTBR());
-		System.out.println(FestivalObject.getLanes());
-		System.out.println(FestivalObject.getCategory());
-		System.out.println(categoryUse);
-		System.out.println(FestivalObject.getBreakList());
-		System.out.println(FestivalObject.getTeamsArray());
+//		System.out.println(FestivalObject.getFestivalName());
+//		System.out.println(FestivalObject.getTBR());
+//		System.out.println(FestivalObject.getLanes());
+//		System.out.println(FestivalObject.getCategory());
+//		System.out.println(categoryUse);
+//		System.out.println(FestivalObject.getBreakList());
+//		System.out.println(FestivalObject.getTeamsArray());
 	}
 	
 	/**
@@ -771,6 +771,8 @@ public class EventPageSetup extends JFrame {
 				tea.setTeamName(name);
 				tea.setCategory(t.toString());
 				
+//				tea.setCategories(t);		//TODO - change to an array list
+				
 				//ArrayList<TeamObject> one = new ArrayList<TeamObject>();
 				//one.add(tea);
 					//FestivalObject.setTeamsArray(one);
@@ -792,7 +794,7 @@ public class EventPageSetup extends JFrame {
 	 */
 	public void deleteTeam(String noTeam, int index){
 		teamTemp = noTeam;
-		System.out.println(teamTemp);
+//		System.out.println(teamTemp);
 		//FestivalObject.teamsArray.remove(FestivalObject.teamsArray.indexOf(noTeam));
 		teamListMod.remove(index);
 		FestivalObject.teamsArray.remove(noTeam);

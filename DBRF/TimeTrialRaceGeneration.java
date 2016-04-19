@@ -266,12 +266,12 @@ public class TimeTrialRaceGeneration {
 //			boolean firstRoundEh = true;
 //			boolean secondRoundEh = false;
 			
-			int o = 0;	//used to output the correct buttons and stuff depending on what time trial round it is
+//			int o = 0;	//used to output the correct buttons and stuff depending on what time trial round it is
 			
 			rowCounter = 0;		//reset the counter for adding components in the proper row
 			
 			//loop twice to get all the time trial races
-//			for(int o = 0; o < 2; o++) {
+			for(int o = 0; o < 2; o++) {
 				//loop to add all the UI components to the panel - loop for the amount of time trial races there should be
 				for(int i = 0; i < Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes); i++) {
 					
@@ -386,7 +386,7 @@ public class TimeTrialRaceGeneration {
 					//END OF FOR LOOP FOR ONE RACE ----------------------------------------------
 				}
 				//END OF FOR LOOP FOR ALL THE RACES ----------------------------------------------
-//			}
+			}
 		}
 	}
 }
