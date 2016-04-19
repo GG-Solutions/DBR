@@ -26,7 +26,7 @@ public class FestivalObject {
 	
 	private static Font thisFont = new Font("Dialog", Font.BOLD, 12);		//default the font to this
 	
-	//TODO - output these into the xml file
+	//booleans to check if the differe types of races have already been generated
 	public static boolean generatedTimeTrialRacesEh = false;
 	public static boolean generatedSemiFinalRacesEh = false;
 	public static boolean generatedFinalRacesEh = false;

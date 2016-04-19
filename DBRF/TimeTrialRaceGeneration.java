@@ -20,7 +20,7 @@ public class TimeTrialRaceGeneration {
 	 * 			- ArrayList<TeamObject> teamsArray - Global ArrayList that has all the teams.
 	 * 			- JPanel panel - Panel initialized in Schedule.
 	 * Outputs 	- Adding UI components to the input JPanel panel.
-	 * 			- Adds the generated races to the RaceCards ArrayList.
+	 * 			- Adds the generated races to the FestivalObject.racesArray ArrayList.
 	 */
 	public static void generateTimeTrailRaces(JPanel panel) {
 		//only generate the races if they were not generated already
@@ -45,7 +45,7 @@ public class TimeTrialRaceGeneration {
 					firstRoundEh = true;
 				}
 				
-				//round the number up cause you will always need that 
+				//round the number up cause you will always need that extra race for all the teams
 				for(int i = 0; i < Math.ceil((double)FestivalObject.teamsArray.size() / (double)FestivalObject.numOfLanes); i++) {
 					
 					race = new RaceObject();	//create a new raceCard to change
@@ -284,7 +284,7 @@ public class TimeTrialRaceGeneration {
 //						o = 1;
 //					}
 					
-					System.out.println("got race # " + FestivalObject.racesArray.get(i).getRaceNumber());
+//					System.out.println("got race # " + FestivalObject.racesArray.get(i).getRaceNumber());
 					
 					//add the race label "Race # _ at"
 					JLabel raceNumberLabel = new JLabel("Race # " + FestivalObject.racesArray.get(i).getRaceNumber() + " at");
@@ -292,9 +292,9 @@ public class TimeTrialRaceGeneration {
 					raceNumberLabel.setFont(FestivalObject.getFont());
 					panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 					
-					panel.add(FestivalObject.racesArray.get(i).getTimeInputField(), "cell 1 " + rowCounter);		//add the race time test field
+					panel.add(FestivalObject.racesArray.get(i).getTimeInputField(), "cell 1 " + rowCounter);	//add the race time text field
 					
-					panel.add(FestivalObject.racesArray.get(i).getEditTimeButton(), "cell 1 " + rowCounter);
+					panel.add(FestivalObject.racesArray.get(i).getEditTimeButton(), "cell 1 " + rowCounter);	//add the race time edit button
 					
 					rowCounter += 1;
 					

@@ -63,6 +63,21 @@ public class SaveAndLoad {
 		numOfLanes.appendChild(doc.createTextNode(Integer.toString(FestivalObject.numOfLanes)));
 		festival.appendChild(numOfLanes);
 		
+		//output the generatedTimeTrialRacesEh boolean
+		Element generatedTimeTrialRacesEh = doc.createElement("generatedTimeTrialRacesEh");
+		generatedTimeTrialRacesEh.appendChild(doc.createTextNode(String.valueOf(FestivalObject.generatedTimeTrialRacesEh)));
+		festival.appendChild(generatedTimeTrialRacesEh);
+		
+		//output the generatedSemiFinalRacesEh boolean
+		Element generatedSemiFinalRacesEh = doc.createElement("generatedSemiFinalRacesEh");
+		generatedSemiFinalRacesEh.appendChild(doc.createTextNode(String.valueOf(FestivalObject.generatedSemiFinalRacesEh)));
+		festival.appendChild(generatedSemiFinalRacesEh);
+		
+		//output the generatedFinalRacesEh boolean
+		Element generatedFinalRacesEh = doc.createElement("generatedFinalRacesEh");
+		generatedFinalRacesEh.appendChild(doc.createTextNode(String.valueOf(FestivalObject.generatedFinalRacesEh)));
+		festival.appendChild(generatedFinalRacesEh);
+		
 		//output the font
 		Element font = doc.createElement("font");
 		Element fontName = doc.createElement("fontName");
@@ -111,9 +126,11 @@ public class SaveAndLoad {
 			
 			Element team = doc.createElement("team");	//create a team element to build
 			
-			Element teamID = doc.createElement("teamID");
-			teamID.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getTeamID())));
-			team.appendChild(teamID);
+			team.setAttribute("teamID", Integer.toString(FestivalObject.teamsArray.get(i).getTeamID()));
+			
+//			Element teamID = doc.createElement("teamID");
+//			teamID.appendChild(doc.createTextNode(Integer.toString(FestivalObject.teamsArray.get(i).getTeamID())));
+//			team.appendChild(teamID);
 			
 			Element teamName = doc.createElement("teamName");
 			teamName.appendChild(doc.createTextNode(FestivalObject.teamsArray.get(i).getTeamName()));
@@ -258,13 +275,18 @@ public class SaveAndLoad {
 		Document doc = dB.parse(xmlFile);
 		doc.getDocumentElement().normalize();
 		
-//		NodeList festival = doc.getElementsByTagName("festival");
+		NodeList festival = doc.getElementsByTagName("festival");
+		
+		System.out.println(festival.item(0).getChildNodes().item(1).getTextContent());
 		
 		//get all the information in node lists from the document
 		NodeList listFestivalName = doc.getElementsByTagName("festivalName");
 		NodeList listStartTimeDay = doc.getElementsByTagName("startTimeDay");
 		NodeList listTimeBetweenRaces = doc.getElementsByTagName("timeBetweenRaces");
 		NodeList listNumOflanes = doc.getElementsByTagName("numOfLanes");
+		NodeList listTimeTrialBool = doc.getElementsByTagName("generatedTimeTrialRacesEh");
+		NodeList listSemiFinalBool = doc.getElementsByTagName("generatedSemiFinalRacesEh");
+		NodeList listFinalBool = doc.getElementsByTagName("generatedFinalRacesEh");
 		NodeList listFont = doc.getElementsByTagName("font");
 		NodeList listBreaksArray = doc.getElementsByTagName("breaksArray");
 		NodeList listCategoriesArray = doc.getElementsByTagName("categoriesArray");
@@ -301,6 +323,27 @@ public class SaveAndLoad {
 		if(node.getNodeType() == Node.ELEMENT_NODE) {
 			el = (Element) node;
 			FestivalObject.setNumOfLanes(Integer.parseInt(el.getTextContent()));
+		}
+		
+		//get the generatedTimeTrialRaceEh boolean
+		node = listTimeTrialBool.item(0);
+		if(node.getNodeType() == Node.ELEMENT_NODE) {
+			el = (Element) node;
+			FestivalObject.generatedTimeTrialRacesEh = Boolean.parseBoolean(el.getTextContent());
+		}
+		
+		//get the generatedSemiFinalRaceEh boolean
+		node = listSemiFinalBool.item(0);
+		if(node.getNodeType() == Node.ELEMENT_NODE) {
+			el = (Element) node;
+			FestivalObject.generatedSemiFinalRacesEh = Boolean.parseBoolean(el.getTextContent());
+		}
+		
+		//get the generatedFinalRaceEh boolean
+		node = listFinalBool.item(0);
+		if(node.getNodeType() == Node.ELEMENT_NODE) {
+			el = (Element) node;
+			FestivalObject.generatedFinalRacesEh = Boolean.parseBoolean(el.getTextContent());
 		}
 		
 		//get the font
@@ -342,7 +385,9 @@ public class SaveAndLoad {
 			if(node.getNodeType() == Node.ELEMENT_NODE) {
 				el = (Element) node;
 				TeamObject team = new TeamObject();		//create a new TeamObject to build
-				team.setTeamID(Integer.parseInt(el.getElementsByTagName("teamID").item(0).getTextContent()));
+//				team.setTeamID(Integer.parseInt(el.getElementsByTagName("teamID").item(0).getTextContent()));
+//				team.setTeamID(Integer.parseInt(el.getAttribute("teamID")));
+//				System.out.println(el.getAttribute("teamID"));
 				team.setTeamName(el.getElementsByTagName("teamName").item(0).getTextContent());
 				team.setCategory(el.getElementsByTagName("category").item(0).getTextContent());
 				team.setPlace(Integer.parseInt(el.getElementsByTagName("place").item(0).getTextContent()));

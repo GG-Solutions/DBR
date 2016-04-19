@@ -20,7 +20,7 @@ public class SemiFinalRaceGeneration {
 	 * 			- ArrayList<TeamObject> teamsArray - Global ArrayList that has all the teams.
 	 * 			- JPanel panel - Panel initialized in Schedule.
 	 * Outputs 	- Adding UI components to the input JPanel panel.
-	 * 			- Adds the generated races to the RaceCards ArrayList.
+	 * 			- Adds the generated races to the FestivalObject.racesArray ArrayList.
 	 */
 	public static void generateSemiFinalRaces(JPanel panel) {
 		//if the races have not been generated before
@@ -397,9 +397,9 @@ public class SemiFinalRaceGeneration {
 				raceNumberLabel.setFont(FestivalObject.getFont());
 				panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 				
-				panel.add(FestivalObject.racesArray.get(i).getTimeInputField(), "cell 1 " + rowCounter);
+				panel.add(FestivalObject.racesArray.get(i).getTimeInputField(), "cell 1 " + rowCounter);	//add the time text field
 				
-				panel.add(FestivalObject.racesArray.get(i).getEditTimeButton(), "cell 1 " + rowCounter);
+				panel.add(FestivalObject.racesArray.get(i).getEditTimeButton(), "cell 1 " + rowCounter);	//add the time edit button
 				
 				rowCounter += 1;
 				

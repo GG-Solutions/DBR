@@ -104,7 +104,7 @@ public class RaceObject {
 						//if the current break end in the ArrayList is less than this object's race time, remove it
 						if(breaks.get(0).get(1) < tempTime) {
 							breaks.remove(0);
-							System.out.println("took break out, left: " + breaks.size());
+//							System.out.println("took break out, left: " + breaks.size());
 						}
 						//enough breaks have been removed
 						else {
@@ -112,8 +112,8 @@ public class RaceObject {
 						}
 					}
 					
-					System.out.println(breaks.size());
-					System.out.println("changing race # " + getRaceNumber() + " to " + tempTime);
+//					System.out.println(breaks.size());
+//					System.out.println("changing race # " + getRaceNumber() + " to " + tempTime);
 					
 					//loop to change all the next race times depending on this object's raceID
 					for(int j = getRaceNumber(); j < FestivalObject.racesArray.size(); j++) {
@@ -130,7 +130,7 @@ public class RaceObject {
 							tempTime += FestivalObject.timeBetweenRaces;
 						}
 						
-						System.out.println("time changed to " + tempTime + " for # " + FestivalObject.racesArray.get(j).getRaceNumber());
+//						System.out.println("time changed to " + tempTime + " for # " + FestivalObject.racesArray.get(j).getRaceNumber());
 						
 						//format to the correct time by doing mod 60
 						String t = Integer.toString(tempTime);
@@ -159,10 +159,10 @@ public class RaceObject {
 //					}
 					
 					//test print out all the race times
-					for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
-						System.out.println(FestivalObject.racesArray.get(i).getRaceNumber()
-								+ " - " + FestivalObject.racesArray.get(i).getRaceTime());
-					}
+//					for(int i = 0; i < FestivalObject.racesArray.size(); i++) {
+//						System.out.println(FestivalObject.racesArray.get(i).getRaceNumber()
+//								+ " - " + FestivalObject.racesArray.get(i).getRaceTime());
+//					}
 				}
 			}
 		});

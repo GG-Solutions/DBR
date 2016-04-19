@@ -28,10 +28,10 @@ public class Schedule extends JFrame {
 	public JPanel contentPane;
 	
 	//booleans for generating the races only once
-	static boolean timeTrialRacesEh = false;
-	static boolean semiFinalRacesEh = false;
-	static boolean finalRacesEh = false;
-	static boolean firstPassEh = true;		//used to generate the time trial races on startup of this frame
+//	static boolean timeTrialRacesEh = false;
+//	static boolean semiFinalRacesEh = false;
+//	static boolean finalRacesEh = false;
+//	static boolean firstPassEh = true;		//used to generate the time trial races on startup of this frame
 	
 	static public JPanel panel1 = new JPanel();
 	static public JPanel panel2 = new JPanel();
@@ -68,17 +68,10 @@ public class Schedule extends JFrame {
 	/**
 	 * Create the application.
 	 * Inputs - None.
-	 * Outputs - Goes through the initialize method.
-	 */
-	public Schedule() {
-		
-	//TODO
-	/**
-	 * Initializes the contents of the frame.
-	 * Inputs - None.
 	 * Outputs 	- Creates a new JFrame and adds the necessary UI components.
 	 * 			- Calls the race generation scripts.
 	 */
+	public Schedule() {
 		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,47 +81,51 @@ public class Schedule extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		FestivalObject.setFestName("Lethbridge DBR Festival 2016");		//TODO - just for testing
-		
-		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
-		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
-		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Fire On Water", "Mixed"));
-		FestivalObject.teamsArray.add(new TeamObject("Despirit Housewives", "Mixed"));
-		
-		//testing for the breaks
-		ArrayList<Integer> q = new ArrayList<Integer>();
-		q.add(1030);
-		q.add(1100);		
-		
-		ArrayList<Integer> w = new ArrayList<Integer>();
-		w.add(1200);
-		w.add(1300);		
-		
-		ArrayList<Integer> e = new ArrayList<Integer>();
-		e.add(1530);
-		e.add(1600);		
-		
-		//adding the breaks to the main breaks array
-		FestivalObject.breaksArray.add(q);
-		FestivalObject.breaksArray.add(w);
-		FestivalObject.breaksArray.add(e);
-		
-		FestivalObject.categoriesArray.add("Mixed");
-		FestivalObject.categoriesArray.add("Womens");
-		FestivalObject.categoriesArray.add("Special");
-		FestivalObject.categoriesArray.add("Mens");
+//		FestivalObject.setFestName("Lethbridge DBR Festival 2016");		//TODO - just for testing
+//		
+//		//setting some stuff for testing - all teams from Kelowna Race Grid 2015
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC High Frequency", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("ODBRC Rogue Dragons", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Sonar Dragons", "Womens"));
+//		FestivalObject.teamsArray.add(new TeamObject("A'Breast of Bridge", "Special"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Knotty Pacemakers", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Bust n Loose", "Special"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragonflies", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Stroke of Luck", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Women on Fire", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Dragon in the Drink", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Valley Vixens", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("KDBC Flowriders", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("ODBRC DragonFire", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Fire On Water", "Mixed"));
+//		FestivalObject.teamsArray.add(new TeamObject("Despirit Housewives", "Mixed"));
+//		
+//		//testing for the breaks
+//		ArrayList<Integer> q = new ArrayList<Integer>();
+//		q.add(1030);
+//		q.add(1100);		
+//		
+//		ArrayList<Integer> w = new ArrayList<Integer>();
+//		w.add(1200);
+//		w.add(1300);		
+//		
+//		ArrayList<Integer> e = new ArrayList<Integer>();
+//		e.add(1530);
+//		e.add(1600);		
+//		
+//		//adding the breaks to the main breaks array
+//		FestivalObject.breaksArray.add(q);
+//		FestivalObject.breaksArray.add(w);
+//		FestivalObject.breaksArray.add(e);
+//		
+//		FestivalObject.categoriesArray.add("Mixed");
+//		FestivalObject.categoriesArray.add("Womens");
+//		FestivalObject.categoriesArray.add("Special");
+//		FestivalObject.categoriesArray.add("Mens");
+//		
+//		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
+//			FestivalObject.teamsArray.get(i).setTeamID(i);
+//		}
 		
 		
 		lblSchedule.setFont(FestivalObject.getFont());
@@ -266,7 +263,8 @@ public class Schedule extends JFrame {
 		btnTest.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				for(int i = 0; i < FestivalObject.breaksArray.size(); i++) {
-					System.out.println(FestivalObject.breaksArray.get(i).get(0) + " - " + FestivalObject.breaksArray.get(i).get(1));
+//					System.out.println(FestivalObject.breaksArray.get(i).get(0) + " - " + FestivalObject.breaksArray.get(i).get(1));
+					System.out.println(FestivalObject.teamsArray.size());
 				}
 			}
 		});

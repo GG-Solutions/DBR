@@ -20,7 +20,7 @@ public class FinalRaceGeneration {
 	 * 			- ArrayList<TeamObject> teamsArray - Global ArrayList that has all the teams.
 	 * 			- JPanel panel - Panel initialized in Schedule.
 	 * Outputs 	- Adding UI components to the input JPanel panel.
-	 * 			- Adds the generated races to the RaceCards ArrayList.
+	 * 			- Adds the generated races to the FestivalObject.racesArray ArrayList.
 	 */
 	public static void generateFinalRaces(JPanel panel) {
 		if(FestivalObject.generatedFinalRacesEh == true) {
@@ -47,7 +47,11 @@ public class FinalRaceGeneration {
 		for(int i = 0; i < FestivalObject.categoriesArray.size() - 1; i++) {
 			tmCat.add(new ArrayList<TeamObject>());
 		}
+		
 //		String thisOne = "";
+		
+		System.out.println("got to final race gen.");
+		
 		//loop through all the teams and separate them by categories
 		for(int i = 0; i < FestivalObject.teamsArray.size(); i++) {
 			//loop through the categories to find a match
@@ -340,9 +344,9 @@ public class FinalRaceGeneration {
 				raceNumberLabel.setFont(FestivalObject.getFont());
 				panel.add(raceNumberLabel, "flowx,cell 0 " + rowCounter + ",aligny center");
 				
-				panel.add(FestivalObject.racesArray.get(i).getTimeInputField(), "cell 1 " + rowCounter);
+				panel.add(FestivalObject.racesArray.get(i).getTimeInputField(), "cell 1 " + rowCounter);	//add the time text field
 				
-				panel.add(FestivalObject.racesArray.get(i).getEditTimeButton(), "cell 1 " + rowCounter);
+				panel.add(FestivalObject.racesArray.get(i).getEditTimeButton(), "cell 1 " + rowCounter);	//add the time edit button
 				
 				rowCounter += 1;
 				
